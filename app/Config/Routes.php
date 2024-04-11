@@ -8,4 +8,4 @@ use CodeIgniter\Router\RouteCollection;
 
 $routes->get('/', 'Home::index');
 $routes->get('/produtos/lista', 'Products::list');
-$routes->get('/teste','Teste::index');
+$routes->post('/produtos/cadastrar', 'Products::create');
