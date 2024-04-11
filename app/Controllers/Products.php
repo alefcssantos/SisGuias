@@ -25,6 +25,21 @@ class Products extends BaseController
         $produto_model = new ProdutoModel();
         $produto_model->insert($dados);
 
-        $this->list();
+        return redirect()->to('/produtos/lista?alert=successCreate');
+    }
+
+    public function edit() {
+        $dados = $this->request->getVar();
+        $produto_model = new ProdutoModel();
+        $produto_model->where('ProdutoId', $dados['ProdutoId'])->set($dados)->update();
+
+        return redirect()->to('/produtos/lista?alert=successEdit');
+    } 
+
+    public function delete($ProdutoId) {
+        $produto_model = new ProdutoModel();
+        $produto_model->where('ProdutoId', $ProdutoId)->delete();
+
+        return redirect()->to('/produtos/lista?alert=successDelete');
     }
 }
