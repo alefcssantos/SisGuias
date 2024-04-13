@@ -13,19 +13,34 @@ class Login extends BaseController
         echo View('login/index');
     }
 
-    public function login() {
-        $dado = $this->request->getVar();
-        
-        $login_model = new LoginModel();
+    public function login()    {
 
-        $login = $login_model->where('Usuario', $dado['Usuario'])
-        ->where('Senha', $dado['Senha'])
-        ->first();
+        // Validar dados de entrada
+        $validated = $this->validate([
+            'Usuario' => 'required',
+            'Senha' => 'required',
+        ]);
 
-        if(!empty($login)) {
-            return redirect()->to('/produtos/lista');
+        if ($validated) {
+            $dado = $this->request->getVar();
+            $login_model = new LoginModel();
+
+            $login = $login_model
+                ->where('Usuario', $dado['Usuario'])
+                ->where('Senha', $dado['Senha'])
+                ->first();
+
+            if (!empty($login)) {
+                session()->set('Usuario', $dado['Usuario']);
+                return redirect()->to('/produtos/lista');
+            } else {
+                return redirect()->to('/login?alert=errorLogin');
+            }
+
         } else {
             return redirect()->to('/login?alert=errorLogin');
         }
+
+
     }
 }

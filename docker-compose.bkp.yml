@@ -1,0 +1,16 @@
+version: '3'
+
+services:
+  # Serviço MySQL
+  mysql:
+    container_name: dash_mysql
+    image: mysql:5.7
+    ports:
+      - "3306:3306"
+    environment:
+      MYSQL_ROOT_PASSWORD: root_password
+      MYSQL_DATABASE: sistema_web
+      MYSQL_USER: alefdev
+      MYSQL_PASSWORD: alefdev
+    # volumes:
+    #   - ./mysql_data:/var/lib/mysql
