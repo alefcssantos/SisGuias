@@ -110,10 +110,18 @@
                 <div class="col-12">
                     <div class="card">
                         <div class="card-body">
-                            <button type="button" class="btn btn-info" data-toggle="modal"
-                                data-target="#modal-novo-produto">
-                                <i class="fas fa-plus-circle"></i> Novo Produto
-                            </button>
+                            <div class="input-group input-group-lg">
+                                <input id="search" type="search"  class="form-control form-control-lg" placeholder="Digite aqui para pesquisar">
+                                <div class="input-group-append">
+                                    <button class="btn btn-lg btn-default" onclick="searching()">
+                                        <i class="fa fa-search"></i>
+                                    </button>
+                                    <button type="button" class="btn btn-info" data-toggle="modal"
+                                        data-target="#modal-novo-produto">
+                                        <i class="fas fa-plus-circle"></i> Novo Produto
+                                    </button>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -124,27 +132,27 @@
                     <div class="alert alert-success alert-dismissible">
                         <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
                         <h5><i class="icon fas fa-check"></i> Sucesso! Produto Cadastrado.</h5>
-                        
+
                     </div>
                 </div>
             </div>
             <?php elseif(isset($_GET['alert']) && $_GET['alert'] == "successDelete"): ?>
-                <div class="row">
+            <div class="row">
                 <div class="col-12">
                     <div class="alert alert-success alert-dismissible">
                         <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
                         <h5><i class="icon fas fa-check"></i> Sucesso! Produto Excluido.</h5>
-                        
+
                     </div>
                 </div>
             </div>
             <?php elseif(isset($_GET['alert']) && $_GET['alert'] == "successEdit"): ?>
-                <div class="row">
+            <div class="row">
                 <div class="col-12">
                     <div class="alert alert-success alert-dismissible">
                         <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
                         <h5><i class="icon fas fa-check"></i> Sucesso! Produto Editado.</h5>
-                        
+
                     </div>
                 </div>
             </div>
@@ -156,10 +164,11 @@
                             <table class="table table-striped table-bordered">
                                 <thead>
                                     <tr>
-                                        <th>COD.:</th>
-                                        <th>NOME</th>
-                                        <th>QTD</th>
-                                        <th>VALOR</th>
+                                        <th>#</th>
+                                        <th>Nome</th>
+                                        <th>Qtd</th>
+                                        <th>Valor</th>
+                                        <th>Ações</th>
                                     </tr>
                                 </thead>
 
@@ -171,8 +180,11 @@
                                         <td><?= $prod['Qtde'] ?></td>
                                         <td><?= $prod['Valor'] ?></td>
                                         <td>
-                                        <button type="button" class="btn btn-warning" onclick="prepararDados(<?= $prod['ProdutoId'] ?>, '<?= $prod['Nome'] ?>', '<?= $prod['Qtde'] ?>', '<?= $prod['Valor'] ?>')"><i class="fas fa-edit"></i></button>
-                                            <a href="/produtos/excluir/<?= $prod['ProdutoId'] ?> " class="btn btn-danger"><i class="fas fa-trash"></i></a>
+                                            <button type="button" class="btn btn-warning"
+                                                onclick="prepararDados(<?= $prod['ProdutoId'] ?>, '<?= $prod['Nome'] ?>', '<?= $prod['Qtde'] ?>', '<?= $prod['Valor'] ?>')"><i
+                                                    class="fas fa-edit"></i></button>
+                                            <a href="/produtos/excluir/<?= $prod['ProdutoId'] ?> "
+                                                class="btn btn-danger"><i class="fas fa-trash"></i></a>
                                         </td>
                                     </tr>
                                     <?php endforeach; ?>
@@ -191,12 +203,17 @@
 
 
 <script>
-    function prepararDados(ProdutoId, Nome, Qtde, Valor) {
-        document.getElementById('modal-editar-produto-ProdutoId').value = ProdutoId;
-        document.getElementById('modal-editar-produto-Nome').value = Nome;
-        document.getElementById('modal-editar-produto-Qtde').value = Qtde;
-        document.getElementById('modal-editar-produto-Valor').value = Valor;
+function prepararDados(ProdutoId, Nome, Qtde, Valor) {
+    document.getElementById('modal-editar-produto-ProdutoId').value = ProdutoId;
+    document.getElementById('modal-editar-produto-Nome').value = Nome;
+    document.getElementById('modal-editar-produto-Qtde').value = Qtde;
+    document.getElementById('modal-editar-produto-Valor').value = Valor;
 
-        $('#modal-editar-produto').modal('show');
-    }
+    $('#modal-editar-produto').modal('show');
+}
+
+function searching() {
+    var data = document.getElementById('search').value;
+    window.location.href = "/produtos/lista/" + data;
+}
 </script>

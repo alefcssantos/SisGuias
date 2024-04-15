@@ -8,10 +8,14 @@ use CodeIgniter\HTTP\ResponseInterface;
 
 class Products extends BaseController
 {
-    public function list() {
+    public function list($searching = "null") {
         $produto_model = new ProdutoModel();
 
-        $produtos = $produto_model->findAll();
+        if($searching != "null") {
+            $produtos = $produto_model->like('Nome',$searching.'%')->paginate(10);
+        } else {
+            $produtos = $produto_model->paginate(10);
+        }
 
         $data['produtos'] = $produtos;
 
