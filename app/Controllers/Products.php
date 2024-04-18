@@ -29,7 +29,7 @@ class Products extends BaseController
         $produto_model = new ProdutoModel();
         $produto_model->insert($dados);
 
-        return redirect()->to('/produtos/lista?alert=successCreate');
+        return redirect()->to('/produtos?alert=successCreate');
     }
 
     public function edit() {
@@ -37,13 +37,13 @@ class Products extends BaseController
         $produto_model = new ProdutoModel();
         $produto_model->where('ProdutoId', $dados['ProdutoId'])->set($dados)->update();
 
-        return redirect()->to('/produtos/lista?alert=successEdit');
+        return redirect()->to('/produtos?alert=successEdit');
     } 
 
     public function delete($ProdutoId) {
         $produto_model = new ProdutoModel();
         $produto_model->where('ProdutoId', $ProdutoId)->delete();
 
-        return redirect()->to('/produtos/lista?alert=successDelete');
+        return redirect()->to('/produtos?alert=successDelete');
     }
 }

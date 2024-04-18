@@ -214,6 +214,6 @@ function prepararDados(ProdutoId, Nome, Qtde, Valor) {
 
 function searching() {
     var data = document.getElementById('search').value;
-    window.location.href = "/produtos/lista/" + data;
+    window.location.href = "/produtos/" + data;
 }
 </script>
