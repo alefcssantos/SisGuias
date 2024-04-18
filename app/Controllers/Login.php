@@ -10,10 +10,16 @@ class Login extends BaseController
 {
     public function index()
     {
-        echo View('login/index');
+        // Check User Session
+        if(session()->has('Usuario')){
+            return redirect()->to("/");
+        } else {
+            return view('login/index');
+        }
+    
     }
 
-    public function login()    {
+    public function authentication()    {
 
         // Validar dados de entrada
         $validated = $this->validate([
@@ -32,7 +38,7 @@ class Login extends BaseController
 
             if (!empty($login)) {
                 session()->set('Usuario', $dado['Usuario']);
-                return redirect()->to('/produtos/lista');
+                return redirect()->to('produtos/lista');
             } else {
                 return redirect()->to('/login?alert=errorLogin');
             }
@@ -42,5 +48,11 @@ class Login extends BaseController
         }
 
 
+    }
+
+    public function logout() { 
+        session()->destroy();
+        session()->start();
+        return view('login/index');
     }
 }

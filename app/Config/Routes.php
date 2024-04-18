@@ -6,11 +6,12 @@ use CodeIgniter\Router\RouteCollection;
  * @var RouteCollection $routes
  */
 
-$routes->get('/', 'Login::index');
+$routes->get('/', 'Products::list');
 
 // Rotas do controller Login
 $routes->get('/login','Login::index');
-$routes->post('/login/autenticar','Login::login');
+$routes->post('/login/autenticar','Login::authentication');
+$routes->get('/login/logout','Login::logout');
 // Rotas do controller Produto
 $routes->get('/produtos','Products::list');
 $routes->get('/produtos/(:any)', 'Products::list/$1');

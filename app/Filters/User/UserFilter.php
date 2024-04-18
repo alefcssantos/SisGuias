@@ -25,7 +25,11 @@ class UserFilter implements FilterInterface
      */
     public function before(RequestInterface $request, $arguments = null)
     {
-        //
+        
+        // Check User Session
+        if(!session()->has('Usuario')){
+            return redirect()->to("/login");
+        }
     }
 
     /**

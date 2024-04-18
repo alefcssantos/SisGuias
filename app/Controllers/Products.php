@@ -19,9 +19,9 @@ class Products extends BaseController
 
         $data['produtos'] = $produtos;
 
-        echo View('templates/header');
-        echo View('products/list', $data);
-        echo View('templates/footer');
+        
+        return view('products/list', $data);
+        
     }
 
     public function create() {

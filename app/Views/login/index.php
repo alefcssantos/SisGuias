@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>AlefDev Brasil</title>
+    <title>AlefDev</title>
 
     <!-- Google Font: Source Sans Pro -->
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
@@ -21,7 +21,7 @@
         <!-- /.login-logo -->
         <div class="card card-outline card-primary">
             <div class="card-header text-center">
-                <a href="../../index2.html" class="h1"><b>AlefDev</b> Brasil</a>
+                <a href="../../index2.html" class="h1"><b>AlefDev</b></a>
             </div>
             <div class="card-body">
                 <?php if (isset($_GET['alert'])) : ?>
