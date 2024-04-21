@@ -6,22 +6,21 @@ use CodeIgniter\Model;
 
 class UserModel extends Model
 {
-    protected $table            = 'users';
-    protected $primaryKey       = 'id';
+    protected $table            = 'user';
+    protected $primaryKey       = UserModel::ID;
     protected $useAutoIncrement = true;
     protected $returnType       = 'array';
     protected $useSoftDeletes   = false;
     protected $protectFields    = true;
     protected $allowedFields    = [
         UserModel::ID,
-        UserModel::USERNAME,
+        UserModel::NAME,
         UserModel::EMAIL,
         UserModel::JOB,
         UserModel::PHONENUMBER,
         UserModel::ADDRESS,
         UserModel::LOGIN,
         UserModel::PASSWORD,
-
     ];
 
     protected bool $allowEmptyInserts = false;

@@ -38,7 +38,7 @@ class Login extends BaseController
 
             if (!empty($login)) {
                 session()->set('Usuario', $dado['Usuario']);
-                return redirect()->to('produtos/lista');
+                return redirect()->to('/');
             } else {
                 return redirect()->to('/login?alert=errorLogin');
             }

@@ -6,7 +6,15 @@ use CodeIgniter\Router\RouteCollection;
  * @var RouteCollection $routes
  */
 
-$routes->get('/', 'Products::list');
+$routes->get('/', 'Users::index');
+
+// Rotas do controller User
+$routes->get('/usuarios','Users::index');
+$routes->get('/usuarios/pesquisar','Users::index');
+$routes->get('/usuarios/pesquisar/(:any)', 'Users::read/$1');
+$routes->post('usuarios/cadastrar', 'Users::create');
+$routes->get('/usuarios/excluir/(:num)', 'Users::delete/$1');
+$routes->post('usuarios/editar', 'Users::edit');
 
 // Rotas do controller Login
 $routes->get('/login','Login::index');

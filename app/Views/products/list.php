@@ -1,6 +1,6 @@
 <?php echo View('templates/header'); ?>
 
--------------- MODALS: Listar --------------
+<!-- -------------- MODALS: Listar -------------- -->
 <div class="modal fade" id="modal-novo-produto">
     <div class="modal-dialog modal-lg">
         <div class="modal-content">

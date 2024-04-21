@@ -2,6 +2,7 @@
 
 namespace App\Database\Migrations;
 
+use App\Models\UserModel;
 use CodeIgniter\Database\Migration;
 
 class User extends Migration
@@ -9,43 +10,43 @@ class User extends Migration
     public function up()
     {
         $this->forge->addField([
-            'userId' => [
+            UserModel::ID => [
                 'type' => 'INT',
                 'constraint' => 11,
                 'usigned' => true,
                 'auto_increment' => true
             ],
-            'userName' => [
+            UserModel::NAME => [
                 'type' => 'VARCHAR',
                 'constraint' => 255
             ],
-            'userEmail' => [
+            UserModel::EMAIL => [
                 'type' => 'VARCHAR',
                 'constraint' => 255
             ],           
-            'userJob'=> [
+            UserModel::JOB => [
                 'type'=> 'vARCHAR',
                 'constraint'=> 255
             ],
-            'userPhoneNumber' => [
+            UserModel::PHONENUMBER => [
                 'type' => 'VARCHAR',
                 'constraint' => 20
             ],
-            'userAddress' => [
+            UserModel::ADDRESS => [
                 'type'=> 'VARCHAR',
                 'constraint'=> 255
             ],
-            'userLogin' => [
+            UserModel::LOGIN => [
                 'type' => 'VARCHAR',
                 'constraint' => 128
             ],
-            'password' => [
+            UserModel::PASSWORD => [
                 'type' => 'VARCHAR',
                 'constraint' => 20
             ],
         ]);
 
-        $this->forge->addKey('userId', true);
+        $this->forge->addKey(UserModel::ID, true);
         $this->forge->createTable('user');
     }
 
