@@ -26,3 +26,6 @@ $routes->get('/produtos/(:any)', 'Products::list/$1');
 $routes->post('/produtos/cadastrar', 'Products::create');
 $routes->get('/produtos/excluir/(:num)', 'Products::delete/$1');
 $routes->post('/produtos/editar', 'Products::edit');
+
+//Rotas do controller calendary
+$routes->get('/calendario','Calendary::index');
