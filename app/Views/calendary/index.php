@@ -27,7 +27,7 @@
             <div class="sticky-top mb-3">
               <div class="card">
                 <div class="card-header">
-                  <h4 class="card-title">Meus eventos</h4>
+                  <h4 class="card-title">Minhas tarefas</h4>
                 </div>
                 <div class="card-body">
                   <!-- the events -->
@@ -50,7 +50,7 @@
               <!-- /.card -->
               <div class="card">
                 <div class="card-header">
-                  <h3 class="card-title">Criar evento</h3>
+                  <h3 class="card-title">Criar tarefa</h3>
                 </div>
                 <div class="card-body">
                   <div class="btn-group" style="width: 100%; margin-bottom: 10px;">

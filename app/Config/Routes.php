@@ -6,7 +6,7 @@ use CodeIgniter\Router\RouteCollection;
  * @var RouteCollection $routes
  */
 
-$routes->get('/', 'Users::index');
+$routes->get('/', 'Calendary::index');
 
 // Rotas do controller User
 $routes->get('/usuarios','Users::index');
