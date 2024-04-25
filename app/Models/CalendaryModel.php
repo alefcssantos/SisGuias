@@ -1,28 +1,18 @@
 <?php
 
-namespace App\Models\Scrum;
+namespace App\Models;
 
 use CodeIgniter\Model;
 
-class TaskModel extends Model
+class CalendaryModel extends Model
 {
-    protected $table            = 'tasks';
-    protected $primaryKey       = TaskModel::ID;
+    protected $table            = 'calendaries';
+    protected $primaryKey       = 'id';
     protected $useAutoIncrement = true;
     protected $returnType       = 'array';
     protected $useSoftDeletes   = false;
     protected $protectFields    = true;
-    protected $allowedFields    = [
-        TaskModel::ID,
-        TaskModel::USERID,
-        TaskModel::TITLE,
-        TaskModel::COLOR,
-        TaskModel::START,
-        TaskModel::END,
-        TaskModel::ALLDAY,
-        TaskModel::RESPONSIBLE
-
-    ];
+    protected $allowedFields    = [];
 
     protected bool $allowEmptyInserts = false;
     protected bool $updateOnlyChanged = true;
@@ -54,15 +44,7 @@ class TaskModel extends Model
     protected $beforeDelete   = [];
     protected $afterDelete    = [];
 
-     //Consts
-
-     const ID = 'taskId';
-     const USERID = 'taskUserId';
-     const TITLE = 'title';
-     const COLOR = 'color';
-     const START = 'start';
-     const END = 'end';  
-     const ALLDAY = 'allday';
-     const STATUS = 'taskSatatus';
-     const RESPONSIBLE = 'taskResponsible';
+    // Field's
+    const ID = 'calendaryId';
+    const USER_ID = 'calendaryUserId';
 }

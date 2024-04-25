@@ -21,7 +21,7 @@
  <!-- fullCalendar 2.2.5 -->
  <!-- <script src="<?= base_url('theme') ?>/plugins/moment/moment.min.js"></script> -->
  <script src="<?= base_url('theme') ?>/plugins/fullcalendar/main.js"></script>
- <script src="<?= base_url('theme') ?>/plugins/fullCalendar/locales-all.min.js"></script>
+ <!-- <script src="<?= base_url('theme') ?>/plugins/fullCalendar/locales-all.min.js"></script> -->
  <!-- Page specific script -->
  <script>
 $(function() {
@@ -72,6 +72,8 @@ $(function() {
     new Draggable(containerEl, {
         itemSelector: '.external-event',
         eventData: function(eventEl) {
+            console.log('Executa quando cria novo item??');
+            create();
             return {
                 title: eventEl.innerText,
                 backgroundColor: window.getComputedStyle(eventEl, null).getPropertyValue(
@@ -80,7 +82,9 @@ $(function() {
                     'background-color'),
                 textColor: window.getComputedStyle(eventEl, null).getPropertyValue('color'),
             };
-        }
+            
+        },
+
     });
 
     var calendar = new Calendar(calendarEl, {
@@ -145,6 +149,38 @@ $(function() {
                 // if so, remove the element from the "Draggable Events" list
                 info.draggedEl.parentNode.removeChild(info.draggedEl);
             }
+            console.log('Evento titulo: ', info.draggedEl.innerText);
+            console.log('Evento data: ', info.dateStr);
+            console.log('Evento tipo: ', info.allDay);
+            console.log('Evento cor: ', window.getComputedStyle(info.draggedEl, null).getPropertyValue(
+                    'background-color')),
+            console.log(info);
+
+            create(info.draggedEl.innerText,window.getComputedStyle(info.draggedEl, null).getPropertyValue(
+                    'background-color'), info.dateStr, info.allDay);
+            
+        },
+        // Callbacks para eventos de arrastar e soltar
+        // Callbacks para eventos de arrastar e soltar
+        eventDragStart: function(info) {
+            console.log('Evento iniciou o arrastar:', info.event.title);
+        },
+        eventDragStop: function(info) {
+            console.log('Evento terminou o arrastar:', info.event.title);
+        },
+        eventDrop: function(info) {
+            console.log('Evento foi solto em uma nova posição:', info.event.title);
+            console.log('Nova data:', info.event.start);
+        },
+        eventResizeStart: function(info) {
+            console.log('Evento iniciou o redimensionamento:', info.event.title);
+        },
+        eventResizeStop: function(info) {
+            console.log('Evento terminou o redimensionamento:', info.event.title);
+        },
+        eventResize: function(info) {
+            console.log('Evento foi redimensionado para uma nova duração:', info.event.title);
+            console.log('Nova duração:', info.event.start, ' - ', info.event.end);
         },
         locale: "pt-br",
     });
@@ -190,6 +226,25 @@ $(function() {
         $('#new-event').val('')
     })
 })
+
+function create(title, color, start, allDay) {
+    $.ajax({
+        url: '<?= base_url('calendario/cadastrar') ?>',
+        type: 'POST', // ou 'GET', dependendo do seu caso
+        data: {title: title, color: color, start: start, allday: allDay},
+        xhrFields: {
+            withCredentials: true // Isso permite que os cookies da sessão sejam enviados
+        },
+        success: function(response) {
+            // Manipular a resposta aqui
+            console.log(response);
+        },
+        error: function(xhr, status, error) {
+            // Lidar com erros aqui
+            console.error(xhr.responseText);
+        }
+    });
+}
  </script>
  </body>
 
