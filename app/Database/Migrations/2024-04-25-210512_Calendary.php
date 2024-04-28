@@ -30,7 +30,7 @@ class Calendary extends Migration
             ],
             Model::START => [
                 'type' => 'VARCHAR',
-                'constraint' => 20
+                'constraint' => 255
             ],
             Model::END => [
                 'type'=> 'VARCHAR',

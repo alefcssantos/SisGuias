@@ -4206,7 +4206,7 @@ var FullCalendar = (function (exports) {
         closeHint: 'Fechar',
         timeHint: 'Hora',
         eventHint: 'Evento',
-        allDayText: 'todo-dia',
+        allDayText: 's/horario',
         moreLinkText: 'mais',
         noEventsText: 'Sem eventos para mostrar',
     };

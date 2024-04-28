@@ -56,13 +56,13 @@ class TaskModel extends Model
 
      //Consts
 
-     const ID = 'taskId';
+     const ID = 'id';
      const USERID = 'taskUserId';
      const TITLE = 'title';
      const COLOR = 'color';
      const START = 'start';
      const END = 'end';  
-     const ALLDAY = 'allday';
+     const ALLDAY = 'allDay';
      const STATUS = 'taskSatatus';
      const RESPONSIBLE = 'taskResponsible';
 }

@@ -32,9 +32,9 @@
                 <div class="card-body">
                   <!-- the events -->
                   <div id="external-events">
-                    <div class="external-event bg-success">Almocar</div>
+                    <div id="10" class="external-event bg-success">Almocar</div>
                     <div class="external-event bg-warning">Voltar para casa</div>
-                    <div class="external-event bg-info">Trabalho para caasa</div>
+                    <div class="external-event bg-info">Trabalho para casa</div>
                     <div class="external-event bg-primary">Trabalhar na Ux</div>
                     <div class="external-event bg-danger">Tirar um soneca</div>
                     <div class="checkbox">

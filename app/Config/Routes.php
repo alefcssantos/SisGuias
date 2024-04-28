@@ -30,3 +30,5 @@ $routes->post('/produtos/editar', 'Products::edit');
 //Rotas do controller calendary
 $routes->get('/calendario','Calendary::index');
 $routes->post('/calendario/cadastrar','Calendary::create');
+$routes->get('/calendario/listar','Calendary::read');
+$routes->post('/calendario/atualizar','Calendary::edit');

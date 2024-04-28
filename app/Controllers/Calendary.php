@@ -17,13 +17,20 @@ class Calendary extends BaseController
         return view('calendary/index');
     }
 
+    public function read() {
+        $models = $this->getModel()->findAll();
+        return json_encode($models);
+    }
+
     public function create() {
         
         $dados = $this->request->getVar();
         $model = $this->getModel();
         $model->insert($dados);
 
-        return var_dump($dados);
+        $id = $model->insertID();
+
+        return "$id";
     }
 
     public function edit() {
