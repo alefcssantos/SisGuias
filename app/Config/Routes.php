@@ -19,7 +19,7 @@ $routes->post('usuarios/editar', 'Users::edit');
 // Rotas do controller Login
 $routes->get('/login','Login::index');
 $routes->post('/login/autenticar','Login::authentication');
-$routes->get('/login/logout','Login::logout');
+$routes->get('/logout','Login::logout');
 // Rotas do controller Produto
 $routes->get('/produtos','Products::list');
 $routes->get('/produtos/(:any)', 'Products::list/$1');
@@ -32,3 +32,9 @@ $routes->get('/calendario','Calendary::index');
 $routes->post('/calendario/cadastrar','Calendary::create');
 $routes->get('/calendario/listar','Calendary::read');
 $routes->post('/calendario/atualizar','Calendary::edit');
+
+//Rotas do controller company
+$routes->get('/empresas','Company::index');
+
+//Rotas do controler Software
+$routes->get('/sistemas','Software::index');

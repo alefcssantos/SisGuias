@@ -16,7 +16,7 @@
                     alt="User Image">
             </div>
             <div class="info">
-                <a href="#" class="d-block">Usuario: Alef Cristian</a>
+                <a href="#" class="d-block">Joel Santana</a>
             </div>
         </div>
 
@@ -34,24 +34,10 @@
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a href="/calendario" class="nav-link active">
+                    <a href="/calendario" class="nav-link">
                         <i class="nav-icon far fa-calendar-alt"></i>
-                        <p>Calendário<span class="badge badge-info right">2</span>
+                        <p>Agenda<span class="badge badge-info right">2</span>
                         </p>
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a href="/" class="nav-link">
-                        <i class="nav-icon fas fa-building">
-                        </i>
-                        <p>Empresas</p>
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a href="/usuarios" class="nav-link">
-                        <i class="nav-icon fas fa-desktop">
-                        </i>
-                        <p>Sistemas</p>
                     </a>
                 </li>
                 <li class="nav-item">
@@ -59,6 +45,27 @@
                         <i class="nav-icon fas fa-users">
                         </i>
                         <p>Clientes</p>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="#" class="nav-link">
+                    <i class="nav-icon fa fa-clipboard"></i>
+                        <p>OS's<span class="badge badge-info right">2</span>
+                        </p>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="/empresas" class="nav-link">
+                        <i class="nav-icon fas fa-building">
+                        </i>
+                        <p>Empresas</p>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="/sistemas" class="nav-link">
+                        <i class="nav-icon fas fa-laptop">
+                        </i>
+                        <p>Sistemas</p>
                     </a>
                 </li>
                 <li class="nav-item">

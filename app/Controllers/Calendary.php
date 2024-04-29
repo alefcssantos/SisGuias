@@ -37,8 +37,6 @@ class Calendary extends BaseController
         $dados = $this->request->getVar();
         $model = $this->getModel();
         $model->where(Model::ID, $dados[Model::ID])->set($dados)->update();
-
-        //return redirect()->to('/usuarios?alert=successEdit');
     }
 
     public function delete($userId) {

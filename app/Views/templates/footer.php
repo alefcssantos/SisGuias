@@ -1,12 +1,12 @@
  <!-- Main Footer -->
- <footer class="main-footer">
+ <!-- <footer class="main-footer"> -->
      <!-- To the right -->
-     <div class="float-right d-none d-sm-inline">
-         Anything you want
-     </div>
+     <!-- <div class="float-right d-none d-sm-inline"> -->
+         <!-- Desenvolvido por Alef -->
+     <!-- </div> -->
      <!-- Default to the left -->
-     <strong>Copyright &copy; 2014-2021 <a href="https://alefdev.com.br">AlefDev</a>.</strong> All rights reserved.
- </footer>
+     <!-- <strong>Copyright &copy; 2024 <a href="https://alefdev.com.br">AlefDev</a>.</strong> -->
+ <!-- </footer> -->
  </div>
  <!-- ./wrapper -->
 
@@ -93,70 +93,25 @@ $(function() {
         headerToolbar: {
             left: 'prev,next today',
             center: 'title',
-            right: 'dia,timeGridWeek,dayGridMonth',
+            right: 'personTimeGridDay,timeGridWeek,dayGridMonth',
+            
         },
         themeSystem: 'bootstrap',
         // timeZone: 'America/Sao_Paulo',
+        initialView: 'personTimeGridDay',
         views: {
-            dia: {
+            personTimeGridDay: {
+                buttonText: 'dia',
                 type: 'timeGrid',
                 duration: {
-                    days: 3
+                    days: 1
                 },
                 slotLabelInterval: '00:30:00',
                 slotDuration: '00:30:00',
-                slotMinTime: '07:00:00',
-                slotMaxTime: '16:00:00',
+                slotMinTime: '05:00:00',
+                slotMaxTime: '22:00:00',
             }
         },
-
-        // //Random default events
-        // events: [{
-        //         title: 'All Day Event',
-        //         start: new Date(y, m, 1),
-        //         backgroundColor: '#f56954', //red
-        //         borderColor: '#f56954', //red
-        //         allDay: true
-        //     },
-        //     {
-        //         title: 'Long Event',
-        //         start: new Date(y, m, d - 5),
-        //         end: new Date(y, m, d - 2),
-        //         backgroundColor: '#f39c12', //yellow
-        //         borderColor: '#f39c12' //yellow
-        //     },
-        //     {
-        //         title: 'Meeting',
-        //         start: new Date(y, m, d, 10, 30),
-        //         allDay: false,
-        //         backgroundColor: '#0073b7', //Blue
-        //         borderColor: '#0073b7' //Blue
-        //     },
-        //     {
-        //         title: 'Lunch',
-        //         start: new Date(y, m, d, 12, 0),
-        //         end: new Date(y, m, d, 14, 0),
-        //         allDay: false,
-        //         backgroundColor: '#00c0ef', //Info (aqua)
-        //         borderColor: '#00c0ef' //Info (aqua)
-        //     },
-        //     {
-        //         title: 'Birthday Party',
-        //         start: new Date(y, m, d + 1, 19, 0),
-        //         end: new Date(y, m, d + 1, 22, 30),
-        //         allDay: false,
-        //         backgroundColor: '#00a65a', //Success (green)
-        //         borderColor: '#00a65a' //Success (green)
-        //     },
-        //     {
-        //         title: 'Click for Google',
-        //         start: new Date(y, m, 28),
-        //         end: new Date(y, m, 29),
-        //         url: 'https://www.google.com/',
-        //         backgroundColor: '#3c8dbc', //Primary (light-blue)
-        //         borderColor: '#3c8dbc' //Primary (light-blue)
-        //     }
-        // ],
         editable: true,
         droppable: true, // this allows things to be dropped onto the calendar !!!
         drop: function(info) {
@@ -229,8 +184,12 @@ $(function() {
             console.log('Evento foi redimensionado para uma nova duração:', info.event
                 .title);
             console.log('Nova duração:', info.event.start, ' - ', info.event.end);
-            // update(info.event.id, info.event.title, null, formateDate(info.event.start),
-            //     formateDate(info.event.end), info.event.allDay);
+            var allDay = info.event.allDay;
+            if (!allDay) {
+                allDay = null;
+            }
+            update(info.event.id, info.event.title, info.event.color, formateDate(info.event.start),
+                formateDate(info.event.end), allDay);
         },
         locale: "pt-br",
     });
