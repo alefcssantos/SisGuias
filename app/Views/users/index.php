@@ -14,7 +14,7 @@ use App\Models\UserModel as Model; ?>
                 </div>
                 <div class="modal-body">
                     <div class="row">
-                    <input type="hidden" class="form-control" name="<?= Model::ID ?>">
+                        <input type="hidden" class="form-control" name="<?= Model::ID ?>">
                         <div class="col-12">
                             <div class="form-group">
                                 <label for="">Nome</label>
@@ -145,11 +145,28 @@ use App\Models\UserModel as Model; ?>
                 </div>
             </div>
             <?php endif; ?>
+            <!-- <style>
+            @media (max-width: 575.98px) {
+                ..table-responsive tbody {
+                    display: flex;
+                    flex-direction: column;
+                }
+
+                .table-responsive tbody th,
+                .table-responsive tbody td {
+                    display: block;
+                    width: 100%;
+                    text-align: center;
+                    /* ou alinhe como desejar */
+                }
+
+            }
+            </style> -->
             <div class="row">
                 <div class="col-12">
                     <div class="card">
                         <div class="card-body">
-                            <table class="table table-striped table-bordered">
+                            <table class="table table-striped table-bordered table-responsive-sm">
                                 <thead>
                                     <tr>
                                         <th>#</th>
@@ -166,7 +183,7 @@ use App\Models\UserModel as Model; ?>
                                 <tbody>
                                     <?php foreach ($models as $user): ?>
                                     <tr>
-                                        <td><?= $user[Model::ID] ?></td>
+                                        <th scope="row"><?= $user[Model::ID] ?></th>
                                         <td><?= $user[Model::NAME] ?></td>
                                         <td><?= $user[Model::EMAIL] ?></td>
                                         <td><?= $user[Model::JOB] ?></td>
@@ -193,8 +210,6 @@ use App\Models\UserModel as Model; ?>
                                     </tr>
                                     <?php endforeach; ?>
                                 </tbody>
-
-
                             </table>
                         </div>
                     </div>
@@ -213,7 +228,7 @@ use App\Models\UserModel as Model; ?>
 function prepareCreate() {
     document.getElementById('modal-title').textContent = "Novo Usuario";
     document.getElementById('form-model').action = "/usuarios/cadastrar";
-    
+
     document.querySelector('input[name="<?= Model::ID ?>"]').value = "";
     document.querySelector('input[name="<?= Model::NAME ?>"]').value = "";
     document.querySelector('input[name="<?= Model::EMAIL ?>"]').value = "";

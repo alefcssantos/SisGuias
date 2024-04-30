@@ -18,13 +18,14 @@ class Calendary extends BaseController
     }
 
     public function read() {
-        $models = $this->getModel()->findAll();
+        $models = $this->getModel()->where(Model::USERID, session()->get('LoginId'))->findAll();
         return json_encode($models);
     }
 
-    public function create() {
-        
+    public function create() {        
         $dados = $this->request->getVar();
+        $userId = session()->get('LoginId');
+        $dados[Model::USERID] = $userId;
         $model = $this->getModel();
         $model->insert($dados);
 
@@ -39,11 +40,13 @@ class Calendary extends BaseController
         $model->where(Model::ID, $dados[Model::ID])->set($dados)->update();
     }
 
-    public function delete($userId) {
+    public function delete() {
+        $dados = $this->request->getVar();
         $model = $this->getModel();
-        $model->where(Model::ID, $userId)->delete();
+        var_dump($dados);
+        $model->where(Model::ID, $dados['taskId'])->delete();
         
-        //return redirect()->to('/usuarios?alert=successDelete');
+        return redirect()->to('/calendario');
     }
 
     private function getModel() {

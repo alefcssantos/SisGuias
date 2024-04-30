@@ -32,6 +32,7 @@ $routes->get('/calendario','Calendary::index');
 $routes->post('/calendario/cadastrar','Calendary::create');
 $routes->get('/calendario/listar','Calendary::read');
 $routes->post('/calendario/atualizar','Calendary::edit');
+$routes->post('/calendario/excluir','Calendary::delete');
 
 //Rotas do controller company
 $routes->get('/empresas','Company::index');

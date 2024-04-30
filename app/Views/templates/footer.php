@@ -1,11 +1,11 @@
  <!-- Main Footer -->
  <!-- <footer class="main-footer"> -->
-     <!-- To the right -->
-     <!-- <div class="float-right d-none d-sm-inline"> -->
-         <!-- Desenvolvido por Alef -->
-     <!-- </div> -->
-     <!-- Default to the left -->
-     <!-- <strong>Copyright &copy; 2024 <a href="https://alefdev.com.br">AlefDev</a>.</strong> -->
+ <!-- To the right -->
+ <!-- <div class="float-right d-none d-sm-inline"> -->
+ <!-- Desenvolvido por Alef -->
+ <!-- </div> -->
+ <!-- Default to the left -->
+ <!-- <strong>Copyright &copy; 2024 <a href="https://alefdev.com.br">AlefDev</a>.</strong> -->
  <!-- </footer> -->
  </div>
  <!-- ./wrapper -->
@@ -94,8 +94,9 @@ $(function() {
             left: 'prev,next today',
             center: 'title',
             right: 'personTimeGridDay,timeGridWeek,dayGridMonth',
-            
+
         },
+        height: 'auto',
         themeSystem: 'bootstrap',
         // timeZone: 'America/Sao_Paulo',
         initialView: 'personTimeGridDay',
@@ -190,6 +191,17 @@ $(function() {
             }
             update(info.event.id, info.event.title, info.event.color, formateDate(info.event.start),
                 formateDate(info.event.end), allDay);
+        },
+        eventClick: function(info) {
+            $('#modal-form').modal('show');
+            $('#modal-form #id').text(info.event.id);
+            $('#modal-form #title').text(info.event.title);
+            $('#modal-form #start').text(info.event.start.toLocaleString());
+            info.event.end !== null && $('#modal-form #end').text(info.event.end.toLocaleString());
+            $('#modal-form #allDay').text(info.event.allDay ? 'Sim' : 'Não');
+            console.log(info.event.allDay);
+            document.getElementById('taskId').value = info.event.id;
+
         },
         locale: "pt-br",
     });
@@ -311,7 +323,6 @@ function findAll() {
 }
 
 function formateDate(data) {
-
     if (data !== null) {
         var ano = data.getFullYear();
         var mes = pad(data.getMonth() + 1);

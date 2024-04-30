@@ -37,6 +37,7 @@ class Login extends BaseController
                 ->first();
 
             if (!empty($login)) {
+                session()->set('LoginId', $login['LoginId']);
                 session()->set('Usuario', $dado['Usuario']);
                 return redirect()->to('/');
             } else {
