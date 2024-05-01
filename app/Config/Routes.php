@@ -39,3 +39,6 @@ $routes->get('/empresas','Company::index');
 
 //Rotas do controler Software
 $routes->get('/sistemas','Software::index');
+
+//Routes controller Sale
+$routes->get('/frentecaixa','Sale::index');

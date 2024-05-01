@@ -46,27 +46,150 @@
         <div class="container-fluid">
             <div class="row mb-2">
                 <div class="col-sm-6">
-                    <h1>Agenda</h1>
+                    <h1>Frente de Caixa</h1>
                 </div>
                 <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-right">
                         <li class="breadcrumb-item"><a href="#">Home</a></li>
-                        <li class="breadcrumb-item active">Agenda</li>
+                        <li class="breadcrumb-item active">Frente de Caixa</li>
                     </ol>
                 </div>
             </div>
         </div><!-- /.container-fluid -->
     </section>
 
+    <style>
+    .creme {
+        background-color: #fffdd0; /* Aqui, #f5f5dc é um exemplo de código de cor hexadecimal para creme */
+        padding: 20px;
+        border: 1px solid #ddd; /* Adicione uma borda para destacar a div */
+    }
+</style>
+
     <!-- Main content -->
     <section class="content">
-        <div class="container-fluid">
-            <div class="row">
-                <div class="col-md-3">
+        <div class="container-fluid" style="height: 100vh">
+            <div class="row" style="height: 100vh">
+                <div class="col-md-6 card">
+                    <div class="card-header p-0 border-bottom-0">
+                        <ul class="nav nav-tabs nav-fill" id="custom-tabs-four-tab" role="tablist">
+                            <li class="nav-item">
+                                <a class="nav-link active" id="custom-tabs-four-home-tab" data-toggle="pill"
+                                    href="#custom-tabs-four-home" role="tab" aria-controls="custom-tabs-four-home"
+                                    aria-selected="true">Frente de caixa</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" id="custom-tabs-four-profile-tab" data-toggle="pill"
+                                    href="#custom-tabs-four-profile" role="tab" aria-controls="custom-tabs-four-profile"
+                                    aria-selected="false">Comandas</a>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="card-body creme">
+                        <div class="tab-content" id="custom-tabs-four-tabContent">
+                            <div class="tab-pane fade show active" id="custom-tabs-four-home" role="tabpanel"
+                                aria-labelledby="custom-tabs-four-home-tab">
+                                <form action="simple-results.html">
+                                    <div class="input-group">
+                                        <input type="search" class="form-control form-control-lg"
+                                            placeholder="Digite para pesquisar um produto">
+                                        <div class="input-group-append">
+                                            <button type="submit" class="btn btn-lg btn-default">
+                                                <i class="fa fa-search"></i>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </form>
+                                <div class="card mt-3">
+                                    <div class="card-body table-responsive p-0" style="height: 100%;">
+                                        <table class="table table-head-fixed table-striped table-hover text-nowrap">
+                                            <thead>
+                                                <tr>
+                                                    <th class="w-10">ID</th>
+                                                    <th class="w-100">Produto</th>
+                                                    <th class="w-25">Estoque</th>
+                                                    <th class="w-25">Preco</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr>
+                                                    <td>183</td>
+                                                    <td>John Doe</td>
+                                                    <td>11-7-2014</td>
+                                                    <td><span class="tag tag-success">Approved</span></td>
+                                                </tr>
+                                                <tr>
+                                                    <td>219</td>
+                                                    <td>Alexander Pierce</td>
+                                                    <td>11-7-2014</td>
+                                                    <td><span class="tag tag-warning">Pending</span></td>
+                                                    
+                                                </tr>
+                                                <tr>
+                                                    <td>657</td>
+                                                    <td>Bob Doe</td>
+                                                    <td>11-7-2014</td>
+                                                    <td><span class="tag tag-primary">Approved</span></td>
+                                                    
+                                                </tr>
+                                                <tr>
+                                                    <td>175</td>
+                                                    <td>Mike Doe</td>
+                                                    <td>11-7-2014</td>
+                                                    <td><span class="tag tag-danger">Denied</span></td>
+                                                    
+                                                </tr>
+                                                <tr>
+                                                    <td>134</td>
+                                                    <td>Jim Doe</td>
+                                                    <td>11-7-2014</td>
+                                                    <td><span class="tag tag-success">Approved</span></td>
+                                                    
+                                                </tr>
+                                                <tr>
+                                                    <td>494</td>
+                                                    <td>Victoria Doe</td>
+                                                    <td>11-7-2014</td>
+                                                    <td><span class="tag tag-warning">Pending</span></td>
+                                                    
+                                                </tr>
+                                                <tr>
+                                                    <td>832</td>
+                                                    <td>Michael Doe</td>
+                                                    <td>11-7-2014</td>
+                                                    <td><span class="tag tag-primary">Approved</span></td>
+                                                    
+                                                </tr>
+                                                <tr>
+                                                    <td>982</td>
+                                                    <td>Rocky Doe</td>
+                                                    <td>11-7-2014</td>
+                                                    <td><span class="tag tag-danger">Denied</span></td>
+                                                    
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+
+                                </div>
+                                Aqui vai ficar a lista de produtos
+                            </div>
+                            <div class="tab-pane fade" id="custom-tabs-four-profile" role="tabpanel"
+                                aria-labelledby="custom-tabs-four-profile-tab">
+                                Aqui vai ficar as comandas abertas e comandas para adicionar
+                            </div>
+                        </div>
+                    </div>
+
+
+                </div>
+                <!-- /.col -->
+
+                <div class="col-md-6">
                     <div class="sticky-top mb-3">
                         <div class="card">
                             <div class="card-header">
-                                <h4 class="card-title">Minhas tarefas</h4>
+                                <h4 class="card-title">Registrador</h4>
                             </div>
                             <div class="card-body">
                                 <!-- the events -->
@@ -117,16 +240,7 @@
                     </div>
                 </div>
                 <!-- /.col -->
-                <div class="col-md-9">
-                    <div class="card card-primary">
-                        <div class="card-body p-0">
-                            <!-- THE CALENDAR -->
-                            <div id="calendar"></div>
-                        </div>
-                        <!-- /.card-body -->
-                    </div>
-                    <!-- /.card -->
-                </div>
+
                 <!-- /.col -->
             </div>
             <!-- /.row -->
