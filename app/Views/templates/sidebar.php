@@ -26,32 +26,39 @@
             <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
                 <!-- Add icons to the links using the .nav-icon class
                with font-awesome or any other icon font library -->
-               
-               <li class="nav-item">
-                   <a href="/frentecaixa" class="nav-link">
-                       <i class="nav-icon fas fa-cash-register"></i>
-                       <p>Frente de Caixa</p>
+
+                <li class="nav-item">
+                    <a href="/frentecaixa" class="nav-link">
+                        <i class="nav-icon fas fa-cash-register"></i>
+                        <p>Frente de Caixa</p>
                     </a>
                 </li>
                 <li class="nav-item">
                     <a href="/calendario" class="nav-link">
                         <i class="nav-icon fas fa-table"></i>
                         <p>Comandas<span class="badge badge-info right">2</span>
-                    </p>
-                </a>
-            </li>
-            <li class="nav-item">
-                <a href="/calendario" class="nav-link">
-                    <i class="nav-icon far fa-calendar-alt"></i>
-                    <p>Agenda<span class="badge badge-info right">2</span>
-                    </p>
-                </a>
-            </li>
-            <li class="nav-item">
+                        </p>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="/calendario" class="nav-link">
+                        <i class="nav-icon far fa-calendar-alt"></i>
+                        <p>Agenda<span class="badge badge-info right">2</span>
+                        </p>
+                    </a>
+                </li>
+                <li class="nav-item">
                     <a href="/clientes" class="nav-link">
                         <i class="nav-icon fas fa-user-tie">
                         </i>
                         <p>Clientes</p>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="/produtos" class="nav-link">
+                        <i class="nav-icon fas fa-boxes">
+                        </i>
+                        <p>Produtos</p>
                     </a>
                 </li>
                 <li class="nav-item">
@@ -70,14 +77,14 @@
                 </li>
                 <li class="nav-item">
                     <a href="#" class="nav-link">
-                    <i class="nav-icon fa fa-clipboard"></i>
+                        <i class="nav-icon fa fa-clipboard"></i>
                         <p>Orçamentos<span class="badge badge-info right">2</span>
                         </p>
                     </a>
                 </li>
                 <li class="nav-item">
                     <a href="#" class="nav-link">
-                    <i class="nav-icon fa fa-clipboard-list"></i>
+                        <i class="nav-icon fa fa-clipboard-list"></i>
                         <p>Ordens de Serviço<span class="badge badge-info right">2</span>
                         </p>
                     </a>

@@ -6,7 +6,7 @@ use CodeIgniter\Router\RouteCollection;
  * @var RouteCollection $routes
  */
 
-$routes->get('/', 'Calendary::index');
+$routes->get('/', 'Sale::index');
 
 // Rotas do controller User
 $routes->get('/usuarios','Users::index');
@@ -41,4 +41,5 @@ $routes->get('/empresas','Company::index');
 $routes->get('/sistemas','Software::index');
 
 //Routes controller Sale
-$routes->get('/frentecaixa','Sale::index');
+$routes->get('/frentecaixa', 'Sale::index');
+$routes->get('/frentecaixa/(:any)','Sale::index/$1');
