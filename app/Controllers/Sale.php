@@ -8,8 +8,17 @@ use CodeIgniter\HTTP\ResponseInterface;
 
 class Sale extends BaseController
 {
+    public function index() {
+        $produto_model = new ProdutoModel();
+        $produtos = $produto_model->paginate(10);
+        
 
-    public function index($searching = "null") {
+        $data['produtos'] = $produtos;
+        
+        return view('sales/index', $data);        
+    }
+
+    public function searchProducts($searching = null) {
         $produto_model = new ProdutoModel();
 
         if($searching != "null") {
@@ -19,8 +28,23 @@ class Sale extends BaseController
         }
 
         $data['produtos'] = $produtos;
-        
-        return view('sales/index', $data);        
+        return $this->response->setJSON($data);
+    }
+
+    public function searchOrderTicket($searching = null) {
+
+    }
+
+    public function readOrderTicket($id = null) {
+
+    }
+
+    public function createProductToOrderTicket($id = null) {
+
+    }
+
+    public function removeProcutToOrderTicket($id = null) {
+
     }
 
     public function create() {

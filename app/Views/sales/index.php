@@ -58,8 +58,8 @@
 
     <!-- Main content -->
     <section class="content">
-        <div class="container-fluid" style="height: 100vh">
-            <div class="row" style="height: 100vh">
+        <div class="container-fluid">
+            <div class="row">
                 <div class="col-12 col-sm-6">
                     <div class="card card-primary card-outline card-tabs">
                         <div class="card-header p-0 pt-1 border-bottom-0">
@@ -91,7 +91,7 @@
                                         </div>
                                     </div>
                                     <div class="card mt-3">
-                                        <div class="card-body table-responsive p-0" style="height: 100%;">
+                                        <div class="card-body table-responsive p-0" >
                                             <table class="table table-head-fixed table-striped table-hover text-nowrap">
                                                 <thead>
                                                     <tr>
@@ -117,12 +117,43 @@
                                 </div>
                                 <div class="tab-pane fade" id="custom-tabs-three-profile" role="tabpanel"
                                     aria-labelledby="custom-tabs-three-profile-tab">
-                                    Mauris tincidunt mi at erat gravida, eget tristique urna bibendum. Mauris pharetra
-                                    purus ut ligula tempor, et vulputate metus facilisis. Lorem ipsum dolor sit amet,
-                                    consectetur adipiscing elit. Vestibulum ante ipsum primis in faucibus orci luctus et
-                                    ultrices posuere cubilia Curae; Maecenas sollicitudin, nisi a luctus interdum, nisl
-                                    ligula placerat mi, quis posuere purus ligula eu lectus. Donec nunc tellus,
-                                    elementum sit amet ultricies at, posuere nec nunc. Nunc euismod pellentesque diam.
+                                    <div class="input-group">
+                                        <input type="search" id="search" class="form-control form-control-lg"
+                                            placeholder="Digite para pesquisar uma comanda">
+                                        <div class="input-group-append">
+                                            <button type="submit" class="btn btn-lg btn-default" onclick="searching()">
+                                                <i class="fa fa-search"></i>
+                                            </button>
+                                            <button type="button" class="btn btn-info" data-toggle="modal"
+                                                data-target="#modal-novo-produto">
+                                                <i class="fas fa-plus-circle"></i>
+                                            </button>
+                                        </div>
+                                    </div>
+                                    <div class="card mt-3">
+                                        <div class="card-body table-responsive p-0">
+                                            <table class="table table-head-fixed table-striped table-hover text-nowrap">
+                                                <thead>
+                                                    <tr>
+                                                        <th class="w-10">ID</th>
+                                                        <th class="w-100">Produto</th>
+                                                        <th class="w-25">Estoque</th>
+                                                        <th class="w-25">Preco</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <?php foreach($produtos as $prod): ?>
+                                                    <tr>
+                                                        <td><?= $prod['ProdutoId'] ?></td>
+                                                        <td><?= $prod['Nome'] ?></td>
+                                                        <td><?= $prod['Qtde'] ?></td>
+                                                        <td><?= $prod['Valor'] ?></td>
+                                                    </tr>
+                                                    <?php endforeach; ?>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
                                 </div>
                                 <div class="tab-pane fade" id="custom-tabs-three-messages" role="tabpanel"
                                     aria-labelledby="custom-tabs-three-messages-tab">
@@ -155,11 +186,9 @@
                 <div class="col-12 col-sm-6">
                     <div class="card card-primary card-outline card-tabs">
                         <div class="card-body">
-                            <h4 class="mg-3">Resumo Venda</h4>
-                            <div class="card mt-3">
-                            
-                                <div class="card-body table-responsive p-0" style="height: 100%;">
-                                
+                            <h4>Nome da comanda ou frente de caixa</h4>
+                            <div class="card">
+                                <div class="card-body table-responsive p-0">
                                     <table class="table table-head-fixed table-striped table-hover text-nowrap">
                                         <thead>
                                             <tr>
@@ -286,4 +315,26 @@ function searching() {
     var data = document.getElementById('search').value;
     window.location.href = "/frentecaixa/" + data;
 }
+
+
+$(document).ready(function() {
+    $('.table-row-clickable').on('click', function() {
+        var userId = $(this).data('id');
+        $.ajax({
+            url: 'your-api-endpoint', // Substitua pelo seu endpoint
+            type: 'GET', // Ou 'POST', dependendo do seu endpoint
+            data: {
+                id: userId
+            },
+            success: function(response) {
+                // Lógica a ser executada com a resposta do servidor
+                console.log(response);
+            },
+            error: function(xhr, status, error) {
+                // Lógica para lidar com erros
+                console.error('Erro na requisição AJAX:', status, error);
+            }
+        });
+    });
+});
 </script>
