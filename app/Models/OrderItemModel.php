@@ -4,20 +4,15 @@ namespace App\Models;
 
 use CodeIgniter\Model;
 
-class ProdutoModel extends Model
+class OrderItemModel extends Model
 {
-    protected $table            = 'produtos';
-    protected $primaryKey       = 'ProdutoId';
+    protected $table            = 'orderitems';
+    protected $primaryKey       = 'id';
     protected $useAutoIncrement = true;
     protected $returnType       = 'array';
     protected $useSoftDeletes   = false;
     protected $protectFields    = true;
-    protected $allowedFields    = [
-        'ProdutoId',
-        'Nome',
-        'Qtde',
-        'Valor'
-    ];
+    protected $allowedFields    = [];
 
     protected bool $allowEmptyInserts = false;
     protected bool $updateOnlyChanged = true;
@@ -49,4 +44,12 @@ class ProdutoModel extends Model
     protected $beforeDelete   = [];
     protected $afterDelete    = [];
 
+    // Field's
+    const ID = 'orderItemId';
+    const ORDER_ID = 'orderItemId';
+    const PRODUCT = 'orderItemProduct';
+    const QUANTITY = 'orderItemQuantity';
+    const UNIT_PRICE = 'orderItemUnitPrice';
+    const STATUS = 'orderItemStatus';
+    
 }

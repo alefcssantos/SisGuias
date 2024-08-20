@@ -4,9 +4,12 @@ namespace App\Controllers;
 
 use App\Models\ProdutoModel;
 use App\Controllers\BaseController;
+use App\Models\OrderTicketModel;
+use App\Models\ProductOrderModel;
 use CodeIgniter\HTTP\ResponseInterface;
 
 class Sale extends BaseController
+
 {
     public function index() {
         $produto_model = new ProdutoModel();
@@ -14,6 +17,11 @@ class Sale extends BaseController
         
 
         $data['produtos'] = $produtos;
+
+        $order_ticket_model = new OrderTicketModel();
+        $orderTickets = $order_ticket_model->paginate(10);
+
+        $data['orderTickets'] = $orderTickets;
         
         return view('sales/index', $data);        
     }
@@ -21,7 +29,7 @@ class Sale extends BaseController
     public function searchProducts($searching = null) {
         $produto_model = new ProdutoModel();
 
-        if($searching != "null") {
+        if($searching != null) {
             $produtos = $produto_model->like('Nome',$searching.'%')->paginate(10);
         } else {
             $produtos = $produto_model->paginate(10);
@@ -31,19 +39,75 @@ class Sale extends BaseController
         return $this->response->setJSON($data);
     }
 
+    public function createOrderTicket() {
+        $data = $this->request->getVar();
+        $model = new OrderTicketModel();
+        $model->insert($data);
+
+        return redirect()->to('frentecaixa?=sucessCreateOrderTicket');
+
+    }
+
     public function searchOrderTicket($searching = null) {
+        $orderTicketModel = new OrderTicketModel();
+
+        if($searching != null) {
+            $orderTickets = $orderTicketModel->like(OrderTicketModel::CLIENT, $searching.'%')->paginate(10);
+        } else {
+            $orderTickets = $orderTicketModel->paginate(10);
+        }
+
+        $data['orderTickets'] = $orderTickets;
+        return $this->response->setJSON($data);
 
     }
 
-    public function readOrderTicket($id = null) {
+    public function createProductOrder() {
+        // Captura as variáveis via GET
+        $orderticketid = $this->request->getGet('orderticketid');
+        $produtoid     = $this->request->getGet('idproduct');
+        $quantity      = $this->request->getGet('quantity');
+        $status        = $this->request->getGet('status');
 
+        // Carrega o model do produto
+        $produtoModel = new ProdutoModel();
+        
+        // Busca o produto pelo ID
+        $produto = $produtoModel->find($produtoid);
+        
+        if ($produto) {
+            // Prepara os dados para inserir na tabela productorder
+            $data = [
+                ProductOrderModel::ORDER_TICKET_ID             => $orderticketid,
+                ProductOrderModel::NAME           => $produto['Nome'],  // Nome do produto
+                ProductOrderModel::UNITY_PRICE    => $produto['Valor'], // Preço do produto
+                ProductOrderModel::QUANTITY       => $quantity,
+                ProductOrderModel::STATUS         => $status
+            ];
+            
+            // Carrega o model productorder
+            $productOrderModel = new ProductOrderModel();
+            
+            // Insere os dados na tabela productorder
+            $productOrderModel->insert($data);
+           
+        }
+
+        $productOrderModel = new ProductOrderModel();        
+        $productOrder = $productOrderModel->where(ProductOrderModel::ORDER_TICKET_ID, $orderticketid )->findAll();
+        $data['productOrder'] = $productOrder;
+        
+        return $this->response->setJSON($data);
     }
 
-    public function createProductToOrderTicket($id = null) {
+    public function listProductOrder($id = null) {
+        $productOrderModel = new ProductOrderModel();
 
-    }
-
-    public function removeProcutToOrderTicket($id = null) {
+        if($id != null) {
+            $productOrders = $productOrderModel->where(ProductOrderModel::ORDER_TICKET_ID, $id)->findAll();
+            $data['productOrder'] = $productOrders;
+            return $this->response->setJSON($data);
+        }     
 
     }
 

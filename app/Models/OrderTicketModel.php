@@ -2,21 +2,23 @@
 
 namespace App\Models;
 
+use App\Database\Migrations\OrderTicket;
 use CodeIgniter\Model;
 
-class ProdutoModel extends Model
+class OrderTicketModel extends Model
 {
-    protected $table            = 'produtos';
-    protected $primaryKey       = 'ProdutoId';
+    protected $table            = 'ordertickets';
+    protected $primaryKey       = OrderTicketModel::ID;
     protected $useAutoIncrement = true;
     protected $returnType       = 'array';
     protected $useSoftDeletes   = false;
     protected $protectFields    = true;
     protected $allowedFields    = [
-        'ProdutoId',
-        'Nome',
-        'Qtde',
-        'Valor'
+        OrderTicketModel::ID,
+        OrderTicketModel::DATE,
+        OrderTicketModel::CLIENT,
+        OrderTicketModel::DESCRIPTION,
+        OrderTicketModel::STATUS
     ];
 
     protected bool $allowEmptyInserts = false;
@@ -48,5 +50,13 @@ class ProdutoModel extends Model
     protected $afterFind      = [];
     protected $beforeDelete   = [];
     protected $afterDelete    = [];
+
+    // Field's
+    const ID = 'orderTicketId';
+    //const ORDER_ID = 'orderTicketOrder';
+    const DATE = 'orderTicketDate';
+    const CLIENT = 'orderTicketClient';
+    const DESCRIPTION = 'orderTicketDescription';
+    const STATUS = 'orderTicketStatus';
 
 }

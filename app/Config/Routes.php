@@ -32,6 +32,7 @@ $routes->post('/produtos/editar', 'Products::edit');
 $routes->get('/calendario','Calendary::index');
 $routes->post('/calendario/cadastrar','Calendary::create');
 $routes->get('/calendario/listar','Calendary::read');
+
 $routes->post('/calendario/atualizar','Calendary::edit');
 $routes->post('/calendario/excluir','Calendary::delete');
 
@@ -46,3 +47,14 @@ $routes->get('/frentecaixa', 'Sale::index');
 //Ajax Sale controller
 $routes->get('/frentecaixa/produtos', 'Sale::searchProducts');
 $routes->get('/frentecaixa/produtos/(:any)', 'Sale::searchProducts/$1');
+
+$routes->get('/frentecaixa/comandas/pesquisar', 'Sale::searchOrderTicket');
+$routes->get('/frentecaixa/comandas/pesquisar/(:any)', 'Sale::searchOrderTicket/$1');
+
+$routes->post('/frentecaixa/comandas/cadastrar', 'Sale::createOrderTicket');
+
+$routes->get('/frentecaixa/produtovenda/listar', 'Sale::listProductOrder');
+$routes->get('/frentecaixa/produtovenda/listar/(:any)', 'Sale::listProductOrder/$1');
+
+$routes->get('/frentecaixa/produtovenda/inserir', 'Sale::createProductOrder');
+

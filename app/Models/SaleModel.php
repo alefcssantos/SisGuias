@@ -46,8 +46,8 @@ class SaleModel extends Model
 
     // Const's
     const ID = 'saleId';
-    const TITLE = 'saleTitle';
+    const ORDER_ID = 'saleOrderId';
     const DATE = 'saleDate';
-    const TIME = 'saleTime';
     const TOTAL = 'saleTotal';
+    const PAYMENT_TIPY = 'salePaymentType';
 }

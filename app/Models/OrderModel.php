@@ -4,8 +4,7 @@ namespace App\Models;
 
 use CodeIgniter\Model;
 
-class OrderModel extends Model
-{
+class OrderModel extends Model {
     protected $table            = 'orders';
     protected $primaryKey       = 'id';
     protected $useAutoIncrement = true;
@@ -43,4 +42,8 @@ class OrderModel extends Model
     protected $afterFind      = [];
     protected $beforeDelete   = [];
     protected $afterDelete    = [];
+
+    // Field's
+    const ID = 'orderId';
+    const 
 }

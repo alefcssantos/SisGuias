@@ -4,19 +4,21 @@ namespace App\Models;
 
 use CodeIgniter\Model;
 
-class ProdutoModel extends Model
+class ProductModel extends Model
 {
-    protected $table            = 'produtos';
-    protected $primaryKey       = 'ProdutoId';
+    protected $table            = 'products';
+    protected $primaryKey       = ProductModel::ID;
     protected $useAutoIncrement = true;
     protected $returnType       = 'array';
     protected $useSoftDeletes   = false;
     protected $protectFields    = true;
     protected $allowedFields    = [
-        'ProdutoId',
-        'Nome',
-        'Qtde',
-        'Valor'
+        ProductModel::ID,
+        ProductModel::NAME,
+        ProductModel::DESCRIPTION,
+        ProductModel::UNIT_TYPE,
+        ProductModel::UNIT_PRICE
+
     ];
 
     protected bool $allowEmptyInserts = false;
@@ -48,5 +50,12 @@ class ProdutoModel extends Model
     protected $afterFind      = [];
     protected $beforeDelete   = [];
     protected $afterDelete    = [];
+
+    // Field's
+    const ID = 'productId';
+    const NAME = 'productName';
+    const DESCRIPTION = 'productDescription';
+    const UNIT_TYPE = 'produtUnitType';
+    const UNIT_PRICE = 'productUnitPrice';
 
 }
