@@ -27,9 +27,9 @@ class Database extends Config
     public array $default = [
         'DSN'          => '',
         'hostname'     => 'localhost',
-        'username'     => '',
-        'password'     => '',
-        'database'     => '',
+        'username'     => 'u663757844_ideabit',
+        'password'     => 'wM=j>H:5j*K',
+        'database'     => 'u663757844_ideabit_dash',
         'DBDriver'     => 'MySQLi',
         'DBPrefix'     => '',
         'pConnect'     => false,
