@@ -167,63 +167,13 @@ echo View('templates/header'); ?>
                                         <thead>
                                             <tr>
                                                 <th class="w-10">ID</th>
-                                                <th class="w-100">Produto</th>
-                                                <th class="w-25">Preco</th>
+                                                <th class="w-75">Produto</th>
                                                 <th class="w-25">Qtd</th>
+                                                <th class="w-25">Preço</th>
                                                 <th class="w-25">Total</th>
                                             </tr>
                                         </thead>
                                         <tbody id="table-product-order">
-                                            <tr>
-                                                <td>183</td>
-                                                <td>Teclado mecanico</td>
-                                                <td>R$ 200,00</td>
-                                                <td>1</td>
-                                                <td><span class="tag tag-success">R$ 200,00</span></td>
-                                            </tr>
-                                            <tr>
-                                                <td>183</td>
-                                                <td>Teclado mecanico</td>
-                                                <td>R$ 200,00</td>
-                                                <td>1</td>
-                                                <td><span class="tag tag-success">R$ 200,00</span></td>
-                                            </tr>
-                                            <tr>
-                                                <td>183</td>
-                                                <td>Teclado mecanico</td>
-                                                <td>R$ 200,00</td>
-                                                <td>1</td>
-                                                <td><span class="tag tag-success">R$ 200,00</span></td>
-                                            </tr>
-                                            <tr>
-                                                <td>183</td>
-                                                <td>Teclado mecanico</td>
-                                                <td>R$ 200,00</td>
-                                                <td>1</td>
-                                                <td><span class="tag tag-success">R$ 200,00</span></td>
-                                            </tr>
-                                            <tr>
-                                                <td>183</td>
-                                                <td>Teclado mecanico</td>
-                                                <td>R$ 200,00</td>
-                                                <td>1</td>
-                                                <td><span class="tag tag-success">R$ 200,00</span></td>
-                                            </tr>
-                                            <tr>
-                                                <td>183</td>
-                                                <td>Teclado mecanico</td>
-                                                <td>R$ 200,00</td>
-                                                <td>1</td>
-                                                <td><span class="tag tag-success">R$ 200,00</span></td>
-                                            </tr>
-                                            <tr>
-                                            <tr>
-                                                <td>183</td>
-                                                <td>Teclado mecanico</td>
-                                                <td>R$ 200,00</td>
-                                                <td>1</td>
-                                                <td><span class="tag tag-success">R$ 200,00</span></td>
-                                            </tr>
                                             <tr>
                                                 <td>183</td>
                                                 <td>Teclado mecanico</td>
@@ -241,7 +191,7 @@ echo View('templates/header'); ?>
                                         <div class="card-body d-flex flex-column align-items-end">
                                             <div>
                                                 <p>Total</p>
-                                                <h1>R$ 560,00</h1>
+                                                <h1 id="total">R$ 560,00</h1>
                                             </div>
                                             <button type="button" class="btn btn-info mt-3">
                                                 Finalizar
@@ -303,6 +253,8 @@ echo View('templates/header'); ?>
 
             // Exibir o resultado no alert
             populateTableProductOrder(data);
+            var total = data['total'];
+            document.getElementById('total').innerText = formatToRealBR(total);
         } catch (error) {
             console.error('Erro:', error);
             alert('Erro ao buscar os dados');
@@ -401,11 +353,11 @@ echo View('templates/header'); ?>
             row.appendChild(qtdeCell);
 
             const valorCell = document.createElement('td');
-            valorCell.textContent = productOrder.productOrderUnityPrice;
+            valorCell.textContent = formatToRealBR( productOrder.productOrderUnityPrice);
             row.appendChild(valorCell);
 
             const totalCell = document.createElement('td');
-            totalCell.textContent = calcularTotal(productOrder.productOrderQuantity, productOrder.productOrderUnityPrice);
+            totalCell.textContent = formatToRealBR( calcularTotal(productOrder.productOrderQuantity, productOrder.productOrderUnityPrice));
             row.appendChild(totalCell);
 
             tableBody.appendChild(row);
@@ -505,6 +457,9 @@ echo View('templates/header'); ?>
 
             // Exibir o resultado no alert
             populateTableProductOrder(data);
+            var total = data['total'];
+            document.getElementById('total').innerText = formatToRealBR(total);
+
         } catch (error) {
             console.error('Erro:', error);
             const tableBody = document.getElementById('tableproducts');
@@ -513,6 +468,13 @@ echo View('templates/header'); ?>
             tableBody.innerHTML = '';
             alert('Erro ao buscar os dados para: ' + document.getElementById('searchorderticket').value);
         }
+    }
+
+    function formatToRealBR(valor) {
+    return new Intl.NumberFormat('pt-BR', {
+        style: 'currency',
+        currency: 'BRL'
+    }).format(valor);
     }
 
     function calcularTotal($quantity, $price) {

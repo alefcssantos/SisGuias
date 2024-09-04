@@ -102,10 +102,15 @@ class Sale extends BaseController
 
     public function listProductOrder($id = null) {
         $productOrderModel = new ProductOrderModel();
+        $total = 0;
 
         if($id != null) {
             $productOrders = $productOrderModel->where(ProductOrderModel::ORDER_TICKET_ID, $id)->findAll();
+            
+            // Calcula o total do campo 'preco'
+            $totalPreco = $productOrderModel->where(ProductOrderModel::ORDER_TICKET_ID, $id)->selectSum(ProductOrderModel::UNITY_PRICE, 'total')->get()->getRow()->total;
             $data['productOrder'] = $productOrders;
+            $data['total'] = $totalPreco;
             return $this->response->setJSON($data);
         }     
 
@@ -133,4 +138,5 @@ class Sale extends BaseController
 
         return redirect()->to('/produtos?alert=successDelete');
     }
+    
 }
