@@ -57,4 +57,3 @@ $routes->get('/frentecaixa/produtovenda/listar', 'Sale::listProductOrder');
 $routes->get('/frentecaixa/produtovenda/listar/(:any)', 'Sale::listProductOrder/$1');
 
 $routes->get('/frentecaixa/produtovenda/inserir', 'Sale::createProductOrder');
-

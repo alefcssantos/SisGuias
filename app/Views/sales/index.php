@@ -54,12 +54,12 @@ echo View('templates/header'); ?>
         <div class="container-fluid">
             <div class="row mb-2">
                 <div class="col-sm-6">
-                    <h1>Frente de Caixa</h1>
+                    <h1>Comandas</h1>
                 </div>
                 <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-right">
                         <li class="breadcrumb-item"><a href="#">Home</a></li>
-                        <li class="breadcrumb-item active">Frente de Caixa</li>
+                        <li class="breadcrumb-item active">Comandas</li>
                     </ol>
                 </div>
             </div>
@@ -95,8 +95,17 @@ echo View('templates/header'); ?>
                                         </div>
                                     </div>
                                     <!-- Tab produtos -->
+                                    <style>
+                                        /* Define a altura máxima da tabela */
+                                        .table-wrapper-product {
+                                            height: 640px;
+                                            /* Defina a altura máxima desejada */
+                                            overflow-y: auto;
+                                            /* Barra de rolagem vertical */
+                                        }
+                                    </style>
                                     <div class="card mt-3">
-                                        <div class="card-body table-responsive p-0">
+                                        <div class="card-body table-responsive p-0 table-wrapper-product">
                                             <table class="table table-head-fixed table-striped table-hover text-nowrap">
                                                 <thead>
                                                     <tr>
@@ -133,7 +142,7 @@ echo View('templates/header'); ?>
                                         </div>
                                     </div>
                                     <div class="card mt-3">
-                                        <div class="card-body table-responsive p-0">
+                                        <div class="card-body table-responsive p-0 table-wrapper-product">
                                             <table class="table table-head-fixed table-striped table-hover text-nowrap">
                                                 <thead>
                                                     <tr>
@@ -156,31 +165,34 @@ echo View('templates/header'); ?>
                     </div>
                 </div>
 
+                <style>
+                    /* Define a altura máxima da tabela */
+                    .table-wrapper-product-order {
+                        height: 510px;
+                        /* Defina a altura máxima desejada */
+                        overflow-y: auto;
+                        /* Barra de rolagem vertical */
+                    }
+                </style>
+
                 <div class="col-12 col-sm-6">
                     <div class="card card-primary card-outline card-tabs">
                         <div class="card-body">
                             <input id="order-ticket-id" type="hidden" />
-                            <h4 id='order-ticket-name'>Nome da comanda ou frente de caixa</h4>
+                            <h4 id='order-ticket-name'>Comanda</h4>
                             <div class="card">
-                                <div class="card-body table-responsive p-0">
+                                <div class="card-body table-responsive p-0 table-wrapper-product-order">
                                     <table class="table table-head-fixed table-striped table-hover text-nowrap">
                                         <thead>
                                             <tr>
-                                                <th class="w-10">ID</th>
+                                                <!-- <th class="w-10">ID</th> -->
                                                 <th class="w-75">Produto</th>
-                                                <th class="w-25">Qtd</th>
-                                                <th class="w-25">Preço</th>
-                                                <th class="w-25">Total</th>
+                                                <th class="w-10">Qtd</th>
+                                                <th class="w-15">Preço</th>
+                                                <th class="w-15">Total</th>
                                             </tr>
                                         </thead>
                                         <tbody id="table-product-order">
-                                            <tr>
-                                                <td>183</td>
-                                                <td>Teclado mecanico</td>
-                                                <td>R$ 200,00</td>
-                                                <td>1</td>
-                                                <td><span class="tag tag-success">R$ 200,00</span></td>
-                                            </tr>
                                         </tbody>
                                     </table>
                                 </div>
@@ -191,7 +203,7 @@ echo View('templates/header'); ?>
                                         <div class="card-body d-flex flex-column align-items-end">
                                             <div>
                                                 <p>Total</p>
-                                                <h1 id="total">R$ 560,00</h1>
+                                                <h1 id="total">R$ 00,00</h1>
                                             </div>
                                             <button type="button" class="btn btn-info mt-3">
                                                 Finalizar
@@ -225,7 +237,7 @@ echo View('templates/header'); ?>
 <script>
     function prepareCreateOrderTicket() {
         $('#modal-form-order-ticket').modal('show');
-    }    
+    }
 
     document.getElementById('searchproducts').addEventListener('input', function() {
         searchingProducts();
@@ -234,35 +246,39 @@ echo View('templates/header'); ?>
     async function insertProductOrder($idProduct, $quantity, $status) {
         const inputorderticketid = document.getElementById('order-ticket-id');
         // Monta a URL com os parâmetros
-        const url = `frentecaixa/produtovenda/inserir?orderticketid=${inputorderticketid.value}&idproduct=${$idProduct}&quantity=${$quantity}&status=${$status}`;
-        try {
-            const response = await fetch( url, {
-                method: 'GET', // ou 'POST', 'PUT', etc.
-                headers: {
-                    'Content-Type': 'application/json'
-                    // Outros cabeçalhos se necessário
+
+        if (inputorderticketid.value !== null && inputorderticketid.value !== "") {
+            const url = `frentecaixa/produtovenda/inserir?orderticketid=${inputorderticketid.value}&idproduct=${$idProduct}&quantity=${$quantity}&status=${$status}`;
+            try {
+                const response = await fetch(url, {
+                    method: 'GET', // ou 'POST', 'PUT', etc.
+                    headers: {
+                        'Content-Type': 'application/json'
+                        // Outros cabeçalhos se necessário
+                    }
+                });
+
+                if (!response.ok) {
+                    throw new Error(`Erro na requisição: ${response.statusText}`);
                 }
-            });
 
-            if (!response.ok) {
-                throw new Error(`Erro na requisição: ${response.statusText}`);
+                const data = await response.json();
+                console.log(data);
+
+                // Exibir o resultado no alert
+                showProductOrder(inputorderticketid.value);
+            } catch (error) {
+                console.error('Erro:', error);
+                alert('Erro ao buscar os dados');
+                const tableBody = document.getElementById('tableproducts');
+
+                // Limpa o conteúdo anterior da tabela
+                tableBody.innerHTML = '';
             }
+        } else {
+            alert('Selecione uma comanda para poder inserir um produto');
+        }
 
-            const data = await response.json();
-            console.log(data);
-
-            // Exibir o resultado no alert
-            populateTableProductOrder(data);
-            var total = data['total'];
-            document.getElementById('total').innerText = formatToRealBR(total);
-        } catch (error) {
-            console.error('Erro:', error);
-            alert('Erro ao buscar os dados');
-            const tableBody = document.getElementById('tableproducts');
-
-            // Limpa o conteúdo anterior da tabela
-            tableBody.innerHTML = '';
-        }        
     }
 
     async function searchingProducts() {
@@ -340,9 +356,9 @@ echo View('templates/header'); ?>
                 //evento do onlcick
             };
 
-            const idCell = document.createElement('td');
-            idCell.textContent = productOrder.productOrderId;
-            row.appendChild(idCell);
+            // const idCell = document.createElement('td');
+            // idCell.textContent = productOrder.productOrderId;
+            // row.appendChild(idCell);
 
             const nameCell = document.createElement('td');
             nameCell.textContent = productOrder.productOrderName;
@@ -353,11 +369,11 @@ echo View('templates/header'); ?>
             row.appendChild(qtdeCell);
 
             const valorCell = document.createElement('td');
-            valorCell.textContent = formatToRealBR( productOrder.productOrderUnityPrice);
+            valorCell.textContent = formatToRealBR(productOrder.productOrderUnityPrice);
             row.appendChild(valorCell);
 
             const totalCell = document.createElement('td');
-            totalCell.textContent = formatToRealBR( calcularTotal(productOrder.productOrderQuantity, productOrder.productOrderUnityPrice));
+            totalCell.textContent = formatToRealBR(calcularTotal(productOrder.productOrderQuantity, productOrder.productOrderUnityPrice));
             row.appendChild(totalCell);
 
             tableBody.appendChild(row);
@@ -440,7 +456,7 @@ echo View('templates/header'); ?>
 
     async function showProductOrder($id) {
         try {
-            const response = await fetch('frentecaixa/produtovenda/listar/' + $id , {
+            const response = await fetch('frentecaixa/produtovenda/listar/' + $id, {
                 method: 'GET', // ou 'POST', 'PUT', etc.
                 headers: {
                     'Content-Type': 'application/json'
@@ -471,28 +487,24 @@ echo View('templates/header'); ?>
     }
 
     function formatToRealBR(valor) {
-    return new Intl.NumberFormat('pt-BR', {
-        style: 'currency',
-        currency: 'BRL'
-    }).format(valor);
+        return new Intl.NumberFormat('pt-BR', {
+            style: 'currency',
+            currency: 'BRL'
+        }).format(valor);
     }
 
     function calcularTotal($quantity, $price) {
-            const valor = parseFloat($price.replace(',', '.'));
-            const quantidade = parseInt($quantity);
+        const valor = parseFloat($price.replace(',', '.'));
+        const quantidade = parseInt($quantity);
 
-            // Multiplicação e arredondamento para 2 casas decimais
-            const total = (valor * quantidade).toFixed(2);
+        // Multiplicação e arredondamento para 2 casas decimais
+        const total = (valor * quantidade).toFixed(2);
 
-            return total;
-        }
+        return total;
+    }
 
-    
+
 
     searchingOrderTicket();
     searchingProducts();
-
-    
-
-    
 </script>
