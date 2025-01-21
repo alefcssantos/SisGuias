@@ -181,7 +181,7 @@ echo View('templates/header'); ?>
                             <input id="order-ticket-id" type="hidden" />
                             <h4 id='order-ticket-name'>Comanda</h4>
                             <div class="card">
-                                <div class="card-body table-responsive p-0 table-wrapper-product-order">
+                                <div id="tableproductorder" class="card-body table-responsive p-0 table-wrapper-product-order">
                                     <table class="table table-head-fixed table-striped table-hover text-nowrap">
                                         <thead>
                                             <tr>
@@ -378,6 +378,8 @@ echo View('templates/header'); ?>
 
             tableBody.appendChild(row);
         });
+
+        scrollToEnd();
     }
 
     // Adiciona o sevento ao input de busca orderticket
@@ -502,6 +504,12 @@ echo View('templates/header'); ?>
 
         return total;
     }
+
+    // Função para rolar até o final da tabela
+  function scrollToEnd() {
+    var tabelaContainer = document.getElementById('tableproductorder');
+    tabelaContainer.scrollTop = tabelaContainer.scrollHeight; // Define a barra de rolagem para o fim
+  }
 
 
 

@@ -116,6 +116,14 @@ class Sale extends BaseController
 
     }
 
+    public function finish() {
+        //Esta funcao sera responsavel por finalizar a ordem de servico
+        //ainda nao sei como vou exibir as vendas totais do dia
+        //pode ser uma dash, ou um icone, ou um espaco na area de notificacao mostrando a receita de venedas do dia
+        //mas ainda nao e certo, vou ter que confirmar isto direito
+        
+    }
+
     public function create() {
         $dados = $this->request->getVar();
         $produto_model = new ProdutoModel();
