@@ -26,106 +26,33 @@
             <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
                 <!-- Add icons to the links using the .nav-icon class
                with font-awesome or any other icon font library -->
-
                 <li class="nav-item">
                     <a href="/frentecaixa" class="nav-link">
                         <i class="nav-icon fas fa-cash-register"></i>
-                        <p>Frente de Caixa</p>
+                        <p>Minhas Guias</p>
+                    </a>
+                </li>
+
+                <li class="nav-item">
+                    <a href="/cadastrar" class="nav-link">
+                        <i class="nav-icon fas fa-cash-register"></i>
+                        <p>Cadastrar Guias</p>
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a href="#" class="nav-link">
+                    <a href="/triagem/lista" class="nav-link">
                         <i class="nav-icon fas fa-table"></i>
-                        <p>Comandas<span class="badge badge-info right">2</span>
+                        <p>Triagem de Guias<span class="badge badge-info right">2</span>
                         </p>
                     </a>
                 </li>
                 <li class="nav-item">
                     <a href="/calendario" class="nav-link">
                         <i class="nav-icon far fa-calendar-alt"></i>
-                        <p>Agenda<span class="badge badge-info right">2</span>
+                        <p>Filas<span class="badge badge-info right">2</span>
                         </p>
                     </a>
                 </li>
-                <li class="nav-item">
-                    <a href="/clientes" class="nav-link">
-                        <i class="nav-icon fas fa-user-tie">
-                        </i>
-                        <p>Clientes</p>
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a href="/produtos" class="nav-link">
-                        <i class="nav-icon fas fa-boxes">
-                        </i>
-                        <p>Produtos</p>
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a href="/fornecedores" class="nav-link">
-                        <i class="nav-icon fas fa-handshake">
-                        </i>
-                        <p>Fornecedores</p>
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a href="/usuarios" class="nav-link">
-                        <i class="nav-icon fas fa-users">
-                        </i>
-                        <p>Usuarios</p>
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a href="#" class="nav-link">
-                        <i class="nav-icon fa fa-clipboard"></i>
-                        <p>Orçamentos<span class="badge badge-info right">2</span>
-                        </p>
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a href="#" class="nav-link">
-                        <i class="nav-icon fa fa-clipboard-list"></i>
-                        <p>Ordens de Serviço<span class="badge badge-info right">2</span>
-                        </p>
-                    </a>
-                </li>
-                <!-- <li class="nav-item">
-                    <a href="/empresas" class="nav-link">
-                        <i class="nav-icon fas fa-building">
-                        </i>
-                        <p>Empresas</p>
-                    </a>
-                </li> -->
-                <li class="nav-item">
-                    <a href="/sistemas" class="nav-link">
-                        <i class="nav-icon fas fa-laptop">
-                        </i>
-                        <p>Sistemas</p>
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a href="#" class="nav-link">
-                        <i class="nav-icon fas fa-code">
-                        </i>
-                        <p>Api's</p>
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a href="#" class="nav-link">
-                        <i class="nav-icon fas fa-envelope">
-                        </i>
-                        <p>E-mail</p>
-                    </a>
-                </li>
-                <!-- <li class="nav-item">
-                    <a href="#" class="nav-link">
-                        <i class="nav-icon fas fa-columns">
-                        </i>
-                        <p>Kanban</p>
-                    </a>
-                </li> -->
-
-
             </ul>
         </nav>
         <!-- /.sidebar-menu -->

@@ -506,10 +506,10 @@ echo View('templates/header'); ?>
     }
 
     // Função para rolar até o final da tabela
-  function scrollToEnd() {
-    var tabelaContainer = document.getElementById('tableproductorder');
-    tabelaContainer.scrollTop = tabelaContainer.scrollHeight; // Define a barra de rolagem para o fim
-  }
+    function scrollToEnd() {
+        var tabelaContainer = document.getElementById('tableproductorder');
+        tabelaContainer.scrollTop = tabelaContainer.scrollHeight; // Define a barra de rolagem para o fim
+    }
 
 
 

@@ -3,7 +3,7 @@ version: '3'
 services:
   # Serviço MySQL
   mysql:
-    container_name: dash_mysql
+    container_name: centralvagas_mysql
     image: mysql:5.7
     ports:
       - "3306:3306"
