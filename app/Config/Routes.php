@@ -36,6 +36,8 @@ $routes->get('/frentecaixa/produtovenda/listar/(:any)', 'Sale::listProductOrder/
 $routes->get('/frentecaixa/produtovenda/inserir', 'Sale::createProductOrder');
 
 // GuiaReferencia
-$routes->get('/guias', 'GuiaReferenciaController::guias');
+$routes->get('/filas', 'GuiaReferenciaController::filas');
+$routes->get('/minhasguias', 'GuiaReferenciaController::minhasguias');
 $routes->get('/cadastrar', 'GuiaReferenciaController::cadastro');
 $routes->get('/triagem/lista', 'GuiaReferenciaController::triagemLista');
+$routes->post('/cadastrar/paciente', 'GuiaReferenciaController::cadastrarPaciente');

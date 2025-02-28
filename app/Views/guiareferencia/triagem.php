@@ -1,5 +1,34 @@
 <?= view('templates/header'); ?>
 
+<!-- -------------- MODALS -------------- -->
+<div class="modal fade" id="modal-create">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <form action="/clientes/cadastrar" method="post">
+                <div class="modal-header">
+                    <h4 class="modal-title">Motivo da devolução</h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="form-group">
+                                <textarea type="text" class="form-control" name="clientName" placeholder="Digite aqui o motivo da devolução"></textarea>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer justify-content-between">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+                    <button type="submit" class="btn btn-primary">Confirmar</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
 <!-- Content Wrapper. Contains page content -->
 <div class="content-wrapper">
     <!-- Content Header (Page header) -->
@@ -107,21 +136,27 @@
                                         <!-- select -->
                                         <div class="form-group">
                                             <label>Nivel de Prioridade</label>
-                                            <select class="custom-select" disabled>
+                                            <select class="custom-select">
                                                 <option>Prioridade 1</option>
                                                 <option>Prioridade 2</option>
                                                 <option>Prioridade 3</option>
                                             </select>
                                         </div>
                                     </div>
+                                    <div class="form-group col-12">
+                                        <label for="exampleInputPassword1">Motivo da Prioridade</label>
+                                        <textarea class="form-control" id="exampleInputPassword1" placeholder="Preencha o motivo do encaminhamento"></textarea>
+                                    </div>
                                 </div>
                             </div>
                             <!-- /.card-body -->
 
-                            <div class="card-footer text-right">
-                                <button type="submit" class="btn btn-primary">Enviar</button>
-                            </div>
+
                         </form>
+                        <div class="card-footer text-right">
+                            <button onclick="readequar()" class="btn btn-primary">Readequar</button>
+                            <button class="btn btn-primary">Adicionar na Fila</button>
+                        </div>
                     </div>
                     <!-- /.card -->
                 </div>
@@ -157,13 +192,17 @@
         });
     });
 
-    function prepararDados(ProdutoId, Nome, Qtde, Valor) {
-        document.getElementById('modal-editar-produto-ProdutoId').value = ProdutoId;
-        document.getElementById('modal-editar-produto-Nome').value = Nome;
-        document.getElementById('modal-editar-produto-Qtde').value = Qtde;
-        document.getElementById('modal-editar-produto-Valor').value = Valor;
+    function readequar() {
+        $('#modal-create').modal('show');
+    }
 
-        $('#modal-editar-produto').modal('show');
+    function prepararDados(ProdutoId, Nome, Qtde, Valor) {
+        // document.getElementById('modal-editar-produto-ProdutoId').value = ProdutoId;
+        // document.getElementById('modal-editar-produto-Nome').value = Nome;
+        // document.getElementById('modal-editar-produto-Qtde').value = Qtde;
+        // document.getElementById('modal-editar-produto-Valor').value = Valor;
+
+        // $('#modal-editar-produto').modal('show');
     }
 
     function searching() {

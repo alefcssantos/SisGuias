@@ -53,7 +53,7 @@ class PacienteModel extends Model
 
     // Fields
     const ID = 'pacienteId';
-    const CROSS = 'pacienteCross';
+    const CDR = 'pacienteCdr';
     const NOME = 'pacienteNome';
     const DATANASCIMENTO = 'pacienteDataNascimento';
     const PESO = 'pacientePeso';

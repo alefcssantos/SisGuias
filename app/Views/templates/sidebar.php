@@ -27,7 +27,7 @@
                 <!-- Add icons to the links using the .nav-icon class
                with font-awesome or any other icon font library -->
                 <li class="nav-item">
-                    <a href="/frentecaixa" class="nav-link">
+                    <a href="/minhasguias" class="nav-link">
                         <i class="nav-icon fas fa-cash-register"></i>
                         <p>Minhas Guias</p>
                     </a>
@@ -47,7 +47,7 @@
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a href="/calendario" class="nav-link">
+                    <a href="/filas" class="nav-link">
                         <i class="nav-icon far fa-calendar-alt"></i>
                         <p>Filas<span class="badge badge-info right">2</span>
                         </p>

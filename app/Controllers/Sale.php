@@ -45,7 +45,6 @@ class Sale extends BaseController
         $model->insert($data);
 
         return redirect()->to('frentecaixa?=sucessCreateOrderTicket');
-
     }
 
     public function searchOrderTicket($searching = null) {

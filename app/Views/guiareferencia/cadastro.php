@@ -39,36 +39,43 @@
                                 <div class="row">
                                     <div class="form-group col-1">
                                         <label for="exampleInputEmail1">CDR</label>
-                                        <input type="email" class="form-control" id="exampleInputEmail1" placeholder="cdr">
+                                        <input type="email" class="form-control" id="exampleInputEmail1"
+                                            placeholder="cdr">
                                     </div>
                                     <div class="form-group col-10">
                                         <label for="exampleInputPassword1">Paciente</label>
-                                        <input type="text" class="form-control" id="exampleInputPassword1" placeholder="Insira o nome do Paciente">
+                                        <input type="text" class="form-control" id="exampleInputPassword1"
+                                            placeholder="Insira o nome do Paciente">
                                     </div>
                                 </div>
                                 <div class="row">
                                     <div class="form-group col-2">
                                         <label for="exampleInputPassword1">Data de Nascimento</label>
-                                        <input type="text" class="form-control" id="exampleInputPassword1" placeholder="Insira a data de nascimento do paciente">
+                                        <input type="text" class="form-control" id="exampleInputPassword1"
+                                            placeholder="Insira a data de nascimento do paciente">
                                     </div>
                                     <div class="form-group col-2">
                                         <label for="exampleInputPassword1">Peso</label>
-                                        <input type="text" class="form-control" id="exampleInputPassword1" placeholder="Insira o peso em kg. Ex: 80">
+                                        <input type="text" class="form-control" id="exampleInputPassword1"
+                                            placeholder="Insira o peso em kg. Ex: 80">
                                     </div>
                                     <div class="form-group col-2">
                                         <label for="exampleInputPassword1">Altura</label>
-                                        <input type="text" class="form-control" id="exampleInputPassword1" placeholder="Insira a altura em cm. Ex: 175">
+                                        <input type="text" class="form-control" id="exampleInputPassword1"
+                                            placeholder="Insira a altura em cm. Ex: 175">
                                     </div>
                                 </div>
 
                                 <div class="row">
                                     <div class="form-group col-2">
                                         <label for="exampleInputPassword1">Estabelecimento</label>
-                                        <input type="text" class="form-control" id="exampleInputPassword1" placeholder="Estabelecimento de Origem">
+                                        <input type="text" class="form-control" id="exampleInputPassword1"
+                                            placeholder="Estabelecimento de Origem">
                                     </div>
                                     <div class="form-group col-1">
                                         <label for="exampleInputPassword1">Prontuario</label>
-                                        <input type="text" class="form-control" id="exampleInputPassword1" placeholder="Numero">
+                                        <input type="text" class="form-control" id="exampleInputPassword1"
+                                            placeholder="Numero">
                                     </div>
                                 </div>
 
@@ -85,44 +92,26 @@
                                         </select>
                                     </div>
 
-                                    <script>
-                                        document.addEventListener('DOMContentLoaded', function() {
-                                            const selectElement = document.getElementById('especialidade');
-
-                                            if (selectElement) {
-                                                const choices = new Choices(selectElement, {
-                                                    searchEnabled: true, // Habilita a pesquisa
-                                                    itemSelectText: '', // Remove o texto de seleção
-                                                });
-
-                                                // Adiciona evento para focar no input de pesquisa quando clicar no select
-                                                selectElement.addEventListener('click', function() {
-                                                    setTimeout(() => {
-                                                        const searchInput = document.querySelector('.choices__input');
-                                                        if (searchInput) {
-                                                            searchInput.focus();
-                                                        }
-                                                    }, 100);
-                                                });
-                                            }
-                                        });
-                                    </script>
-
+                                    
                                     <div class="form-group col-12">
                                         <label for="exampleInputPassword1">Quadro clinico</label>
-                                        <textarea class="form-control" id="exampleInputPassword1" placeholder="Preencha o quadro clinico do paciente"></textarea>
+                                        <textarea class="form-control" id="exampleInputPassword1"
+                                            placeholder="Preencha o quadro clinico do paciente"></textarea>
                                     </div>
                                     <div class="form-group col-12">
                                         <label for="exampleInputPassword1">Exames Realizados</label>
-                                        <textarea class="form-control" id="exampleInputPassword1" placeholder="Insira os exames realizados"></textarea>
+                                        <textarea class="form-control" id="exampleInputPassword1"
+                                            placeholder="Insira os exames realizados"></textarea>
                                     </div>
                                     <div class="form-group col-12">
                                         <label for="exampleInputPassword1">Diagnostico</label>
-                                        <textarea class="form-control" id="exampleInputPassword1" placeholder="Preencha o diagnostico do paciente"></textarea>
+                                        <textarea class="form-control" id="exampleInputPassword1"
+                                            placeholder="Preencha o diagnostico do paciente"></textarea>
                                     </div>
                                     <div class="form-group col-12">
                                         <label for="exampleInputPassword1">Motivo do Encaminhamento</label>
-                                        <textarea class="form-control" id="exampleInputPassword1" placeholder="Preencha o motivo do encaminhamento"></textarea>
+                                        <textarea class="form-control" id="exampleInputPassword1"
+                                            placeholder="Preencha o motivo do encaminhamento"></textarea>
                                     </div>
                                 </div>
 
@@ -140,7 +129,8 @@
                                     </div>
                                     <div class="form-group col-10">
                                         <label for="exampleInputPassword1">Motivo da prioridade</label>
-                                        <textarea class="form-control" id="exampleInputPassword1" placeholder="Preencha o motivo da prioridade apenas em caso p2 ou p3"></textarea>
+                                        <textarea class="form-control" id="exampleInputPassword1"
+                                            placeholder="Preencha o motivo da prioridade apenas em caso p2 ou p3"></textarea>
                                     </div>
                                 </div>
                             </div>
@@ -169,20 +159,20 @@
 
 
 <script>
-    $(document).ready(function() {
+    $(document).ready(function () {
         $('#especialidade').select2({
             placeholder: "Digite para pesquisar...",
             allowClear: false
-        }).on('select2:open', function() {
+        }).on('select2:open', function () {
             setTimeout(() => {
                 document.querySelector('.select2-search__field').focus();
             }, 50);
         });
     });
 
-    document.addEventListener('DOMContentLoaded', function() {
+    document.addEventListener('DOMContentLoaded', function () {
         document.querySelectorAll('input').forEach(input => {
-            input.addEventListener('input', function() {
+            input.addEventListener('input', function () {
                 this.value = this.value.toUpperCase();
             });
         });
