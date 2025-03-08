@@ -14,7 +14,7 @@ class PacienteModel extends Model
     protected $protectFields    = true;
     protected $allowedFields    = [
         PacienteModel::ID,
-        PacienteModel::CROSS,
+        PacienteModel::CDR,
         PacienteModel::NOME,
         PacienteModel::DATANASCIMENTO,
         PacienteModel::PESO,

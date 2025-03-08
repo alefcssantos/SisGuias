@@ -40,4 +40,4 @@ $routes->get('/filas', 'GuiaReferenciaController::filas');
 $routes->get('/minhasguias', 'GuiaReferenciaController::minhasguias');
 $routes->get('/cadastrar', 'GuiaReferenciaController::cadastro');
 $routes->get('/triagem/lista', 'GuiaReferenciaController::triagemLista');
-$routes->post('/cadastrar/paciente', 'GuiaReferenciaController::cadastrarPaciente');
+$routes->post('/paciente/cadastrar', 'GuiaReferenciaController::cadastrarPaciente');
