@@ -38,62 +38,89 @@ class GuiaReferenciaController extends BaseController
         return view('guiareferencia/guias');
     }
 
-    public function cadastrarPaciente()
-{
-    // Recebe os dados do POST (em formato JSON)
-    $dados = $this->request->getJSON(true);  // true para retornar como array associativo
+    public function salvarPaciente()
+    {
+        $dados = $this->request->getJSON(true);
+        log_message('debug', 'Dados recebidos: ' . print_r($dados, true));
 
-    // Log para verificar o conteúdo recebido
-    log_message('debug', 'Dados recebidos: ' . print_r($dados, true));
-
-    // Verifica se os dados estão sendo recebidos corretamente
-    if (empty($dados)) {
-        return $this->response->setJSON([
-            'success' => false,
-            'message' => 'Não há dados para inserir.'
-        ]);
-    }
-
-    // Verificando se os campos esperados estão no array
-    $requiredFields = ['pacienteCdr', 'pacienteNome', 'pacienteDataNascimento', 'pacientePeso', 'pacienteAltura'];
-    foreach ($requiredFields as $field) {
-        if (!isset($dados[$field])) {
+        if (empty($dados)) {
             return $this->response->setJSON([
                 'success' => false,
-                'message' => "Campo obrigatório '$field' não encontrado."
+                'message' => 'Não há dados para inserir.'
             ]);
         }
+
+        $requiredFields = ['pacienteCdr', 'pacienteNome', 'pacienteDataNascimento', 'pacientePeso', 'pacienteAltura'];
+        foreach ($requiredFields as $field) {
+            if (!isset($dados[$field])) {
+                return $this->response->setJSON([
+                    'success' => false,
+                    'message' => "Campo obrigatório '$field' não encontrado."
+                ]);
+            }
+        }
+
+        $paciente_model = new PacienteModel();
+        $cdr = $dados['pacienteCdr'];
+
+        // Verifica se o CDR já existe
+        $pacienteExistente = $paciente_model->where('pacienteCdr', $cdr)->first();
+
+        if ($pacienteExistente) {
+            // Se o CDR existe, atualiza o registro
+            if ($paciente_model->update($pacienteExistente['pacienteId'], $dados)) {
+                return $this->response->setJSON([
+                    'success' => true,
+                    'message' => 'Paciente atualizado com sucesso!'
+                ]);
+            } else {
+                return $this->response->setJSON([
+                    'success' => false,
+                    'message' => 'Erro ao atualizar paciente.'
+                ]);
+            }
+        } else {
+            // Se o CDR não existe, insere um novo registro
+            if ($paciente_model->insert($dados)) {
+                return $this->response->setJSON([
+                    'success' => true,
+                    'message' => 'Paciente salvo com sucesso!'
+                ]);
+            } else {
+                return $this->response->setJSON([
+                    'success' => false,
+                    'message' => 'Erro ao salvar paciente.'
+                ]);
+            }
+        }
     }
+    public function carregarPacienteCDR()
+    {
+        $dados = $this->request->getJSON(true);
 
-    // Se os dados estiverem presentes, você pode continuar com a inserção
-    $paciente_model = new PacienteModel();
-    
-    // Verifique se a inserção foi bem-sucedida
-    if ($paciente_model->insert($dados)) {
-        return $this->response->setJSON([
-            'success' => true,
-            'message' => 'Paciente salvo com sucesso!'
-        ]);
-    } else {
-        return $this->response->setJSON([
-            'success' => false,
-            'message' => 'Erro ao salvar paciente.'
-        ]);
-    }
-}
+        if (!isset($dados['pacienteCdr']) || empty($dados['pacienteCdr'])) {
+            return $this->response->setJSON([
+                'success' => false,
+                'message' => 'CDR não fornecido.'
+            ]); // Bad Request
+        }
 
-
-    public function carregarPaciente() {
-        $cdr = $this->request->getGet('cdr');
+        $cdr = $dados['pacienteCdr'];
 
         $pacienteModel = new PacienteModel();
-        $paciente = $pacienteModel->where(PacienteModel::CDR, $cdr)->find();
-        $data['paciente'] = $paciente;
+        $paciente = $pacienteModel->where(PacienteModel::CDR, $cdr)->first();
 
-        return $this->response->setJSON($data);
-    }
-
-    public function cadastrarGuia() {
-        $dados = $this->request->getVar();
+        if ($paciente) {
+            return $this->response->setJSON([
+                'success' => true,
+                'message' => 'Paciente encontrado',
+                'paciente' => $paciente
+            ]); // OK
+        } else {
+            return $this->response->setJSON([
+                'success' => false,
+                'message' => 'Paciente não encontrado.'
+            ]); // Not Found
+        }
     }
 }

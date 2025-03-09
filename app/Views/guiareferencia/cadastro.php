@@ -36,6 +36,7 @@
                         <!-- form start -->
                         <form>
                             <div class="card-body">
+                                <input type="hidden" id="pacienteId">
                                 <div class="row">
                                     <div class="form-group col-1">
                                         <label for="pacienteCdr">CDR</label>
@@ -69,71 +70,75 @@
 
                                 <div class="row">
                                     <div class="form-group col-2">
-                                        <label for="exampleInputPassword1">Estabelecimento</label>
-                                        <input type="text" class="form-control" id="exampleInputPassword1"
+                                        <label for="guiaReferenciaEstabelecimentoOrigem">Estabelecimento</label>
+                                        <input type="text" class="form-control" id="guiaReferenciaEstabelecimentoOrigem"
                                             placeholder="Estabelecimento de Origem">
                                     </div>
                                     <div class="form-group col-1">
-                                        <label for="exampleInputPassword1">Prontuario</label>
-                                        <input type="text" class="form-control" id="exampleInputPassword1"
-                                            placeholder="Numero">
+                                        <label for="guiaReferenciaProntuarioOrigem">Prontuário</label>
+                                        <input type="text" class="form-control" id="guiaReferenciaProntuarioOrigem"
+                                            placeholder="Número">
                                     </div>
                                 </div>
 
                                 <div class="row">
                                     <div class="form-group col-3">
                                         <label>Especialidade</label>
-                                        <select id="especialidade" class="form-control select2" style="width: 100%;">
-                                            <option>Ortopedia</option>
-                                            <option>California</option>
-                                            <option>Delaware</option>
-                                            <option>Tennessee</option>
-                                            <option>Texas</option>
-                                            <option>Washington</option>
+                                        <select id="guiaReferenciaEspecialidade" class="form-control select2"
+                                            style="width: 100%;">
+                                            <option value="Ortopedia">Ortopedia</option>
+                                            <option value="California">California</option>
+                                            <option value="Delaware">Delaware</option>
+                                            <option value="Tennessee">Tennessee</option>
+                                            <option value="Texas">Texas</option>
+                                            <option value="Washington">Washington</option>
                                         </select>
                                     </div>
+                                </div>
 
-
+                                <div class="row">
                                     <div class="form-group col-12">
-                                        <label for="exampleInputPassword1">Quadro clinico</label>
-                                        <textarea class="form-control" id="exampleInputPassword1"
-                                            placeholder="Preencha o quadro clinico do paciente"></textarea>
+                                        <label for="guiaReferenciaQuadroClinico">Quadro clínico</label>
+                                        <textarea class="form-control" id="guiaReferenciaQuadroClinico"
+                                            placeholder="Preencha o quadro clínico do paciente"></textarea>
                                     </div>
                                     <div class="form-group col-12">
-                                        <label for="exampleInputPassword1">Exames Realizados</label>
-                                        <textarea class="form-control" id="exampleInputPassword1"
+                                        <label for="guiaReferenciaExamesRealizados">Exames Realizados</label>
+                                        <textarea class="form-control" id="guiaReferenciaExamesRealizados"
                                             placeholder="Insira os exames realizados"></textarea>
                                     </div>
                                     <div class="form-group col-12">
-                                        <label for="exampleInputPassword1">Diagnostico</label>
-                                        <textarea class="form-control" id="exampleInputPassword1"
-                                            placeholder="Preencha o diagnostico do paciente"></textarea>
+                                        <label for="guiaReferenciaDiagnostico">Diagnóstico</label>
+                                        <textarea class="form-control" id="guiaReferenciaDiagnostico"
+                                            placeholder="Preencha o diagnóstico do paciente"></textarea>
                                     </div>
                                     <div class="form-group col-12">
-                                        <label for="exampleInputPassword1">Motivo do Encaminhamento</label>
-                                        <textarea class="form-control" id="exampleInputPassword1"
+                                        <label for="guiaReferenciaMotivoEncaminhamento">Motivo do Encaminhamento</label>
+                                        <textarea class="form-control" id="guiaReferenciaMotivoEncaminhamento"
                                             placeholder="Preencha o motivo do encaminhamento"></textarea>
                                     </div>
                                 </div>
 
                                 <div class="row">
                                     <div class="col-2 col-sm-2">
-                                        <!-- select -->
                                         <div class="form-group">
-                                            <label>Nivel de Prioridade</label>
-                                            <select class="custom-select">
-                                                <option>Prioridade 1</option>
-                                                <option>Prioridade 2</option>
-                                                <option>Prioridade 3</option>
+                                            <label>Nível de Prioridade</label>
+                                            <select class="custom-select" id="guiaReferenciaPrioridade">
+                                                <option value="1">Prioridade 1</option>
+                                                <option value="2">Prioridade 2</option>
+                                                <option value="3">Prioridade 3</option>
                                             </select>
                                         </div>
                                     </div>
                                     <div class="form-group col-10">
-                                        <label for="exampleInputPassword1">Motivo da prioridade</label>
-                                        <textarea class="form-control" id="exampleInputPassword1"
-                                            placeholder="Preencha o motivo da prioridade apenas em caso p2 ou p3"></textarea>
+                                        <label for="guiaReferenciaMotivoPrioridade">Motivo da prioridade</label>
+                                        <textarea class="form-control" id="guiaReferenciaMotivoPrioridade"
+                                            placeholder="Preencha o motivo da prioridade apenas em caso P2 ou P3"></textarea>
                                     </div>
                                 </div>
+
+                                <button class="btn btn-primary" onclick="salvarGuia()">Salvar</button>
+
                             </div>
                             <!-- /.card-body -->
 
@@ -180,63 +185,168 @@
     });
 
     const csrfMetaTag = document.querySelector('meta[name="csrf-token"]');
-if (csrfMetaTag) {
-    const csrfToken = csrfMetaTag.getAttribute('content');
-    console.log(csrfToken);  // Verifique o token
-} else {
-    console.error("Token CSRF não encontrado!");
-    alert("Erro: Token CSRF não encontrado!");
-}
+    if (csrfMetaTag) {
+        const csrfToken = csrfMetaTag.getAttribute('content');
+        console.log(csrfToken);  // Verifique o token
+    } else {
+        console.error("Token CSRF não encontrado!");
+        alert("Erro: Token CSRF não encontrado!");
+    }
 
 
-    //alert("<?= base_url('/paciente/cadastrar') ?>");
+    const input = document.getElementById('pacienteCdr');
+    const limiteCaracteres = 4; // Defina o limite de caracteres desejado
+
+    input.addEventListener('input', function () {
+        if (input.value.length >= limiteCaracteres) {
+            carregarPaciente(); // Chama a função que faz o fetch
+        } else {
+            limparPaciente();
+        }
+    });
+
+    function limparPaciente() {
+        document.getElementById("pacienteId").value = "";
+        document.getElementById("pacienteNome").value = "";
+        document.getElementById("pacienteDataNascimento").value = "";
+        document.getElementById("pacientePeso").value = "";
+        document.getElementById("pacienteAltura").value = "";
+    }
+
 
     async function salvarPaciente() {
-    try {
-        // Coleta os valores dos inputs
-        const pacienteData = {
-            pacienteCdr: document.getElementById("pacienteCdr").value,
-            pacienteNome: document.getElementById("pacienteNome").value,
-            pacienteDataNascimento: document.getElementById("pacienteDataNascimento").value,
-            pacientePeso: document.getElementById("pacientePeso").value,
-            pacienteAltura: document.getElementById("pacienteAltura").value
-        };
+        try {
+            // Coleta os valores dos inputs
+            const pacienteData = {
+                pacienteCdr: document.getElementById("pacienteCdr").value,
+                pacienteNome: document.getElementById("pacienteNome").value,
+                pacienteDataNascimento: document.getElementById("pacienteDataNascimento").value,
+                pacientePeso: document.getElementById("pacientePeso").value,
+                pacienteAltura: document.getElementById("pacienteAltura").value
+            };
 
-        // Verifica os dados que estão sendo enviados
-        console.log(pacienteData);
+            // Verifica os dados que estão sendo enviados
+            console.log(pacienteData);
 
-        // Recupera o token CSRF do HTML
-        const csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
+            // Recupera o token CSRF do HTML
+            const csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
 
-        // Envia a requisição POST para o controller CodeIgniter
-        const response = await fetch("http://localhost:8080/paciente/cadastrar", {
-            method: "POST",
-            headers: {
-                'Content-Type': 'application/json',
-                'X-Requested-With': 'XMLHttpRequest',  // Define que a requisição é AJAX
-                'X-CSRF-TOKEN': csrfToken  // Envia o token CSRF
-            },
-            body: JSON.stringify(pacienteData)
-        });
+            // Envia a requisição POST para o controller CodeIgniter
+            const response = await fetch("<?= base_url('/paciente/salvar') ?>", {
+                method: "POST",
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-Requested-With': 'XMLHttpRequest',  // Define que a requisição é AJAX
+                    'X-CSRF-TOKEN': csrfToken  // Envia o token CSRF
+                },
+                body: JSON.stringify(pacienteData)
+            });
 
-        // Aguarda a resposta e tenta transformá-la em JSON
-        const result = await response.json();
+            // Aguarda a resposta e tenta transformá-la em JSON
+            const result = await response.json();
 
-        // Verifica o campo 'success' na resposta JSON
-        if (result.success) {
-            alert(result.message); // Exibe a mensagem de sucesso
-        } else {
-            alert("Erro ao salvar paciente: " + result.message); // Exibe a mensagem de erro
+            // Verifica o campo 'success' na resposta JSON
+            if (result.success) {
+                alert(result.message); // Exibe a mensagem de sucesso
+            } else {
+                alert("Erro ao salvar paciente: " + result.message); // Exibe a mensagem de erro
+            }
+        } catch (error) {
+            console.error("Erro na requisição:", error);
+            alert("Erro ao conectar ao servidor.");
         }
-    } catch (error) {
-        console.error("Erro na requisição:", error);
-        alert("Erro ao conectar ao servidor.");
     }
-}
 
+    async function carregarPaciente() {
+        try {
+            // Coleta os valores dos inputs
+            const pacienteData = {
+                pacienteCdr: document.getElementById("pacienteCdr").value,
+            };
 
+            // Verifica os dados que estão sendo enviados
+            console.log(pacienteData);
 
+            // Recupera o token CSRF do HTML
+            const csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
 
+            // Envia a requisição POST para o controller CodeIgniter
+            const response = await fetch("<?= base_url('/paciente/carregar') ?>", {
+                method: "POST",
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-Requested-With': 'XMLHttpRequest',  // Define que a requisição é AJAX
+                    'X-CSRF-TOKEN': csrfToken  // Envia o token CSRF
+                },
+                body: JSON.stringify(pacienteData)
+            });
+
+            // Aguarda a resposta e tenta transformá-la em JSON
+            const result = await response.json();
+
+            console.log(result);
+
+            // Verifica o campo 'success' na resposta JSON
+            if (result.success) {
+                //alert(result.message); // Exibe a mensagem de sucesso
+                document.getElementById("pacienteId").value = result.paciente.pacienteId;
+                document.getElementById("pacienteNome").value = result.paciente.pacienteNome;
+                document.getElementById("pacienteDataNascimento").value = result.paciente.pacienteDataNascimento;
+                document.getElementById("pacientePeso").value = result.paciente.pacientePeso;
+                document.getElementById("pacienteAltura").value = result.paciente.pacienteAltura;
+                document.getElementById("guiaReferenciaEstabelecimentoOrigem").focus();
+            } else {
+                alert(result.message); // Exibe a mensagem de erro
+            }
+        } catch (error) {
+            console.error("Erro na requisição:", error);
+            alert("Erro ao conectar ao servidor.");
+        }
+    }
+
+    async function salvarGuia() {
+        try {
+            // Coleta os valores dos inputs
+            const guiaData = {
+                pacienteId: document.getElementById("pacienteId").value,
+                guiaReferenciaEstabelecimentoOrigem: document.getElementById("guiaReferenciaEstabelecimentoOrigem").value,
+                guiaReferenciaProntuarioOrigem: document.getElementById("guiaReferenciaProntuarioOrigem").value,
+                guiaReferenciaEspecialidade: document.getElementById("guiaReferenciaEspecialidade").value,
+                guiaReferenciaQuadroClinico: document.getElementById("guiaReferenciaQuadroClinico").value,
+                guiaReferenciaExamesRealizados: document.getElementById("guiaReferenciaExamesRealizados").value,
+                guiaReferenciaDiagnostico: document.getElementById("guiaReferenciaDiagnostico").value,
+                guiaReferenciaMotivoEncaminhamento: document.getElementById("guiaReferenciaMotivoEncaminhamento").value,
+                guiaReferenciaPrioridade: document.getElementById("guiaReferenciaPrioridade").value,
+                guiaReferenciaMotivoPrioridade: document.getElementById("guiaReferenciaMotivoPrioridade").value
+            };
+
+            // Verifica os dados que estão sendo enviados
+            console.log("Enviando dados:", guiaData);
+
+            // Envia a requisição POST para o controller CodeIgniter
+            const response = await fetch("<?= base_url('/guia/cadastrar') ?>", {
+                method: "POST",
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-Requested-With': 'XMLHttpRequest'
+                },
+                body: JSON.stringify(guiaData)
+            });
+
+            // Aguarda a resposta e tenta transformá-la em JSON
+            const result = await response.json();
+
+            // Verifica o campo 'success' na resposta JSON
+            if (result.success) {
+                alert(result.message); // Exibe a mensagem de sucesso
+            } else {
+                alert("Erro ao salvar guia: " + result.message); // Exibe a mensagem de erro
+            }
+        } catch (error) {
+            console.error("Erro na requisição:", error);
+            alert("Erro ao conectar ao servidor.");
+        }
+    }
 
     function prepararDados(ProdutoId, Nome, Qtde, Valor) {
         document.getElementById('modal-editar-produto-ProdutoId').value = ProdutoId;
