@@ -13,6 +13,7 @@ class CreatePacientesTable extends Migration
             'pacienteId'          => [
                 'type'           => 'INT',
                 'constraint'     => 11,
+                'unsigned'       => true, // Tornando o campo UNSIGNED
                 'auto_increment' => true
             ],
             'pacienteCdr'         => [
@@ -33,6 +34,14 @@ class CreatePacientesTable extends Migration
             'pacienteAltura'      => [
                 'type'       => 'DECIMAL',
                 'constraint' => '5,2',  // Exemplo para altura com duas casas decimais
+            ],
+            'created_at'          => [ // Opcional, caso queira timestamp
+                'type' => 'DATETIME',
+                'null' => true,
+            ],
+            'updated_at'          => [ // Opcional, caso queira timestamp
+                'type' => 'DATETIME',
+                'null' => true,
             ],
         ]);
 

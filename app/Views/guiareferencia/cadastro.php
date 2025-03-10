@@ -136,14 +136,11 @@
                                             placeholder="Preencha o motivo da prioridade apenas em caso P2 ou P3"></textarea>
                                     </div>
                                 </div>
-
-                                <button class="btn btn-primary" onclick="salvarGuia()">Salvar</button>
-
                             </div>
                             <!-- /.card-body -->
 
                             <div class="card-footer text-right">
-                                <button type="button" onclick="salvarPaciente()" class="btn btn-primary">Enviar</button>
+                                <button type="button" onclick="salvarGuia()" class="btn btn-primary">Enviar</button>
                             </div>
                         </form>
                     </div>
@@ -308,7 +305,14 @@
         try {
             // Coleta os valores dos inputs
             const guiaData = {
+                // Coleta os dados do paciente
                 pacienteId: document.getElementById("pacienteId").value,
+                pacienteCdr: document.getElementById("pacienteCdr").value,
+                pacienteNome: document.getElementById("pacienteNome").value,
+                pacienteDataNascimento: document.getElementById("pacienteDataNascimento").value,
+                pacientePeso: document.getElementById("pacientePeso").value,
+                pacienteAltura: document.getElementById("pacienteAltura").value,
+                // Coleta os valores da guiaReferencia
                 guiaReferenciaEstabelecimentoOrigem: document.getElementById("guiaReferenciaEstabelecimentoOrigem").value,
                 guiaReferenciaProntuarioOrigem: document.getElementById("guiaReferenciaProntuarioOrigem").value,
                 guiaReferenciaEspecialidade: document.getElementById("guiaReferenciaEspecialidade").value,
@@ -324,7 +328,7 @@
             console.log("Enviando dados:", guiaData);
 
             // Envia a requisição POST para o controller CodeIgniter
-            const response = await fetch("<?= base_url('/guia/cadastrar') ?>", {
+            const response = await fetch("<?= base_url('/guia/salvar') ?>", {
                 method: "POST",
                 headers: {
                     'Content-Type': 'application/json',

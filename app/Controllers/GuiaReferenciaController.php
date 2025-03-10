@@ -3,6 +3,7 @@
 namespace App\Controllers;
 
 use App\Controllers\BaseController;
+use App\Models\GuiaReferenciaModel;
 use CodeIgniter\HTTP\ResponseInterface;
 use App\Models\PacienteModel;
 
@@ -81,10 +82,13 @@ class GuiaReferenciaController extends BaseController
             }
         } else {
             // Se o CDR não existe, insere um novo registro
-            if ($paciente_model->insert($dados)) {
+            $idInserido = $paciente_model->insert($dados);
+
+            if ($idInserido) {
                 return $this->response->setJSON([
                     'success' => true,
-                    'message' => 'Paciente salvo com sucesso!'
+                    'message' => 'Paciente salvo com sucesso!',
+                    'pacienteId' => $idInserido  // Retorna o ID do paciente recém-criado
                 ]);
             } else {
                 return $this->response->setJSON([
@@ -92,6 +96,7 @@ class GuiaReferenciaController extends BaseController
                     'message' => 'Erro ao salvar paciente.'
                 ]);
             }
+
         }
     }
     public function carregarPacienteCDR()
@@ -123,4 +128,64 @@ class GuiaReferenciaController extends BaseController
             ]); // Not Found
         }
     }
+
+    public function salvarGuia() {
+        $dados = $this->request->getJSON(true);
+        log_message('debug', 'Dados recebidos: ' . print_r($dados, true));
+    
+        if (empty($dados)) {
+            return $this->response->setJSON([
+                'success' => false,
+                'message' => 'Não há dados para inserir.'
+            ]);
+        }
+    
+        // Instancia os Models
+        $paciente_model = new PacienteModel();
+        $guia_model = new GuiaReferenciaModel();
+    
+        // Verifica se o paciente já existe pelo CDR
+        $cdr = $dados['pacienteCdr'];
+        $pacienteExistente = $paciente_model->where('pacienteCdr', $cdr)->first();
+    
+        if ($pacienteExistente) {
+            // Se o paciente já existe, atualiza os dados
+            if (!$paciente_model->update($pacienteExistente['pacienteId'], $dados)) {
+                return $this->response->setJSON([
+                    'success' => false,
+                    'message' => 'Erro ao atualizar paciente.'
+                ]);
+            }
+            $pacienteId = $pacienteExistente['pacienteId'];
+        } else {
+            // Se não existe, cria um novo paciente
+            $pacienteId = $paciente_model->insert($dados, true);
+    
+            if (!$pacienteId) {
+                return $this->response->setJSON([
+                    'success' => false,
+                    'message' => 'Erro ao salvar paciente.'
+                ]);
+            }
+        }
+    
+        // Adiciona o pacienteId nos dados e salva a guia
+        $dados['guiaReferenciaPacienteId'] = $pacienteId;
+        $guiaId = $guia_model->insert($dados, true);
+    
+        if ($guiaId) {
+            return $this->response->setJSON([
+                'success' => true,
+                'message' => 'Guia de referência salva com sucesso!',
+                'guiaId' => $guiaId
+            ]);
+        } else {
+            return $this->response->setJSON([
+                'success' => false,
+                'message' => 'Erro ao salvar guia de referência.'
+            ]);
+        }
+    }
+    
+
 }

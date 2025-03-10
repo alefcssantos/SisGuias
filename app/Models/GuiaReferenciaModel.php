@@ -24,7 +24,9 @@ class GuiaReferenciaModel extends Model
         GuiaReferenciaModel::MOTIVOENCAMINHAMENTO,
         GuiaReferenciaModel::PRIORIDADE,
         GuiaReferenciaModel::MOTIVOPRIORIDADE,
-        GuiaReferenciaModel::DATA
+        GuiaReferenciaModel::MOTIVODEVOLUCAO,
+        GuiaReferenciaModel::DATA,
+        GuiaReferenciaModel::STATUS
     ];
 
     protected bool $allowEmptyInserts = false;
@@ -70,6 +72,7 @@ class GuiaReferenciaModel extends Model
     const MOTIVOENCAMINHAMENTO = 'guiaReferenciaMotivoEncaminhamento';
     const PRIORIDADE = 'guiaReferenciaPrioridade';
     const MOTIVOPRIORIDADE = 'guiaReferenciaMotivoPrioridade';
+    const MOTIVODEVOLUCAO = 'guiaReferenciaMotivoPrioridade';
     const DATA = 'guiaReferenciaData';
     const STATUS = 'guiaReferenciaStatus';
 }
