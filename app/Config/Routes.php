@@ -40,6 +40,7 @@ $routes->get('/filas', 'GuiaReferenciaController::filas');
 $routes->get('/minhasguias', 'GuiaReferenciaController::minhasguias');
 $routes->get('/cadastrar', 'GuiaReferenciaController::cadastro');
 $routes->get('/triagem/lista', 'GuiaReferenciaController::triagemLista');
+$routes->post('/triagem/pesquisar', 'GuiaReferenciaController::buscarTriagem');
 $routes->post('/paciente/salvar', 'GuiaReferenciaController::salvarPaciente');
 $routes->post('/paciente/carregar', 'GuiaReferenciaController::carregarPacienteCDR');
 $routes->post('/guia/salvar', 'GuiaReferenciaController::salvarGuia');

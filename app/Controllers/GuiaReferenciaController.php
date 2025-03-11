@@ -21,7 +21,37 @@ class GuiaReferenciaController extends BaseController
 
     public function triagemLista()
     {
-        return view('guiareferencia/triagem');
+        $guiaModel = new GuiaReferenciaModel();
+        $triagens = $guiaModel
+            ->select('pacientes.*, guiareferencias.*')
+            ->join('pacientes', 'pacientes.pacienteId = guiareferencias.guiaReferenciaPacienteId')
+            ->where('guiareferencias.guiaReferenciaStatus', 'pendente')
+            ->findAll();
+        return view('guiareferencia/triagem_fila', ['triagens' => $triagens]);
+    }
+
+    public function buscarTriagem()
+    {
+        // Recebe os dados via getJSON()
+        $dados = $this->request->getJSON(true);
+
+        if (!isset($dados['search'])) {
+            return $this->response->setJSON(['error' => 'Campo de pesquisa ausente'], 400);
+        }
+
+        $search = $dados['search'];  // Valor de pesquisa
+
+        $model = new GuiaReferenciaModel();
+
+        // Realiza o inner join e a pesquisa
+        $result = $model->select('pacientes.*, guiareferencias.*')
+            ->join('pacientes', 'pacientes.pacienteId = guiareferencias.guiaReferenciaPacienteId')
+            ->like('pacientes.pacienteNome', '%' . $search . '%')
+            ->where('guiareferencias.guiaReferenciaStatus', 'pendente')
+            ->findAll();
+
+        // Retorna os dados encontrados no formato JSON
+        return $this->response->setJSON($result);
     }
 
     public function triagemPaciente()
@@ -129,25 +159,26 @@ class GuiaReferenciaController extends BaseController
         }
     }
 
-    public function salvarGuia() {
+    public function salvarGuia()
+    {
         $dados = $this->request->getJSON(true);
         log_message('debug', 'Dados recebidos: ' . print_r($dados, true));
-    
+
         if (empty($dados)) {
             return $this->response->setJSON([
                 'success' => false,
                 'message' => 'Não há dados para inserir.'
             ]);
         }
-    
+
         // Instancia os Models
         $paciente_model = new PacienteModel();
         $guia_model = new GuiaReferenciaModel();
-    
+
         // Verifica se o paciente já existe pelo CDR
         $cdr = $dados['pacienteCdr'];
         $pacienteExistente = $paciente_model->where('pacienteCdr', $cdr)->first();
-    
+
         if ($pacienteExistente) {
             // Se o paciente já existe, atualiza os dados
             if (!$paciente_model->update($pacienteExistente['pacienteId'], $dados)) {
@@ -160,7 +191,7 @@ class GuiaReferenciaController extends BaseController
         } else {
             // Se não existe, cria um novo paciente
             $pacienteId = $paciente_model->insert($dados, true);
-    
+
             if (!$pacienteId) {
                 return $this->response->setJSON([
                     'success' => false,
@@ -168,11 +199,11 @@ class GuiaReferenciaController extends BaseController
                 ]);
             }
         }
-    
+
         // Adiciona o pacienteId nos dados e salva a guia
         $dados['guiaReferenciaPacienteId'] = $pacienteId;
         $guiaId = $guia_model->insert($dados, true);
-    
+
         if ($guiaId) {
             return $this->response->setJSON([
                 'success' => true,
@@ -186,6 +217,6 @@ class GuiaReferenciaController extends BaseController
             ]);
         }
     }
-    
+
 
 }

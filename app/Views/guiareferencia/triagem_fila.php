@@ -165,7 +165,7 @@
         <div class="container-fluid">
             <div class="row mb-2">
                 <div class="col-sm-6">
-                    <h1 class="m-0">Guias</h1>
+                    <h1 class="m-0">Guias para Triagem</h1>
                 </div><!-- /.col -->
                 <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-right">
@@ -201,36 +201,6 @@
                     </div>
                 </div>
             </div>
-            <?php if (isset($_GET["alert"]) && $_GET["alert"] == "successCreate"): ?>
-                <div class="row">
-                    <div class="col-12">
-                        <div class="alert alert-success alert-dismissible">
-                            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-                            <h5><i class="icon fas fa-check"></i> Sucesso! Cliente Cadastrado.</h5>
-
-                        </div>
-                    </div>
-                </div>
-            <?php elseif (isset($_GET['alert']) && $_GET['alert'] == "successDelete"): ?>
-                <div class="row">
-                    <div class="col-12">
-                        <div class="alert alert-success alert-dismissible">
-                            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-                            <h5><i class="icon fas fa-check"></i> Sucesso! Cliente Excluido.</h5>
-
-                        </div>
-                    </div>
-                </div>
-            <?php elseif (isset($_GET['alert']) && $_GET['alert'] == "successEdit"): ?>
-                <div class="row">
-                    <div class="col-12">
-                        <div class="alert alert-success alert-dismissible">
-                            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-                            <h5><i class="icon fas fa-check"></i> Sucesso! Cliente Editado.</h5>
-                        </div>
-                    </div>
-                </div>
-            <?php endif; ?>
             <div class="row">
                 <div class="col-12">
                     <div class="card">
@@ -240,19 +210,17 @@
                                     <tr>
                                         <th style="width: 5%;">CDR</th>
                                         <th class="w-25">Paciente</th>
-                                        <th style="width: 5%">CID</th>
                                         <th class="w-25">Especialidade</th>
                                         <th style="width: 5%;">IMC</th>
                                         <th style="width: 5%;">Status</th>
                                     </tr>
                                 </thead>
 
-                                <tbody>
+                                <tbody id="triagemTable">
                                     <?php foreach ($triagens as $triagem): ?>
                                         <tr>
                                             <td><?= esc($triagem['pacienteCdr']) ?></td>
                                             <td><?= esc($triagem['pacienteNome']) ?></td>
-                                            <td><?= esc($triagem['guiaReferenciaCid']) ?></td>
                                             <td><?= esc($triagem['guiaReferenciaEspecialidade']) ?></td>
                                             <td>
                                                 <?php
@@ -286,17 +254,55 @@
 
 
 <script>
-    function dataPrepare() {
-        // document.getElementById('modal-editar-produto-ProdutoId').value = ProdutoId;
-        // document.getElementById('modal-editar-produto-Nome').value = Nome;
-        // document.getElementById('modal-editar-produto-Qtde').value = Qtde;
-        // document.getElementById('modal-editar-produto-Valor').value = Valor;
+    let searchTimeout; // Para evitar muitas requisições ao mesmo tempo
 
-        $('#modal-create').modal('show');
-    }
+    document.getElementById('search').addEventListener('input', function () {
+        clearTimeout(searchTimeout); // Limpa o timeout anterior
 
-    function searching() {
-        var data = document.getElementById('search').value;
-        window.location.href = "/clientes/" + data;
-    }
+        searchTimeout = setTimeout(() => {
+            const searchTerm = this.value.trim();
+
+            fetch("/triagem/pesquisar", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify({ search: searchTerm }),
+            })
+                .then(response => response.json())
+                .then(data => {
+                    const tableBody = document.getElementById('triagemTable');
+                    tableBody.innerHTML = ""; // Limpa a tabela
+
+                    if (data.length === 0) {
+                        tableBody.innerHTML = "<tr><td colspan='6' class='text-center'>Nenhuma guia encontrada</td></tr>";
+                        return;
+                    }
+
+                    data.forEach(guia => {
+                        // Calculando o IMC
+                        let imc = 0;
+                        if (guia.pacientePeso && guia.pacienteAltura) {
+                            const alturaM = guia.pacienteAltura / 100; // Convertendo altura para metros
+                            imc = guia.pacientePeso / (alturaM * alturaM);
+                        }
+
+                        // Criando a linha da tabela
+                        const row = `
+        <tr>
+            <td>${guia.pacienteCdr}</td>
+            <td>${guia.pacienteNome}</td>
+            <td>${guia.guiaReferenciaEspecialidade || '-'}</td>
+            <td>${imc ? imc.toFixed(2) : '-'}</td> <!-- IMC calculado -->
+            <td>${guia.guiaReferenciaStatus}</td>
+        </tr>
+    `;
+
+                        // Adicionando a linha ao corpo da tabela
+                        tableBody.innerHTML += row;
+                    });
+                })
+                .catch(error => console.error("Erro ao buscar guias:", error));
+        }, 500); // Aguarda 500ms antes de buscar (evita requisições excessivas)
+    });
 </script>
