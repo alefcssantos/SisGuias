@@ -21,26 +21,15 @@ $routes->get('/login', 'Login::index');
 $routes->post('/login/autenticar', 'Login::authentication');
 $routes->get('/logout', 'Login::logout');
 
-//Ajax Sale controller
-$routes->get('/frentecaixa/produtos', 'Sale::searchProducts');
-$routes->get('/frentecaixa/produtos/(:any)', 'Sale::searchProducts/$1');
-
-$routes->get('/frentecaixa/comandas/pesquisar', 'Sale::searchOrderTicket');
-$routes->get('/frentecaixa/comandas/pesquisar/(:any)', 'Sale::searchOrderTicket/$1');
-
-$routes->post('/frentecaixa/comandas/cadastrar', 'Sale::createOrderTicket');
-
-$routes->get('/frentecaixa/produtovenda/listar', 'Sale::listProductOrder');
-$routes->get('/frentecaixa/produtovenda/listar/(:any)', 'Sale::listProductOrder/$1');
-
-$routes->get('/frentecaixa/produtovenda/inserir', 'Sale::createProductOrder');
-
 // GuiaReferencia
 $routes->get('/filas', 'GuiaReferenciaController::filas');
 $routes->get('/minhasguias', 'GuiaReferenciaController::minhasguias');
 $routes->get('/cadastrar', 'GuiaReferenciaController::cadastro');
 $routes->get('/triagem/lista', 'GuiaReferenciaController::triagemLista');
 $routes->post('/triagem/pesquisar', 'GuiaReferenciaController::buscarTriagem');
+$routes->get('/triagem/guia', 'GuiaReferenciaController::abrirGuia');
+$routes->post('/triagem/guia','GuiaReferenciaController::abrirGuia');
 $routes->post('/paciente/salvar', 'GuiaReferenciaController::salvarPaciente');
+
 $routes->post('/paciente/carregar', 'GuiaReferenciaController::carregarPacienteCDR');
 $routes->post('/guia/salvar', 'GuiaReferenciaController::salvarGuia');

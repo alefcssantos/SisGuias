@@ -54,6 +54,38 @@ class GuiaReferenciaController extends BaseController
         return $this->response->setJSON($result);
     }
 
+    // Método para buscar guia e paciente pelo guiaReferenciaId
+    // Método para buscar guia e paciente pelo guiaReferenciaId (agora via POST)
+    public function abrirGuia()
+{
+    // Recebe o guiaReferenciaId do POST
+    $guiaReferenciaId = $this->request->getPost('guiaReferenciaId');
+
+    // Carrega o model de guia
+    $guiaReferenciaModel = new GuiaReferenciaModel();
+
+    // Realiza o INNER JOIN entre as tabelas guiareferencias e pacientes
+    $builder = $guiaReferenciaModel->builder();
+    $builder->select('pacientes.*, guiareferencias.*');
+    $builder->join('pacientes', 'pacientes.pacienteId = guiareferencias.guiaReferenciaPacienteId');
+    $builder->where('guiareferencias.guiaReferenciaId', $guiaReferenciaId);
+    $query = $builder->get();
+
+    // Verifica se a consulta retornou resultados
+    if ($query->getNumRows() > 0) {
+        $data = $query->getRow(); // Obtém o resultado como um único objeto
+
+        // Passa os dados para a view e retorna a nova tela
+        //return view('guiareferencia/triagem_guia', ['guia' => $data]);
+        var_dump($data);
+    } else {
+        // Caso não encontre, exibe uma mensagem de erro ou redireciona
+        return redirect()->to('/guiareferencia')->with('error', 'Guia não encontrada!');
+    }
+}
+
+
+
     public function triagemPaciente()
     {
         return view('guiareferencia/triagem/paciente');

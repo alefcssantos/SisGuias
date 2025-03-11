@@ -219,6 +219,7 @@
                                 <tbody id="triagemTable">
                                     <?php foreach ($triagens as $triagem): ?>
                                         <tr>
+                                            <td style="display:none;"><?= esc($triagem['guiaReferenciaId']) ?></td>
                                             <td><?= esc($triagem['pacienteCdr']) ?></td>
                                             <td><?= esc($triagem['pacienteNome']) ?></td>
                                             <td><?= esc($triagem['guiaReferenciaEspecialidade']) ?></td>
@@ -289,14 +290,15 @@
 
                         // Criando a linha da tabela
                         const row = `
-        <tr>
-            <td>${guia.pacienteCdr}</td>
-            <td>${guia.pacienteNome}</td>
-            <td>${guia.guiaReferenciaEspecialidade || '-'}</td>
-            <td>${imc ? imc.toFixed(2) : '-'}</td> <!-- IMC calculado -->
-            <td>${guia.guiaReferenciaStatus}</td>
-        </tr>
-    `;
+                                        <tr>
+                                            <td style="display:none;"><?= esc($triagem['guiaReferenciaId']) ?></td>
+                                            <td>${guia.pacienteCdr}</td>
+                                            <td>${guia.pacienteNome}</td>
+                                            <td>${guia.guiaReferenciaEspecialidade || '-'}</td>
+                                            <td>${imc ? imc.toFixed(2) : '-'}</td> <!-- IMC calculado -->
+                                            <td>${guia.guiaReferenciaStatus}</td>
+                                        </tr>
+                                    `;
 
                         // Adicionando a linha ao corpo da tabela
                         tableBody.innerHTML += row;
@@ -305,4 +307,35 @@
                 .catch(error => console.error("Erro ao buscar guias:", error));
         }, 500); // Aguarda 500ms antes de buscar (evita requisições excessivas)
     });
+
+    document.querySelectorAll('#triagemTable tr').forEach(row => {
+        row.addEventListener('click', function () {
+            // Obter o guiaReferenciaId da primeira célula
+            const guiaReferenciaId = this.cells[0].textContent.trim(); // Obtém o texto da primeira célula
+            console.log(guiaReferenciaId);
+
+            // Cria um formulário dinâmico
+            const form = document.createElement('form');
+            form.method = 'POST';
+            form.action = '/triagem/guia'; // URL para onde o formulário será enviado
+
+            // Cria um campo hidden para enviar o guiaReferenciaId
+            const input = document.createElement('input');
+            input.type = 'hidden';
+            input.name = 'guiaReferenciaId';
+            input.value = guiaReferenciaId;
+
+            // Adiciona o campo hidden ao formulário
+            form.appendChild(input);
+
+            // Adiciona o formulário ao body e envia
+            document.body.appendChild(form);
+            form.submit(); // Envia o formulário
+        });
+    });
+
+
+
+
+
 </script>

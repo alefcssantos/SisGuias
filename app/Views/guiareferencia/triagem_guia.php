@@ -1,0 +1,167 @@
+<?= view('templates/header'); ?>
+
+<!-- Content Wrapper. Contains page content -->
+<div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <div class="content-header">
+        <div class="container-fluid">
+            <div class="row mb-2">
+                <div class="col-sm-6">
+                    <h1 class="m-0">Cadastrar</h1>
+                </div><!-- /.col -->
+                <div class="col-sm-6">
+                    <ol class="breadcrumb float-sm-right">
+                        <li class="breadcrumb-item"><a href="#">Inicio</a></li>
+                        <li class="breadcrumb-item"><a href="#">Guia de Encaminhamento</a></li>
+                        <li class="breadcrumb-item active">Cadastar</li>
+                    </ol>
+                </div><!-- /.col -->
+            </div><!-- /.row -->
+        </div><!-- /.container-fluid -->
+    </div>
+    <!-- /.content-header -->
+
+    <!-- Main content -->
+    <div class="content">
+        <div class="container-fluid">
+            <div class="row">
+                <!-- left column -->
+                <div class="col-md-12">
+                    <!-- general form elements -->
+                    <div class="card card-primary">
+                        <div class="card-header">
+                            <h3 class="card-title">Guia de Encaminhamento</h3>
+                        </div>
+                        <!-- /.card-header -->
+                        <!-- form start -->
+                        <form>
+                            <div class="card-body">
+                                <input type="hidden" id="pacienteId" value="<?= $guia->pacienteId; ?>">
+
+                                <div class="row">
+                                    <div class="form-group col-1">
+                                        <label for="pacienteCdr">CDR</label>
+                                        <input type="text" class="form-control" id="pacienteCdr" name="pacienteCdr"
+                                            placeholder="CDR" value="<?= $guia->pacienteCdr; ?>" disabled>
+                                    </div>
+                                    <div class="form-group col-10">
+                                        <label for="pacienteNome">Paciente</label>
+                                        <input type="text" class="form-control" id="pacienteNome" name="pacienteNome"
+                                            placeholder="Insira o nome do Paciente" value="<?= $guia->pacienteNome; ?>"
+                                            disabled>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="form-group col-2">
+                                        <label for="pacienteDataNascimento">Data de Nascimento</label>
+                                        <input type="date" class="form-control" id="pacienteDataNascimento"
+                                            name="pacienteDataNascimento" value="<?= $guia->pacienteDataNascimento; ?>"
+                                            disabled>
+                                    </div>
+                                    <div class="form-group col-2">
+                                        <label for="pacientePeso">Peso (kg)</label>
+                                        <input type="number" class="form-control" id="pacientePeso" name="pacientePeso"
+                                            placeholder="Ex: 80" step="0.1" value="<?= $guia->pacientePeso; ?>"
+                                            disabled>
+                                    </div>
+                                    <div class="form-group col-2">
+                                        <label for="pacienteAltura">Altura (cm)</label>
+                                        <input type="number" class="form-control" id="pacienteAltura"
+                                            name="pacienteAltura" placeholder="Ex: 175"
+                                            value="<?= $guia->pacienteAltura; ?>" disabled>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="form-group col-2">
+                                        <label for="guiaReferenciaEstabelecimentoOrigem">Estabelecimento</label>
+                                        <input type="text" class="form-control" id="guiaReferenciaEstabelecimentoOrigem"
+                                            value="<?= $guia->guiaReferenciaEstabelecimentoOrigem; ?>" disabled>
+                                    </div>
+                                    <div class="form-group col-1">
+                                        <label for="guiaReferenciaProntuarioOrigem">Prontuário</label>
+                                        <input type="text" class="form-control" id="guiaReferenciaProntuarioOrigem"
+                                            value="<?= $guia->guiaReferenciaProntuarioOrigem; ?>" disabled>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="form-group col-3">
+                                        <label>Especialidade</label>
+                                        <select id="guiaReferenciaEspecialidade" class="form-control select2"
+                                            style="width: 100%;" disabled>
+                                            <option value="Ortopedia"
+                                                <?= ($guia->guiaReferenciaEspecialidade == 'Ortopedia') ? 'selected' : ''; ?>>Ortopedia</option>
+                                            <option value="California"
+                                                <?= ($guia->guiaReferenciaEspecialidade == 'California') ? 'selected' : ''; ?>>California</option>
+                                            <option value="Delaware" <?= ($guia->guiaReferenciaEspecialidade == 'Delaware') ? 'selected' : ''; ?>>Delaware</option>
+                                            <option value="Tennessee"
+                                                <?= ($guia->guiaReferenciaEspecialidade == 'Tennessee') ? 'selected' : ''; ?>>Tennessee</option>
+                                            <option value="Texas" <?= ($guia->guiaReferenciaEspecialidade == 'Texas') ? 'selected' : ''; ?>>Texas</option>
+                                            <option value="Washington"
+                                                <?= ($guia->guiaReferenciaEspecialidade == 'Washington') ? 'selected' : ''; ?>>Washington</option>
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="form-group col-12">
+                                        <label for="guiaReferenciaQuadroClinico">Quadro clínico</label>
+                                        <textarea class="form-control" id="guiaReferenciaQuadroClinico"
+                                            disabled><?= $guia->guiaReferenciaQuadroClinico; ?></textarea>
+                                    </div>
+                                    <div class="form-group col-12">
+                                        <label for="guiaReferenciaExamesRealizados">Exames Realizados</label>
+                                        <textarea class="form-control" id="guiaReferenciaExamesRealizados"
+                                            disabled><?= $guia->guiaReferenciaExamesRealizados; ?></textarea>
+                                    </div>
+                                    <div class="form-group col-12">
+                                        <label for="guiaReferenciaDiagnostico">Diagnóstico</label>
+                                        <textarea class="form-control" id="guiaReferenciaDiagnostico"
+                                            disabled><?= $guia->guiaReferenciaDiagnostico; ?></textarea>
+                                    </div>
+                                    <div class="form-group col-12">
+                                        <label for="guiaReferenciaMotivoEncaminhamento">Motivo do Encaminhamento</label>
+                                        <textarea class="form-control" id="guiaReferenciaMotivoEncaminhamento"
+                                            disabled><?= $guia->guiaReferenciaMotivoEncaminhamento; ?></textarea>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-2 col-sm-2">
+                                        <div class="form-group">
+                                            <label>Nível de Prioridade</label>
+                                            <select class="custom-select" id="guiaReferenciaPrioridade" disabled>
+                                                <option value="1" <?= ($guia->guiaReferenciaPrioridade == '1') ? 'selected' : ''; ?>>Prioridade 1</option>
+                                                <option value="2" <?= ($guia->guiaReferenciaPrioridade == '2') ? 'selected' : ''; ?>>Prioridade 2</option>
+                                                <option value="3" <?= ($guia->guiaReferenciaPrioridade == '3') ? 'selected' : ''; ?>>Prioridade 3</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="form-group col-10">
+                                        <label for="guiaReferenciaMotivoPrioridade">Motivo da prioridade</label>
+                                        <textarea class="form-control" id="guiaReferenciaMotivoPrioridade"
+                                            disabled><?= $guia->guiaReferenciaMotivoPrioridade; ?></textarea>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+
+
+                    </div>
+                    <!-- /.card -->
+                </div>
+                <!--/.col (left) -->
+                <!-- right column -->
+
+            </div>
+
+
+        </div><!-- /.container-fluid -->
+    </div>
+    <!-- /.content -->
+</div>
+<!-- /.content-wrapper -->
+
+<?= view('templates/footer'); ?>
