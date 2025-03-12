@@ -20,6 +20,10 @@ class CreateGuiaReferenciaTable extends Migration
                 'type'           => 'INT',
                 'unsigned'       => true,
             ],
+            GuiaReferenciaModel::ESTABELECIMENTOORIGEM => [
+                'type'           => 'VARCHAR',
+                'constraint'     => 255,
+            ],
             GuiaReferenciaModel::PRONTUARIOORIGEM => [
                 'type'           => 'VARCHAR',
                 'constraint'     => 255,

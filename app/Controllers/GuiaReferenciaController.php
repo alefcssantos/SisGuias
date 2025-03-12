@@ -25,7 +25,7 @@ class GuiaReferenciaController extends BaseController
         $triagens = $guiaModel
             ->select('pacientes.*, guiareferencias.*')
             ->join('pacientes', 'pacientes.pacienteId = guiareferencias.guiaReferenciaPacienteId')
-            ->where('guiareferencias.guiaReferenciaStatus', 'pendente')
+            ->where('guiareferencias.guiaReferenciaStatus', 'triagem')
             ->findAll();
         return view('guiareferencia/triagem_fila', ['triagens' => $triagens]);
     }
@@ -47,7 +47,7 @@ class GuiaReferenciaController extends BaseController
         $result = $model->select('pacientes.*, guiareferencias.*')
             ->join('pacientes', 'pacientes.pacienteId = guiareferencias.guiaReferenciaPacienteId')
             ->like('pacientes.pacienteNome', '%' . $search . '%')
-            ->where('guiareferencias.guiaReferenciaStatus', 'pendente')
+            ->where('guiareferencias.guiaReferenciaStatus', 'triagem')
             ->findAll();
 
         // Retorna os dados encontrados no formato JSON
@@ -76,8 +76,8 @@ class GuiaReferenciaController extends BaseController
         $data = $query->getRow(); // Obtém o resultado como um único objeto
 
         // Passa os dados para a view e retorna a nova tela
-        //return view('guiareferencia/triagem_guia', ['guia' => $data]);
-        var_dump($data);
+        return view('guiareferencia/triagem_guia', ['guia' => $data]);
+        //var_dump($data);
     } else {
         // Caso não encontre, exibe uma mensagem de erro ou redireciona
         return redirect()->to('/guiareferencia')->with('error', 'Guia não encontrada!');

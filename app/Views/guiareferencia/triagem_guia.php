@@ -1,5 +1,35 @@
 <?= view('templates/header'); ?>
 
+<!-- -------------- MODALS -------------- -->
+<div class="modal fade" id="modal-create">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <form action="/clientes/cadastrar" method="post">
+                <div class="modal-header">
+                    <h4 class="modal-title">Motivo da devolução</h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="form-group">
+                                <textarea type="text" class="form-control" name="clientName" placeholder="Digite aqui o motivo da devolução"></textarea>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer justify-content-between">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+                    <button type="submit" class="btn btn-primary">Confirmar</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<!-- -------------- END MODALS -------------- -->
+
 <!-- Content Wrapper. Contains page content -->
 <div class="content-wrapper">
     <!-- Content Header (Page header) -->
@@ -146,6 +176,11 @@
                                     </div>
                                 </div>
                             </div>
+
+                            <div class="card-footer text-right">
+                            <button type="button" onclick="readequar()" class="btn btn-primary">Readequar</button>
+                            <button type="button" onclick="adicionar()" class="btn btn-primary">Adicionar na Fila</button>
+                        </div>
                         </form>
 
 
@@ -165,3 +200,17 @@
 <!-- /.content-wrapper -->
 
 <?= view('templates/footer'); ?>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        document.querySelectorAll('input').forEach(input => {
+            input.addEventListener('input', function() {
+                this.value = this.value.toUpperCase();
+            });
+        });
+    });
+
+    function readequar() {
+        $('#modal-create').modal('show');
+    }
+</script>

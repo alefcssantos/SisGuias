@@ -217,27 +217,31 @@
                                 </thead>
 
                                 <tbody id="triagemTable">
-                                    <?php foreach ($triagens as $triagem): ?>
-                                        <tr>
-                                            <td style="display:none;"><?= esc($triagem['guiaReferenciaId']) ?></td>
-                                            <td><?= esc($triagem['pacienteCdr']) ?></td>
-                                            <td><?= esc($triagem['pacienteNome']) ?></td>
-                                            <td><?= esc($triagem['guiaReferenciaEspecialidade']) ?></td>
-                                            <td>
-                                                <?php
-                                                $imc = 0;
-                                                if (!empty($triagem['pacientePeso']) && !empty($triagem['pacienteAltura'])) {
-                                                    $altura_m = $triagem['pacienteAltura'] / 100; // Convertendo altura para metros
-                                                    if ($altura_m > 0) {
-                                                        $imc = $triagem['pacientePeso'] / ($altura_m * $altura_m);
+                                    <?php if (!isset($triagens) || empty($triagens) || "" === $triagens) {
+                                        echo "<tr><td colspan='6' class='text-center'>Nenhuma guia para triagem =)</td></tr>";
+                                    } else {
+                                        foreach ($triagens as $triagem): ?>
+                                            <tr>
+                                                <td style="display:none;"><?= esc($triagem['guiaReferenciaId']) ?></td>
+                                                <td><?= esc($triagem['pacienteCdr']) ?></td>
+                                                <td><?= esc($triagem['pacienteNome']) ?></td>
+                                                <td><?= esc($triagem['guiaReferenciaEspecialidade']) ?></td>
+                                                <td>
+                                                    <?php
+                                                    $imc = 0;
+                                                    if (!empty($triagem['pacientePeso']) && !empty($triagem['pacienteAltura'])) {
+                                                        $altura_m = $triagem['pacienteAltura'] / 100; // Convertendo altura para metros
+                                                        if ($altura_m > 0) {
+                                                            $imc = $triagem['pacientePeso'] / ($altura_m * $altura_m);
+                                                        }
                                                     }
-                                                }
-                                                echo number_format($imc, 2);
-                                                ?>
-                                            </td>
-                                            <td><?= esc($triagem['guiaReferenciaStatus']) ?></td>
-                                        </tr>
-                                    <?php endforeach; ?>
+                                                    echo number_format($imc, 2);
+                                                    ?>
+                                                </td>
+                                                <td><?= esc($triagem['guiaReferenciaStatus']) ?></td>
+                                            </tr>
+                                        <?php endforeach;
+                                    } ?>
                                 </tbody>
                             </table>
 
@@ -276,7 +280,7 @@
                     tableBody.innerHTML = ""; // Limpa a tabela
 
                     if (data.length === 0) {
-                        tableBody.innerHTML = "<tr><td colspan='6' class='text-center'>Nenhuma guia encontrada</td></tr>";
+                        tableBody.innerHTML = "<tr><td colspan='6' class='text-center'>Nenhuma guia encontrada =(</td></tr>";
                         return;
                     }
 
@@ -291,7 +295,7 @@
                         // Criando a linha da tabela
                         const row = `
                                         <tr>
-                                            <td style="display:none;"><?= esc($triagem['guiaReferenciaId']) ?></td>
+                                            <td style="display:none;">${guia.guiaReferenciaId}</td>
                                             <td>${guia.pacienteCdr}</td>
                                             <td>${guia.pacienteNome}</td>
                                             <td>${guia.guiaReferenciaEspecialidade || '-'}</td>

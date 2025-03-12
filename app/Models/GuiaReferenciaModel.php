@@ -15,6 +15,7 @@ class GuiaReferenciaModel extends Model
     protected $allowedFields    = [
         GuiaReferenciaModel::ID,
         GuiaReferenciaModel::PACIENTEID,
+        GuiaReferenciaModel::ESTABELECIMENTOORIGEM,
         GuiaReferenciaModel::PRONTUARIOORIGEM,
         GuiaReferenciaModel::ESPECIALIDADE,
         GuiaReferenciaModel::CID,
