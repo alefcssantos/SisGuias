@@ -58,6 +58,9 @@ class CreateGuiaReferenciaTable extends Migration
             GuiaReferenciaModel::MOTIVODEVOLUCAO => [
                 'type'           => 'TEXT',
             ],
+            GuiaReferenciaModel::MOTIVOREADEQUAR => [
+                'type'           => 'TEXT',
+            ],
             GuiaReferenciaModel::DATA => [
                 'type'           => 'DATETIME',
             ],

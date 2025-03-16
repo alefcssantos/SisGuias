@@ -195,18 +195,4 @@
     function readequar() {
         $('#modal-create').modal('show');
     }
-
-    function prepararDados(ProdutoId, Nome, Qtde, Valor) {
-        // document.getElementById('modal-editar-produto-ProdutoId').value = ProdutoId;
-        // document.getElementById('modal-editar-produto-Nome').value = Nome;
-        // document.getElementById('modal-editar-produto-Qtde').value = Qtde;
-        // document.getElementById('modal-editar-produto-Valor').value = Valor;
-
-        // $('#modal-editar-produto').modal('show');
-    }
-
-    function searching() {
-        var data = document.getElementById('search').value;
-        window.location.href = "/produtos/" + data;
-    }
 </script>

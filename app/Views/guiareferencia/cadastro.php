@@ -210,6 +210,19 @@
         document.getElementById("pacienteAltura").value = "";
     }
 
+    function limparGuia() {
+        document.getElementById("pacienteCdr").value = "";
+        document.getElementById("guiaReferenciaEstabelecimentoOrigem").value = "";
+        document.getElementById("guiaReferenciaProntuarioOrigem").value = "";
+        document.getElementById("guiaReferenciaEspecialidade").value = "";
+        document.getElementById("guiaReferenciaQuadroClinico").value = "";
+        document.getElementById("guiaReferenciaExamesRealizados").value = "";
+        document.getElementById("guiaReferenciaDiagnostico").value = "";
+        document.getElementById("guiaReferenciaMotivoEncaminhamento").value = "";
+        document.getElementById("guiaReferenciaPrioridade").value = "";
+        document.getElementById("guiaReferenciaMotivoPrioridade").value = "";
+    }
+
 
     async function salvarPaciente() {
         try {
@@ -343,6 +356,10 @@
             // Verifica o campo 'success' na resposta JSON
             if (result.success) {
                 alert(result.message); // Exibe a mensagem de sucesso
+                limparPaciente();
+                limparGuia();
+                document.getElementById("pacienteCdr").focus();
+
             } else {
                 alert("Erro ao salvar guia: " + result.message); // Exibe a mensagem de erro
             }
@@ -350,19 +367,5 @@
             console.error("Erro na requisição:", error);
             alert("Erro ao conectar ao servidor.");
         }
-    }
-
-    function prepararDados(ProdutoId, Nome, Qtde, Valor) {
-        document.getElementById('modal-editar-produto-ProdutoId').value = ProdutoId;
-        document.getElementById('modal-editar-produto-Nome').value = Nome;
-        document.getElementById('modal-editar-produto-Qtde').value = Qtde;
-        document.getElementById('modal-editar-produto-Valor').value = Valor;
-
-        $('#modal-editar-produto').modal('show');
-    }
-
-    function searching() {
-        var data = document.getElementById('search').value;
-        window.location.href = "/produtos/" + data;
     }
 </script>

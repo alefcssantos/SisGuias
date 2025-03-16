@@ -6,7 +6,7 @@
         <div class="modal-content">
             <form action="/clientes/cadastrar" method="post">
                 <div class="modal-header">
-                    <h4 class="modal-title">Motivo da devolução</h4>
+                    <h4 class="modal-title">Motivo para readequar</h4>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
@@ -15,14 +15,17 @@
                     <div class="row">
                         <div class="col-12">
                             <div class="form-group">
-                                <textarea type="text" class="form-control" name="clientName" placeholder="Digite aqui o motivo da devolução"></textarea>
+                                <textarea id="guiaReferenciaMotivoReadequar" type="text" class="form-control"
+                                    name="guiaReferenciaMotivoReadequar"
+                                    placeholder="Digite aqui o motivo para readequar a guia"></textarea>
                             </div>
                         </div>
                     </div>
                 </div>
                 <div class="modal-footer justify-content-between">
-                    <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
-                    <button type="submit" class="btn btn-primary">Confirmar</button>
+                    <button type="button" onclick="cancelar()" class="btn btn-default"
+                        data-dismiss="modal">Cancelar</button>
+                    <button type="button" onclick="confirmar()" class="btn btn-primary">Confirmar</button>
                 </div>
             </form>
         </div>
@@ -104,6 +107,7 @@
                                 </div>
 
                                 <div class="row">
+                                    <input type="hidden" id="guiaReferenciaId" value="<?= $guia->guiaReferenciaId; ?>">
                                     <div class="form-group col-2">
                                         <label for="guiaReferenciaEstabelecimentoOrigem">Estabelecimento</label>
                                         <input type="text" class="form-control" id="guiaReferenciaEstabelecimentoOrigem"
@@ -178,9 +182,10 @@
                             </div>
 
                             <div class="card-footer text-right">
-                            <button type="button" onclick="readequar()" class="btn btn-primary">Readequar</button>
-                            <button type="button" onclick="adicionar()" class="btn btn-primary">Adicionar na Fila</button>
-                        </div>
+                                <button type="button" onclick="readequar()" class="btn btn-primary">Readequar</button>
+                                <button type="button" onclick="adicionar()" class="btn btn-primary">Adicionar na
+                                    Fila</button>
+                            </div>
                         </form>
 
 
@@ -202,13 +207,101 @@
 <?= view('templates/footer'); ?>
 
 <script>
-    document.addEventListener('DOMContentLoaded', function() {
+    document.addEventListener('DOMContentLoaded', function () {
         document.querySelectorAll('input').forEach(input => {
-            input.addEventListener('input', function() {
+            input.addEventListener('input', function () {
                 this.value = this.value.toUpperCase();
             });
         });
     });
+
+    function confirmar() {
+        try {
+            // Criar um formulário dinamicamente
+            const form = document.createElement("form");
+            form.method = "POST";
+            form.action = "<?= base_url('/triagem/readequar') ?>";
+
+            // Recupera o token CSRF
+            const csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
+
+            // Adiciona o token CSRF ao formulário
+            const csrfInput = document.createElement("input");
+            csrfInput.type = "hidden";
+            csrfInput.name = "csrf_token";
+            csrfInput.value = csrfToken;
+            form.appendChild(csrfInput);
+
+            // Coleta os valores dos inputs e adiciona ao formulário
+            const fields = [
+                { name: "guiaReferenciaId", value: document.getElementById("guiaReferenciaId").value },
+                { name: "guiaReferenciaMotivoReadequar", value: document.getElementById("guiaReferenciaMotivoReadequar").value },
+                { name: "guiaReferenciaStatus", value: "readequar" }
+            ];
+
+            fields.forEach(field => {
+                const input = document.createElement("input");
+                input.type = "hidden";
+                input.name = field.name;
+                input.value = field.value;
+                form.appendChild(input);
+            });
+
+            // Adiciona o formulário ao corpo e o submete
+            document.body.appendChild(form);
+            form.submit();
+
+        } catch (error) {
+            console.error("Erro na requisição:", error);
+            alert("Erro ao conectar ao servidor.");
+        }
+    }
+
+    function adicionar() {
+        try {
+            // Criar um formulário dinamicamente
+            const form = document.createElement("form");
+            form.method = "POST";
+            form.action = "<?= base_url('/triagem/readequar') ?>";
+
+            // Recupera o token CSRF
+            const csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
+
+            // Adiciona o token CSRF ao formulário
+            const csrfInput = document.createElement("input");
+            csrfInput.type = "hidden";
+            csrfInput.name = "csrf_token";
+            csrfInput.value = csrfToken;
+            form.appendChild(csrfInput);
+
+            // Coleta os valores dos inputs e adiciona ao formulário
+            const fields = [
+                { name: "guiaReferenciaId", value: document.getElementById("guiaReferenciaId").value },
+                { name: "guiaReferenciaStatus", value: "fila" }
+            ];
+
+            fields.forEach(field => {
+                const input = document.createElement("input");
+                input.type = "hidden";
+                input.name = field.name;
+                input.value = field.value;
+                form.appendChild(input);
+            });
+
+            // Adiciona o formulário ao corpo e o submete
+            document.body.appendChild(form);
+            form.submit();
+
+        } catch (error) {
+            console.error("Erro na requisição:", error);
+            alert("Erro ao conectar ao servidor.");
+        }
+    }
+
+
+    function cancelar() {
+        $('#modal-create').modal('hidden');
+    }
 
     function readequar() {
         $('#modal-create').modal('show');

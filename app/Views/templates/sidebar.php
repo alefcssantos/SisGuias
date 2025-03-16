@@ -28,28 +28,42 @@
                with font-awesome or any other icon font library -->
                 <li class="nav-item">
                     <a href="/minhasguias" class="nav-link">
-                        <i class="nav-icon fas fa-cash-register"></i>
+                        <!-- <i class="nav-icon fas fa-cash-register"></i> -->
                         <p>Minhas Guias</p>
                     </a>
                 </li>
 
                 <li class="nav-item">
                     <a href="/cadastrar" class="nav-link">
-                        <i class="nav-icon fas fa-cash-register"></i>
+                        <!-- <i class="nav-icon fas fa-cash-register"></i> -->
                         <p>Cadastrar Guias</p>
                     </a>
                 </li>
                 <li class="nav-item">
                     <a href="/triagem/lista" class="nav-link">
-                        <i class="nav-icon fas fa-table"></i>
-                        <p>Triagem de Guias<span class="badge badge-info right">2</span>
+                        <!-- <i class="nav-icon fas fa-table"></i> -->
+                        <p>Triagem de Guias<span class="badge badge-info right">10</span>
                         </p>
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a href="/filas" class="nav-link">
-                        <i class="nav-icon far fa-calendar-alt"></i>
-                        <p>Filas<span class="badge badge-info right">2</span>
+                    <a href="/filap1" class="nav-link">
+                        <!-- <i class="nav-icon far fa-calendar-alt"></i> -->
+                        <p>Fila P1<span class="badge badge-info right"></span>
+                        </p>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="/filap2" class="nav-link">
+                        <!-- <i class="nav-icon far fa-calendar-alt"></i> -->
+                        <p>Fila P2<span class="badge badge-info right"></span>
+                        </p>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="/filap3" class="nav-link">
+                        <!-- <i class="nav-icon far fa-calendar-alt"></i> -->
+                        <p>Fila P3<span class="badge badge-info right"></span>
                         </p>
                     </a>
                 </li>

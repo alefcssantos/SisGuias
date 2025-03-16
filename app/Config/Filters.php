@@ -36,7 +36,7 @@ class Filters extends BaseFilters
         'pagecache'     => PageCache::class,
         'performance'   => PerformanceMetrics::class,
 
-        // My filtes
+        // My filter's
         'user_filter'  => UserFilter::class,
     ];
 

@@ -29,6 +29,8 @@ $routes->get('/triagem/lista', 'GuiaReferenciaController::triagemLista');
 $routes->post('/triagem/pesquisar', 'GuiaReferenciaController::buscarTriagem');
 $routes->get('/triagem/guia', 'GuiaReferenciaController::abrirGuia');
 $routes->post('/triagem/guia','GuiaReferenciaController::abrirGuia');
+$routes->post('/triagem/readequar', 'GuiaReferenciaController::readequarGuia');
+$routes->post('/triagem/adicionar', 'GuiaReferenciaController::adicionarFila');
 $routes->post('/paciente/salvar', 'GuiaReferenciaController::salvarPaciente');
 
 $routes->post('/paciente/carregar', 'GuiaReferenciaController::carregarPacienteCDR');

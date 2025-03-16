@@ -19,6 +19,21 @@ class GuiaReferenciaController extends BaseController
         return view('guiareferencia/cadastro');
     }
 
+    public function triagemPaciente()
+    {
+        return view('guiareferencia/triagem/paciente');
+    }
+
+    public function filas()
+    {
+        return view('guiareferencia/filas');
+    }
+
+    public function minhasguias()
+    {
+        return view('guiareferencia/guias');
+    }
+
     public function triagemLista()
     {
         $guiaModel = new GuiaReferenciaModel();
@@ -57,48 +72,31 @@ class GuiaReferenciaController extends BaseController
     // Método para buscar guia e paciente pelo guiaReferenciaId
     // Método para buscar guia e paciente pelo guiaReferenciaId (agora via POST)
     public function abrirGuia()
-{
-    // Recebe o guiaReferenciaId do POST
-    $guiaReferenciaId = $this->request->getPost('guiaReferenciaId');
-
-    // Carrega o model de guia
-    $guiaReferenciaModel = new GuiaReferenciaModel();
-
-    // Realiza o INNER JOIN entre as tabelas guiareferencias e pacientes
-    $builder = $guiaReferenciaModel->builder();
-    $builder->select('pacientes.*, guiareferencias.*');
-    $builder->join('pacientes', 'pacientes.pacienteId = guiareferencias.guiaReferenciaPacienteId');
-    $builder->where('guiareferencias.guiaReferenciaId', $guiaReferenciaId);
-    $query = $builder->get();
-
-    // Verifica se a consulta retornou resultados
-    if ($query->getNumRows() > 0) {
-        $data = $query->getRow(); // Obtém o resultado como um único objeto
-
-        // Passa os dados para a view e retorna a nova tela
-        return view('guiareferencia/triagem_guia', ['guia' => $data]);
-        //var_dump($data);
-    } else {
-        // Caso não encontre, exibe uma mensagem de erro ou redireciona
-        return redirect()->to('/guiareferencia')->with('error', 'Guia não encontrada!');
-    }
-}
-
-
-
-    public function triagemPaciente()
     {
-        return view('guiareferencia/triagem/paciente');
-    }
+        // Recebe o guiaReferenciaId do POST
+        $guiaReferenciaId = $this->request->getPost('guiaReferenciaId');
 
-    public function filas()
-    {
-        return view('guiareferencia/filas');
-    }
+        // Carrega o model de guia
+        $guiaReferenciaModel = new GuiaReferenciaModel();
 
-    public function minhasguias()
-    {
-        return view('guiareferencia/guias');
+        // Realiza o INNER JOIN entre as tabelas guiareferencias e pacientes
+        $builder = $guiaReferenciaModel->builder();
+        $builder->select('pacientes.*, guiareferencias.*');
+        $builder->join('pacientes', 'pacientes.pacienteId = guiareferencias.guiaReferenciaPacienteId');
+        $builder->where('guiareferencias.guiaReferenciaId', $guiaReferenciaId);
+        $query = $builder->get();
+
+        // Verifica se a consulta retornou resultados
+        if ($query->getNumRows() > 0) {
+            $data = $query->getRow(); // Obtém o resultado como um único objeto
+
+            // Passa os dados para a view e retorna a nova tela
+            return view('guiareferencia/triagem_guia', ['guia' => $data]);
+            //var_dump($data);
+        } else {
+            // Caso não encontre, exibe uma mensagem de erro ou redireciona
+            return redirect()->to('/guiareferencia')->with('error', 'Guia não encontrada!');
+        }
     }
 
     public function salvarPaciente()
@@ -246,6 +244,58 @@ class GuiaReferenciaController extends BaseController
             return $this->response->setJSON([
                 'success' => false,
                 'message' => 'Erro ao salvar guia de referência.'
+            ]);
+        }
+    }
+
+    public function readequarGuia()
+    {
+        $dados = $this->request->getPost(); // Captura os dados do formulário
+        log_message('debug', 'Dados recebidos: ' . print_r($dados, true));
+
+        if (empty($dados)) {
+            return $this->response->setJSON([
+                'success' => false,
+                'message' => 'Não há dados para inserir.'
+            ]);
+        }
+
+        // Instancia o Model
+        $guia_model = new GuiaReferenciaModel();
+
+        // Atualiza os dados no banco de dados
+        if ($guia_model->update($dados['guiaReferenciaId'], $dados)) {
+            return redirect()->to('/triagem/lista'); // Redireciona para a lista
+        } else {
+            return $this->response->setJSON([
+                'success' => false,
+                'message' => 'Erro ao atualizar guia.'
+            ]);
+        }
+    }
+
+    public function adicionarFila()
+    {
+        $dados = $this->request->getPost(); // Captura os dados do formulário
+        log_message('debug', 'Dados recebidos: ' . print_r($dados, true));
+
+        if (empty($dados)) {
+            return $this->response->setJSON([
+                'success' => false,
+                'message' => 'Não há dados para inserir.'
+            ]);
+        }
+
+        // Instancia o Model
+        $guia_model = new GuiaReferenciaModel();
+
+        // Atualiza os dados no banco de dados
+        if ($guia_model->update($dados['guiaReferenciaId'], $dados)) {
+            return redirect()->to('/triagem/lista'); // Redireciona para a lista
+        } else {
+            return $this->response->setJSON([
+                'success' => false,
+                'message' => 'Erro ao atualizar guia.'
             ]);
         }
     }
