@@ -69,6 +69,121 @@ class GuiaReferenciaController extends BaseController
         return $this->response->setJSON($result);
     }
 
+
+    // Fila P1
+    public function filaP1Lista()
+    {
+        $guiaModel = new GuiaReferenciaModel();
+        $guias = $guiaModel
+            ->select('pacientes.*, guiareferencias.*')
+            ->join('pacientes', 'pacientes.pacienteId = guiareferencias.guiaReferenciaPacienteId')
+            ->where('guiareferencias.guiaReferenciaPrioridade', '1')
+            ->where('guiareferencias.guiaReferenciaStatus', 'fila')
+            ->findAll();
+        return view('guiareferencia/fila_p1', ['guias' => $guias]);
+    }
+
+    public function buscarFilaP1()
+    {
+        // Recebe os dados via getJSON()
+        $dados = $this->request->getJSON(true);
+
+        if (!isset($dados['search'])) {
+            return $this->response->setJSON(['error' => 'Campo de pesquisa ausente'], 400);
+        }
+
+        $search = $dados['search'];  // Valor de pesquisa
+
+        $model = new GuiaReferenciaModel();
+
+        // Realiza o inner join e a pesquisa
+        $result = $model->select('pacientes.*, guiareferencias.*')
+            ->join('pacientes', 'pacientes.pacienteId = guiareferencias.guiaReferenciaPacienteId')
+            ->like('pacientes.pacienteNome', $search) // O `like()` já adiciona os '%' automaticamente
+            ->where('guiareferencias.guiaReferenciaStatus', 'fila')
+            ->where('guiareferencias.guiaReferenciaPrioridade', '1') // Aqui estava o erro, use `where()`
+            ->findAll();
+
+        // Retorna os dados encontrados no formato JSON
+        return $this->response->setJSON($result);
+    }
+
+    // Fila P2
+    public function filaP2Lista()
+    {
+        $guiaModel = new GuiaReferenciaModel();
+        $guias = $guiaModel
+            ->select('pacientes.*, guiareferencias.*')
+            ->join('pacientes', 'pacientes.pacienteId = guiareferencias.guiaReferenciaPacienteId')
+            ->where('guiareferencias.guiaReferenciaPrioridade', '1')
+            ->where('guiareferencias.guiaReferenciaStatus', 'fila')
+            ->findAll();
+        return view('guiareferencia/fila_p1', ['guias' => $guias]);
+    }
+
+    public function buscarFilaP2()
+    {
+        // Recebe os dados via getJSON()
+        $dados = $this->request->getJSON(true);
+
+        if (!isset($dados['search'])) {
+            return $this->response->setJSON(['error' => 'Campo de pesquisa ausente'], 400);
+        }
+
+        $search = $dados['search'];  // Valor de pesquisa
+
+        $model = new GuiaReferenciaModel();
+
+        // Realiza o inner join e a pesquisa
+        $result = $model->select('pacientes.*, guiareferencias.*')
+            ->join('pacientes', 'pacientes.pacienteId = guiareferencias.guiaReferenciaPacienteId')
+            ->like('pacientes.pacienteNome', $search) // O `like()` já adiciona os '%' automaticamente
+            ->where('guiareferencias.guiaReferenciaStatus', 'fila')
+            ->where('guiareferencias.guiaReferenciaPrioridade', '1') // Aqui estava o erro, use `where()`
+            ->findAll();
+
+        // Retorna os dados encontrados no formato JSON
+        return $this->response->setJSON($result);
+    }
+
+    // Fila P3
+    public function filaP3Lista()
+    {
+        $guiaModel = new GuiaReferenciaModel();
+        $guias = $guiaModel
+            ->select('pacientes.*, guiareferencias.*')
+            ->join('pacientes', 'pacientes.pacienteId = guiareferencias.guiaReferenciaPacienteId')
+            ->where('guiareferencias.guiaReferenciaPrioridade', '1')
+            ->where('guiareferencias.guiaReferenciaStatus', 'fila')
+            ->findAll();
+        return view('guiareferencia/fila_p1', ['guias' => $guias]);
+    }
+
+    public function buscarFilaP3()
+    {
+        // Recebe os dados via getJSON()
+        $dados = $this->request->getJSON(true);
+
+        if (!isset($dados['search'])) {
+            return $this->response->setJSON(['error' => 'Campo de pesquisa ausente'], 400);
+        }
+
+        $search = $dados['search'];  // Valor de pesquisa
+
+        $model = new GuiaReferenciaModel();
+
+        // Realiza o inner join e a pesquisa
+        $result = $model->select('pacientes.*, guiareferencias.*')
+            ->join('pacientes', 'pacientes.pacienteId = guiareferencias.guiaReferenciaPacienteId')
+            ->like('pacientes.pacienteNome', $search) // O `like()` já adiciona os '%' automaticamente
+            ->where('guiareferencias.guiaReferenciaStatus', 'fila')
+            ->where('guiareferencias.guiaReferenciaPrioridade', '1') // Aqui estava o erro, use `where()`
+            ->findAll();
+
+        // Retorna os dados encontrados no formato JSON
+        return $this->response->setJSON($result);
+    }
+
     // Método para buscar guia e paciente pelo guiaReferenciaId
     // Método para buscar guia e paciente pelo guiaReferenciaId (agora via POST)
     public function abrirGuia()
