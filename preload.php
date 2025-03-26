@@ -36,14 +36,12 @@ if (! function_exists('str_contains')) {
     /**
      * Polyfill of str_contains()
      */
-    function str_contains(string $haystack, string $needle): bool
-    {
+    function str_contains(string $haystack, string $needle): bool {
         return empty($needle) || strpos($haystack, $needle) !== false;
     }
 }
 
-class preload
-{
+class preload {
     /**
      * @var array Paths to preload.
      */
@@ -72,13 +70,11 @@ class preload
         ],
     ];
 
-    public function __construct()
-    {
+    public function __construct() {
         $this->loadAutoloader();
     }
 
-    private function loadAutoloader()
-    {
+    private function loadAutoloader() {
         $paths = new Config\Paths();
         require rtrim($paths->systemDirectory, '\\/ ') . DIRECTORY_SEPARATOR . 'bootstrap.php';
     }
@@ -86,8 +82,7 @@ class preload
     /**
      * Load PHP files.
      */
-    public function load()
-    {
+    public function load() {
         foreach ($this->paths as $path) {
             $directory = new RecursiveDirectoryIterator($path['include']);
             $fullTree  = new RecursiveIteratorIterator($directory);

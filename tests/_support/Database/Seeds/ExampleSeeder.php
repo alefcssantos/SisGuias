@@ -4,10 +4,8 @@ namespace Tests\Support\Database\Seeds;
 
 use CodeIgniter\Database\Seeder;
 
-class ExampleSeeder extends Seeder
-{
-    public function run(): void
-    {
+class ExampleSeeder extends Seeder {
+    public function run(): void {
         $factories = [
             [
                 'name'    => 'Test Factory',

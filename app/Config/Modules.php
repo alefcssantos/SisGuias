@@ -12,8 +12,7 @@ use CodeIgniter\Modules\Modules as BaseModules;
  *
  * @immutable
  */
-class Modules extends BaseModules
-{
+class Modules extends BaseModules {
     /**
      * --------------------------------------------------------------------------
      * Enable Auto-Discovery?

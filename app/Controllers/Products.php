@@ -6,10 +6,8 @@ use App\Controllers\BaseController;
 use App\Models\ProdutoModel;
 use CodeIgniter\HTTP\ResponseInterface;
 
-class Products extends BaseController
-{
-    public function list($searching = "null")
-    {
+class Products extends BaseController {
+    public function list($searching = "null") {
         $produto_model = new ProdutoModel();
 
         if ($searching != "null") {
@@ -24,8 +22,7 @@ class Products extends BaseController
         return view('products/list', $data);
     }
 
-    public function create()
-    {
+    public function create() {
         $dados = $this->request->getVar();
         $produto_model = new ProdutoModel();
         $produto_model->insert($dados);
@@ -33,8 +30,7 @@ class Products extends BaseController
         return redirect()->to('/produtos?alert=successCreate');
     }
 
-    public function edit()
-    {
+    public function edit() {
         $dados = $this->request->getVar();
         $produto_model = new ProdutoModel();
         $produto_model->where('ProdutoId', $dados['ProdutoId'])->set($dados)->update();
@@ -42,8 +38,7 @@ class Products extends BaseController
         return redirect()->to('/produtos?alert=successEdit');
     }
 
-    public function delete($ProdutoId)
-    {
+    public function delete($ProdutoId) {
         $produto_model = new ProdutoModel();
         $produto_model->where('ProdutoId', $ProdutoId)->delete();
 

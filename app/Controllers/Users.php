@@ -6,10 +6,8 @@ use App\Controllers\BaseController;
 use App\Models\UserModel as Model;
 use CodeIgniter\HTTP\ResponseInterface;
 
-class Users extends BaseController
-{
-    public function index()
-    {
+class Users extends BaseController {
+    public function index() {
         $models = $this->getModel()->paginate();
         $data['models'] = $models;
         
@@ -27,15 +25,15 @@ class Users extends BaseController
     public function read($searching = "null") {
         $model = $this->getModel();
 
-        if($searching != "null") {
-            $models = $model->like(Model::NAME,$searching.'%')->paginate(10);
+        if ($searching != "null") {
+            $models = $model->like(Model::NAME, $searching.'%')->paginate(10);
         } else {
             $models = $model->paginate(10);
         }
 
         $data['models'] = $models;
         
-        return view('users/index', $data);        
+        return view('users/index', $data);
     }
 
     public function edit() {
@@ -44,7 +42,7 @@ class Users extends BaseController
         $model->where(Model::ID, $dados[Model::ID])->set($dados)->update();
 
         return redirect()->to('/usuarios?alert=successEdit');
-    } 
+    }
 
     public function delete($userId) {
         $model = $this->getModel();

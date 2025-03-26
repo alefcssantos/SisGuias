@@ -7,8 +7,7 @@ use CodeIgniter\Format\FormatterInterface;
 use CodeIgniter\Format\JSONFormatter;
 use CodeIgniter\Format\XMLFormatter;
 
-class Format extends BaseConfig
-{
+class Format extends BaseConfig {
     /**
      * --------------------------------------------------------------------------
      * Available Response Formats
@@ -70,8 +69,7 @@ class Format extends BaseConfig
      *
      * @deprecated This is an alias of `\CodeIgniter\Format\Format::getFormatter`. Use that instead.
      */
-    public function getFormatter(string $mime)
-    {
+    public function getFormatter(string $mime) {
         return Services::format()->getFormatter($mime);
     }
 }

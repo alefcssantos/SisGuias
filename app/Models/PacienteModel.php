@@ -4,8 +4,7 @@ namespace App\Models;
 
 use CodeIgniter\Model;
 
-class PacienteModel extends Model
-{
+class PacienteModel extends Model {
     protected $table            = 'pacientes';
     protected $primaryKey       = PacienteModel::ID;
     protected $useAutoIncrement = true;

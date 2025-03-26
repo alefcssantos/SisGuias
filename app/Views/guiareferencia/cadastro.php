@@ -108,9 +108,9 @@
                                             placeholder="Insira os exames realizados"></textarea>
                                     </div>
                                     <div class="form-group col-12">
-                                        <label for="guiaReferenciaDiagnostico">Diagnóstico</label>
+                                        <label for="guiaReferenciaDiagnostico">Diagnóstico/CID</label>
                                         <textarea class="form-control" id="guiaReferenciaDiagnostico"
-                                            placeholder="Preencha o diagnóstico do paciente"></textarea>
+                                            placeholder="Preencha o diagnóstico/CID do paciente"></textarea>
                                     </div>
                                     <div class="form-group col-12">
                                         <label for="guiaReferenciaMotivoEncaminhamento">Motivo do Encaminhamento</label>

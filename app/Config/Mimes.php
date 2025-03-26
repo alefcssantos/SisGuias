@@ -18,8 +18,7 @@ namespace Config;
  *
  * @immutable
  */
-class Mimes
-{
+class Mimes {
     /**
      * Map of extensions to mime types.
      *
@@ -490,8 +489,7 @@ class Mimes
      *
      * @return string|null The mime type found, or none if unable to determine.
      */
-    public static function guessTypeFromExtension(string $extension)
-    {
+    public static function guessTypeFromExtension(string $extension) {
         $extension = trim(strtolower($extension), '. ');
 
         if (! array_key_exists($extension, static::$mimes)) {
@@ -508,8 +506,7 @@ class Mimes
      *
      * @return string|null The extension determined, or null if unable to match.
      */
-    public static function guessExtensionFromType(string $type, ?string $proposedExtension = null)
-    {
+    public static function guessExtensionFromType(string $type, ?string $proposedExtension = null) {
         $type = trim(strtolower($type), '. ');
 
         $proposedExtension = trim(strtolower($proposedExtension ?? ''));

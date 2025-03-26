@@ -5,8 +5,7 @@ namespace Config;
 use CodeIgniter\Config\BaseConfig;
 use CodeIgniter\Log\Handlers\FileHandler;
 
-class Logger extends BaseConfig
-{
+class Logger extends BaseConfig {
     /**
      * --------------------------------------------------------------------------
      * Error Logging Threshold

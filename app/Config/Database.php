@@ -7,8 +7,7 @@ use CodeIgniter\Database\Config;
 /**
  * Database Configuration
  */
-class Database extends Config
-{
+class Database extends Config {
     /**
      * The directory that holds the Migrations and Seeds directories.
      */
@@ -187,8 +186,7 @@ class Database extends Config
         ],
     ];
 
-    public function __construct()
-    {
+    public function __construct() {
         parent::__construct();
 
         // Ensure that we always set the database group to 'tests' if

@@ -6,12 +6,10 @@ use App\Controllers\BaseController;
 use CodeIgniter\HTTP\ResponseInterface;
 use App\Models\LoginModel;
 
-class Login extends BaseController
-{
-    public function index()
-    {
+class Login extends BaseController {
+    public function index() {
         // Check User Session
-        if(session()->has('Usuario')){
+        if (session()->has('Usuario')) {
             return redirect()->to("/");
         } else {
             return view('login/index');
@@ -19,7 +17,7 @@ class Login extends BaseController
     
     }
 
-    public function authentication()    {
+    public function authentication() {
 
         // Validar dados de entrada
         $validated = $this->validate([
@@ -51,7 +49,7 @@ class Login extends BaseController
 
     }
 
-    public function logout() { 
+    public function logout() {
         session()->destroy();
         session()->start();
         return view('login/index');

@@ -4,16 +4,14 @@ namespace App\Database\Migrations;
 
 use CodeIgniter\Database\Migration;
 
-class Products extends Migration
-{
-    public function up()
-    {
+class Products extends Migration {
+    public function up() {
         $this->forge->addField([
             'ProdutoId' => [
                 'type'           => 'INT',
                 'constraint'     => 11,
-                'usigned'        => TRUE,
-                'auto_increment' => TRUE
+                'usigned'        => true,
+                'auto_increment' => true
             ],
         
             'Nome' => [
@@ -30,12 +28,11 @@ class Products extends Migration
             ],
         ]);
         
-        $this->forge->addKey('ProdutoId', TRUE);
+        $this->forge->addKey('ProdutoId', true);
         $this->forge->createTable('produtos');
     }
 
-    public function down()
-    {
+    public function down() {
         $this->forge->dropTable('produtos');
     }
 }

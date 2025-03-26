@@ -4,10 +4,8 @@ namespace App\Database\Seeds;
 
 use CodeIgniter\Database\Seeder;
 
-class GuiaReferenciasSeeder extends Seeder
-{
-    public function run()
-    {
+class GuiaReferenciasSeeder extends Seeder {
+    public function run() {
         $data = [
             [
                 'guiaReferenciaPacienteId' => 1,

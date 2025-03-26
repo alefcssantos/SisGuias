@@ -7,35 +7,28 @@ use App\Models\GuiaReferenciaModel;
 use CodeIgniter\HTTP\ResponseInterface;
 use App\Models\PacienteModel;
 
-class GuiaReferenciaController extends BaseController
-{
-    public function index()
-    {
+class GuiaReferenciaController extends BaseController {
+    public function index() {
         return view('guiareferencia/guias');
     }
 
-    public function cadastro()
-    {
+    public function cadastro() {
         return view('guiareferencia/cadastro');
     }
 
-    public function triagemPaciente()
-    {
+    public function triagemPaciente() {
         return view('guiareferencia/triagem/paciente');
     }
 
-    public function filas()
-    {
+    public function filas() {
         return view('guiareferencia/filas');
     }
 
-    public function minhasguias()
-    {
+    public function minhasguias() {
         return view('guiareferencia/guias');
     }
 
-    public function triagemLista()
-    {
+    public function triagemLista() {
         $guiaModel = new GuiaReferenciaModel();
         $triagens = $guiaModel
             ->select('pacientes.*, guiareferencias.*')
@@ -45,8 +38,7 @@ class GuiaReferenciaController extends BaseController
         return view('guiareferencia/triagem_fila', ['triagens' => $triagens]);
     }
 
-    public function buscarTriagem()
-    {
+    public function buscarTriagem() {
         // Recebe os dados via getJSON()
         $dados = $this->request->getJSON(true);
 
@@ -71,8 +63,7 @@ class GuiaReferenciaController extends BaseController
 
 
     // Fila P1
-    public function filaP1Lista()
-    {
+    public function filaP1Lista() {
         $guiaModel = new GuiaReferenciaModel();
         $guias = $guiaModel
             ->select('pacientes.*, guiareferencias.*')
@@ -83,8 +74,7 @@ class GuiaReferenciaController extends BaseController
         return view('guiareferencia/fila_p1', ['guias' => $guias]);
     }
 
-    public function buscarFilaP1()
-    {
+    public function buscarFilaP1() {
         // Recebe os dados via getJSON()
         $dados = $this->request->getJSON(true);
 
@@ -109,20 +99,18 @@ class GuiaReferenciaController extends BaseController
     }
 
     // Fila P2
-    public function filaP2Lista()
-    {
+    public function filaP2Lista() {
         $guiaModel = new GuiaReferenciaModel();
         $guias = $guiaModel
             ->select('pacientes.*, guiareferencias.*')
             ->join('pacientes', 'pacientes.pacienteId = guiareferencias.guiaReferenciaPacienteId')
-            ->where('guiareferencias.guiaReferenciaPrioridade', '1')
+            ->where('guiareferencias.guiaReferenciaPrioridade', '2')
             ->where('guiareferencias.guiaReferenciaStatus', 'fila')
             ->findAll();
-        return view('guiareferencia/fila_p1', ['guias' => $guias]);
+        return view('guiareferencia/fila_p2', ['guias' => $guias]);
     }
 
-    public function buscarFilaP2()
-    {
+    public function buscarFilaP2() {
         // Recebe os dados via getJSON()
         $dados = $this->request->getJSON(true);
 
@@ -139,7 +127,7 @@ class GuiaReferenciaController extends BaseController
             ->join('pacientes', 'pacientes.pacienteId = guiareferencias.guiaReferenciaPacienteId')
             ->like('pacientes.pacienteNome', $search) // O `like()` já adiciona os '%' automaticamente
             ->where('guiareferencias.guiaReferenciaStatus', 'fila')
-            ->where('guiareferencias.guiaReferenciaPrioridade', '1') // Aqui estava o erro, use `where()`
+            ->where('guiareferencias.guiaReferenciaPrioridade', '2') // Aqui estava o erro, use `where()`
             ->findAll();
 
         // Retorna os dados encontrados no formato JSON
@@ -147,20 +135,18 @@ class GuiaReferenciaController extends BaseController
     }
 
     // Fila P3
-    public function filaP3Lista()
-    {
+    public function filaP3Lista() {
         $guiaModel = new GuiaReferenciaModel();
         $guias = $guiaModel
             ->select('pacientes.*, guiareferencias.*')
             ->join('pacientes', 'pacientes.pacienteId = guiareferencias.guiaReferenciaPacienteId')
-            ->where('guiareferencias.guiaReferenciaPrioridade', '1')
+            ->where('guiareferencias.guiaReferenciaPrioridade', '3')
             ->where('guiareferencias.guiaReferenciaStatus', 'fila')
             ->findAll();
-        return view('guiareferencia/fila_p1', ['guias' => $guias]);
+        return view('guiareferencia/fila_p3', ['guias' => $guias]);
     }
 
-    public function buscarFilaP3()
-    {
+    public function buscarFilaP3() {
         // Recebe os dados via getJSON()
         $dados = $this->request->getJSON(true);
 
@@ -177,7 +163,7 @@ class GuiaReferenciaController extends BaseController
             ->join('pacientes', 'pacientes.pacienteId = guiareferencias.guiaReferenciaPacienteId')
             ->like('pacientes.pacienteNome', $search) // O `like()` já adiciona os '%' automaticamente
             ->where('guiareferencias.guiaReferenciaStatus', 'fila')
-            ->where('guiareferencias.guiaReferenciaPrioridade', '1') // Aqui estava o erro, use `where()`
+            ->where('guiareferencias.guiaReferenciaPrioridade', '3') // Aqui estava o erro, use `where()`
             ->findAll();
 
         // Retorna os dados encontrados no formato JSON
@@ -186,8 +172,7 @@ class GuiaReferenciaController extends BaseController
 
     // Método para buscar guia e paciente pelo guiaReferenciaId
     // Método para buscar guia e paciente pelo guiaReferenciaId (agora via POST)
-    public function abrirGuia()
-    {
+    public function abrirGuia() {
         // Recebe o guiaReferenciaId do POST
         $guiaReferenciaId = $this->request->getPost('guiaReferenciaId');
 
@@ -214,8 +199,7 @@ class GuiaReferenciaController extends BaseController
         }
     }
 
-    public function salvarPaciente()
-    {
+    public function salvarPaciente() {
         $dados = $this->request->getJSON(true);
         log_message('debug', 'Dados recebidos: ' . print_r($dados, true));
 
@@ -271,11 +255,9 @@ class GuiaReferenciaController extends BaseController
                     'message' => 'Erro ao salvar paciente.'
                 ]);
             }
-
         }
     }
-    public function carregarPacienteCDR()
-    {
+    public function carregarPacienteCDR() {
         $dados = $this->request->getJSON(true);
 
         if (!isset($dados['pacienteCdr']) || empty($dados['pacienteCdr'])) {
@@ -304,8 +286,7 @@ class GuiaReferenciaController extends BaseController
         }
     }
 
-    public function salvarGuia()
-    {
+    public function salvarGuia() {
         $dados = $this->request->getJSON(true);
         log_message('debug', 'Dados recebidos: ' . print_r($dados, true));
 
@@ -363,8 +344,7 @@ class GuiaReferenciaController extends BaseController
         }
     }
 
-    public function readequarGuia()
-    {
+    public function readequarGuia() {
         $dados = $this->request->getPost(); // Captura os dados do formulário
         log_message('debug', 'Dados recebidos: ' . print_r($dados, true));
 
@@ -389,8 +369,7 @@ class GuiaReferenciaController extends BaseController
         }
     }
 
-    public function adicionarFila()
-    {
+    public function adicionarFila() {
         $dados = $this->request->getPost(); // Captura os dados do formulário
         log_message('debug', 'Dados recebidos: ' . print_r($dados, true));
 
@@ -415,5 +394,8 @@ class GuiaReferenciaController extends BaseController
         }
     }
 
-
+    public function teste() {
+        //Apenas um teste para ver se ele vai funcionar direito desta vez
+        return true;
+    }
 }

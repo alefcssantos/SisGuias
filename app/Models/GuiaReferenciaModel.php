@@ -4,8 +4,7 @@ namespace App\Models;
 
 use CodeIgniter\Model;
 
-class GuiaReferenciaModel extends Model
-{
+class GuiaReferenciaModel extends Model {
     protected $table            = 'guiareferencias';
     protected $primaryKey       = GuiaReferenciaModel::ID;
     protected $useAutoIncrement = true;

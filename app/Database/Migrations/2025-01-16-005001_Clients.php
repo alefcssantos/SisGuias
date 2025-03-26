@@ -5,10 +5,8 @@ namespace App\Database\Migrations;
 use App\Models\ClientModel;
 use CodeIgniter\Database\Migration;
 
-class Clients extends Migration
-{
-    public function up()
-    {
+class Clients extends Migration {
+    public function up() {
         // Criando a tabela clients
         $this->forge->addField([
             // Definindo os campos conforme o modelo
@@ -74,8 +72,7 @@ class Clients extends Migration
         $this->forge->createTable('clients');
     }
 
-    public function down()
-    {
+    public function down() {
         // Remover a tabela clients
         $this->forge->dropTable('clients');
     }

@@ -5,8 +5,7 @@ namespace Config;
 /**
  * @immutable
  */
-class DocTypes
-{
+class DocTypes {
     /**
      * List of valid document types.
      *

@@ -4,8 +4,7 @@ namespace App\Models\Scrum;
 
 use CodeIgniter\Model;
 
-class ActivityModel extends Model
-{
+class ActivityModel extends Model {
     protected $table            = 'activities';
     protected $primaryKey       = 'id';
     protected $useAutoIncrement = true;

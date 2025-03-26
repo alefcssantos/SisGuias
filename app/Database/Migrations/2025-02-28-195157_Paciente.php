@@ -4,10 +4,8 @@ namespace App\Database\Migrations;
 
 use CodeIgniter\Database\Migration;
 
-class CreatePacientesTable extends Migration
-{
-    public function up()
-    {
+class CreatePacientesTable extends Migration {
+    public function up() {
         // Criando a tabela 'pacientes'
         $this->forge->addField([
             'pacienteId'          => [
@@ -52,8 +50,7 @@ class CreatePacientesTable extends Migration
         $this->forge->createTable('pacientes');
     }
 
-    public function down()
-    {
+    public function down() {
         // Caso queira desfazer a migration
         $this->forge->dropTable('pacientes');
     }

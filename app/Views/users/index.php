@@ -1,5 +1,7 @@
 <?php echo View('templates/header');
-use App\Models\UserModel as Model; ?>
+use App\Models\UserModel as Model;
+
+?>
 
 <!-- -------------- MODALS: Listar -------------- -->
 <div class="modal fade" id="modal-form">

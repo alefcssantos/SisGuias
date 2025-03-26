@@ -4,12 +4,10 @@ namespace Tests\Support\Database\Migrations;
 
 use CodeIgniter\Database\Migration;
 
-class ExampleMigration extends Migration
-{
+class ExampleMigration extends Migration {
     protected $DBGroup = 'tests';
 
-    public function up(): void
-    {
+    public function up(): void {
         $this->forge->addField('id');
         $this->forge->addField([
             'name'       => ['type' => 'varchar', 'constraint' => 31],
@@ -30,8 +28,7 @@ class ExampleMigration extends Migration
         $this->forge->createTable('factories');
     }
 
-    public function down(): void
-    {
+    public function down(): void {
         $this->forge->dropTable('factories');
     }
 }

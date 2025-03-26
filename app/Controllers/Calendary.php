@@ -6,10 +6,8 @@ use App\Controllers\BaseController;
 use App\Models\Scrum\TaskModel as Model;
 use CodeIgniter\HTTP\ResponseInterface;
 
-class Calendary extends BaseController
-{
-    public function index()
-    {
+class Calendary extends BaseController {
+    public function index() {
         // $models = $this->getModel()->paginate();
         // $data['models'] = $models;
         
@@ -22,7 +20,7 @@ class Calendary extends BaseController
         return json_encode($models);
     }
 
-    public function create() {        
+    public function create() {
         $dados = $this->request->getVar();
         $userId = session()->get('LoginId');
         $dados[Model::USERID] = $userId;

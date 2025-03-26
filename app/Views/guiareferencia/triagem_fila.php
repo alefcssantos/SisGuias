@@ -229,14 +229,14 @@
                                                 <td>
                                                     <?php
                                                     $imc = 0;
-                                                    if (!empty($triagem['pacientePeso']) && !empty($triagem['pacienteAltura'])) {
-                                                        $altura_m = $triagem['pacienteAltura'] / 100; // Convertendo altura para metros
-                                                        if ($altura_m > 0) {
-                                                            $imc = $triagem['pacientePeso'] / ($altura_m * $altura_m);
-                                                        }
-                                                    }
-                                                    echo number_format($imc, 2);
-                                                    ?>
+                                            if (!empty($triagem['pacientePeso']) && !empty($triagem['pacienteAltura'])) {
+                                                $altura_m = $triagem['pacienteAltura'] / 100; // Convertendo altura para metros
+                                                if ($altura_m > 0) {
+                                                    $imc = $triagem['pacientePeso'] / ($altura_m * $altura_m);
+                                                }
+                                            }
+                                            echo number_format($imc, 2);
+                                            ?>
                                                 </td>
                                                 <td><?= esc($triagem['guiaReferenciaStatus']) ?></td>
                                             </tr>

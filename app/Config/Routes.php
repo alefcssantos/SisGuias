@@ -29,7 +29,7 @@ $routes->get('/cadastrar', 'GuiaReferenciaController::cadastro');
 $routes->get('/triagem/lista', 'GuiaReferenciaController::triagemLista');
 $routes->post('/triagem/pesquisar', 'GuiaReferenciaController::buscarTriagem');
 $routes->get('/triagem/guia', 'GuiaReferenciaController::abrirGuia');
-$routes->post('/triagem/guia','GuiaReferenciaController::abrirGuia');
+$routes->post('/triagem/guia', 'GuiaReferenciaController::abrirGuia');
 $routes->post('/triagem/readequar', 'GuiaReferenciaController::readequarGuia');
 $routes->post('/triagem/adicionar', 'GuiaReferenciaController::adicionarFila');
 

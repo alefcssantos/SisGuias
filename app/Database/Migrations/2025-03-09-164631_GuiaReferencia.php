@@ -6,10 +6,8 @@ use App\Models\PacienteModel;
 use CodeIgniter\Database\Migration;
 use App\Models\GuiaReferenciaModel;
 
-class CreateGuiaReferenciaTable extends Migration
-{
-    public function up()
-    {
+class CreateGuiaReferenciaTable extends Migration {
+    public function up() {
         $this->forge->addField([
             GuiaReferenciaModel::ID => [
                 'type'           => 'INT',
@@ -76,8 +74,7 @@ class CreateGuiaReferenciaTable extends Migration
         $this->forge->createTable('guiareferencias');
     }
 
-    public function down()
-    {
+    public function down() {
         $this->forge->dropTable('guiareferencias');
     }
 }

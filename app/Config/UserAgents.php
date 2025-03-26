@@ -14,8 +14,7 @@ use CodeIgniter\Config\BaseConfig;
  * mobile device data. The array keys are used to identify the device
  * and the array values are used to set the actual name of the item.
  */
-class UserAgents extends BaseConfig
-{
+class UserAgents extends BaseConfig {
     /**
      * -------------------------------------------------------------------
      * OS Platforms

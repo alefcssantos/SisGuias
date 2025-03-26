@@ -1,4 +1,4 @@
-<?= view('templates/header'); ?>
+<?php echo View('templates/header'); ?>
 
 <!-- Content Wrapper. Contains page content -->
 <div class="content-wrapper">
@@ -7,12 +7,12 @@
         <div class="container-fluid">
             <div class="row mb-2">
                 <div class="col-sm-6">
-                    <h1 class="m-0">Fila P1</h1>
+                    <h1 class="m-0">Fila P3</h1>
                 </div><!-- /.col -->
                 <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-right">
                         <li class="breadcrumb-item"><a href="#"></a></li>
-                        <li class="breadcrumb-item active">Fila P1</li>
+                        <li class="breadcrumb-item active">Fila P3</li>
                     </ol>
                 </div><!-- /.col -->
             </div><!-- /.row -->
@@ -27,27 +27,20 @@
                 <div class="col-12">
                     <div class="card">
                         <div class="card-body">
-                            <div class="row">
-                                <div class="form-group col-2">
-                                    <!-- <label>Especialidade</label> -->
-                                    <select id="guiaReferenciaEspecialidade" class="form-control select2" style="width: 100%;">
-                                        <option value="Ortopedia">Ortopedia</option>
-                                        <option value="Cardiologia">Endocrinologia</option>
-                                        <option value="Endocrinologia">Psicologia</option>
-                                        <option value="Neurologia">Neurologia</option>
-                                        <option value="Psquiatria">To sem ideia</option>
-                                    </select>
-                                </div>
-                                <div class="col-10">
-                                    <div class="input-group input-group-lg">
-                                        <input id="search" type="search" class="form-control form-control-lg"
-                                            placeholder="Digite o nome do paciente para pesquisar">
-                                    </div>
+                            <div class="input-group input-group-lg">
+                                <input id="search" type="search" class="form-control form-control-lg"
+                                    placeholder="Digite o nome do paciente para pesquisar">
+                                <div class="input-group-append">
+                                    <button class="btn btn-lg btn-default" onclick="searching()">
+                                        <i class="fa fa-search"></i>
+                                    </button>
+                                    <button type="button" class="btn btn-info" onclick="dataPrepare()">
+                                        <i class="fas fa-plus-circle"></i>
+                                    </button>
                                 </div>
                             </div>
                         </div>
                     </div>
-
                 </div>
             </div>
             <div class="row">
@@ -89,7 +82,7 @@
                                                 </td>
                                                 <td><?= esc($guia['guiaReferenciaStatus']) ?></td>
                                             </tr>
-                                    <?php endforeach;
+                                        <?php endforeach;
                                     } ?>
                                 </tbody>
                             </table>
@@ -110,21 +103,19 @@
 <script>
     let searchTimeout; // Para evitar muitas requisições ao mesmo tempo
 
-    document.getElementById('search').addEventListener('input', function() {
+    document.getElementById('search').addEventListener('input', function () {
         clearTimeout(searchTimeout); // Limpa o timeout anterior
 
         searchTimeout = setTimeout(() => {
             const searchTerm = this.value.trim();
 
-            fetch("/filap1/pesquisar", {
-                    method: "POST",
-                    headers: {
-                        "Content-Type": "application/json",
-                    },
-                    body: JSON.stringify({
-                        search: searchTerm
-                    }),
-                })
+            fetch("/filap3/pesquisar", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify({ search: searchTerm }),
+            })
                 .then(response => response.json())
                 .then(data => {
                     const tableBody = document.getElementById('triagemTable');
@@ -164,7 +155,7 @@
     });
 
     document.querySelectorAll('#triagemTable tr').forEach(row => {
-        row.addEventListener('click', function() {
+        row.addEventListener('click', function () {
             // Obter o guiaReferenciaId da primeira célula
             const guiaReferenciaId = this.cells[0].textContent.trim(); // Obtém o texto da primeira célula
             console.log(guiaReferenciaId);
@@ -188,4 +179,9 @@
             form.submit(); // Envia o formulário
         });
     });
+
+
+
+
+
 </script>

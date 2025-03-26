@@ -8,9 +8,7 @@ use App\Models\OrderTicketModel;
 use App\Models\ProductOrderModel;
 use CodeIgniter\HTTP\ResponseInterface;
 
-class Sale extends BaseController
-
-{
+class Sale extends BaseController {
     public function index() {
         $produto_model = new ProdutoModel();
         $produtos = $produto_model->paginate(10);
@@ -23,14 +21,14 @@ class Sale extends BaseController
 
         $data['orderTickets'] = $orderTickets;
         
-        return view('sales/index', $data);        
+        return view('sales/index', $data);
     }
 
     public function searchProducts($searching = null) {
         $produto_model = new ProdutoModel();
 
-        if($searching != null) {
-            $produtos = $produto_model->like('Nome',$searching.'%')->paginate(10);
+        if ($searching != null) {
+            $produtos = $produto_model->like('Nome', $searching.'%')->paginate(10);
         } else {
             $produtos = $produto_model->paginate(10);
         }
@@ -50,7 +48,7 @@ class Sale extends BaseController
     public function searchOrderTicket($searching = null) {
         $orderTicketModel = new OrderTicketModel();
 
-        if($searching != null) {
+        if ($searching != null) {
             $orderTickets = $orderTicketModel->like(OrderTicketModel::CLIENT, $searching.'%')->paginate(10);
         } else {
             $orderTickets = $orderTicketModel->paginate(10);
@@ -92,8 +90,8 @@ class Sale extends BaseController
            
         }
 
-        $productOrderModel = new ProductOrderModel();        
-        $productOrder = $productOrderModel->where(ProductOrderModel::ORDER_TICKET_ID, $orderticketid )->findAll();
+        $productOrderModel = new ProductOrderModel();
+        $productOrder = $productOrderModel->where(ProductOrderModel::ORDER_TICKET_ID, $orderticketid)->findAll();
         $data['productOrder'] = $productOrder;
         
         return $this->response->setJSON($data);
@@ -103,7 +101,7 @@ class Sale extends BaseController
         $productOrderModel = new ProductOrderModel();
         $total = 0;
 
-        if($id != null) {
+        if ($id != null) {
             $productOrders = $productOrderModel->where(ProductOrderModel::ORDER_TICKET_ID, $id)->findAll();
             
             // Calcula o total do campo 'preco'
@@ -111,7 +109,7 @@ class Sale extends BaseController
             $data['productOrder'] = $productOrders;
             $data['total'] = $totalPreco;
             return $this->response->setJSON($data);
-        }     
+        }
 
     }
 
@@ -137,7 +135,7 @@ class Sale extends BaseController
         $produto_model->where('ProdutoId', $dados['ProdutoId'])->set($dados)->update();
 
         return redirect()->to('/produtos?alert=successEdit');
-    } 
+    }
 
     public function delete($ProdutoId) {
         $produto_model = new ProdutoModel();
@@ -145,5 +143,5 @@ class Sale extends BaseController
 
         return redirect()->to('/produtos?alert=successDelete');
     }
-    
+
 }

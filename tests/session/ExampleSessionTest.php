@@ -6,10 +6,8 @@ use Config\Services;
 /**
  * @internal
  */
-final class ExampleSessionTest extends CIUnitTestCase
-{
-    public function testSessionSimple(): void
-    {
+final class ExampleSessionTest extends CIUnitTestCase {
+    public function testSessionSimple(): void {
         $session = Services::session();
 
         $session->set('logged_in', 123);

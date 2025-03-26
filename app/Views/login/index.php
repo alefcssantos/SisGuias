@@ -21,7 +21,7 @@
         <!-- /.login-logo -->
         <div class="card card-outline card-primary">
             <div class="card-header text-center">
-                <a href="../../index2.html" class="h1"><b>AlefDev</b></a>
+                <a href="https://www.mairinque.sp.gov.br/" class="h1"><b>Prefeitura Municipal de Mairinque</b></a>
             </div>
             <div class="card-body">
                 <?php if (isset($_GET['alert'])) : ?>

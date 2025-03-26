@@ -4,8 +4,7 @@ namespace App\Models\Scrum;
 
 use CodeIgniter\Model;
 
-class TaskModel extends Model
-{
+class TaskModel extends Model {
     protected $table            = 'tasks';
     protected $primaryKey       = TaskModel::ID;
     protected $useAutoIncrement = true;
@@ -54,15 +53,15 @@ class TaskModel extends Model
     protected $beforeDelete   = [];
     protected $afterDelete    = [];
 
-     //Consts
+    //Consts
 
-     const ID = 'id';
-     const USERID = 'taskUserId';
-     const TITLE = 'title';
-     const COLOR = 'color';
-     const START = 'start';
-     const END = 'end';  
-     const ALLDAY = 'allDay';
-     const STATUS = 'taskSatatus';
-     const RESPONSIBLE = 'taskResponsible';
+    const ID = 'id';
+    const USERID = 'taskUserId';
+    const TITLE = 'title';
+    const COLOR = 'color';
+    const START = 'start';
+    const END = 'end';
+    const ALLDAY = 'allDay';
+    const STATUS = 'taskSatatus';
+    const RESPONSIBLE = 'taskResponsible';
 }

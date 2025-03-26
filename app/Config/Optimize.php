@@ -10,8 +10,7 @@ namespace Config;
  *
  * @immutable
  */
-class Optimize
-{
+class Optimize {
     /**
      * --------------------------------------------------------------------------
      * Config Caching

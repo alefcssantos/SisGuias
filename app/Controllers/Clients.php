@@ -6,16 +6,13 @@ use App\Controllers\BaseController;
 use App\Models\ClientModel;
 use CodeIgniter\HTTP\ResponseInterface;
 
-class Clients extends BaseController
-{
-    public function index()
-    {
+class Clients extends BaseController {
+    public function index() {
         //
         return view('clients/list');
     }
 
-    public function list($searching = "null")
-    {
+    public function list($searching = "null") {
         $client_model = new ClientModel();
 
         if ($searching != "null") {
@@ -29,8 +26,7 @@ class Clients extends BaseController
         return view('clients/list', $data);
     }
 
-    public function create()
-    {
+    public function create() {
         $data = $this->request->getVar();
         $client_model = new ClientModel();
         $client_model->insert($data);
@@ -38,8 +34,7 @@ class Clients extends BaseController
         return redirect()->to('/clientes?alert=successCreate');
     }
 
-    public function edit()
-    {
+    public function edit() {
         $data = $this->request->getVar();
         $client_model = new ClientModel();
         $client_model->where(ClientModel::ID, $data[ClientModel::ID])->set($data)->update();
@@ -47,8 +42,7 @@ class Clients extends BaseController
         return redirect()->to('/clientes?alert=successEdit');
     }
 
-    public function delte($ClientId)
-    {
+    public function delte($ClientId) {
         $client_model = new ClientModel();
         $client_model->when(ClientModel::ID, $ClientId)->delete();
 

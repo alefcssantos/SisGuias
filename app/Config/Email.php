@@ -4,8 +4,7 @@ namespace Config;
 
 use CodeIgniter\Config\BaseConfig;
 
-class Email extends BaseConfig
-{
+class Email extends BaseConfig {
     public string $fromEmail  = '';
     public string $fromName   = '';
     public string $recipients = '';

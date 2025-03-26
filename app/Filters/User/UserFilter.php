@@ -6,8 +6,7 @@ use CodeIgniter\Filters\FilterInterface;
 use CodeIgniter\HTTP\RequestInterface;
 use CodeIgniter\HTTP\ResponseInterface;
 
-class UserFilter implements FilterInterface
-{
+class UserFilter implements FilterInterface {
     /**
      * Do whatever processing this filter needs to do.
      * By default it should not return anything during
@@ -23,11 +22,10 @@ class UserFilter implements FilterInterface
      *
      * @return RequestInterface|ResponseInterface|string|void
      */
-    public function before(RequestInterface $request, $arguments = null)
-    {
+    public function before(RequestInterface $request, $arguments = null) {
         
         // Check User Session
-        if(!session()->has('Usuario')){
+        if (!session()->has('Usuario')) {
             return redirect()->to("/login");
         }
     }
@@ -44,8 +42,7 @@ class UserFilter implements FilterInterface
      *
      * @return ResponseInterface|void
      */
-    public function after(RequestInterface $request, ResponseInterface $response, $arguments = null)
-    {
+    public function after(RequestInterface $request, ResponseInterface $response, $arguments = null) {
         //
     }
 }

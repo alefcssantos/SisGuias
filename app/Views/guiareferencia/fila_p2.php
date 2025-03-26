@@ -71,14 +71,14 @@
                                                 <td>
                                                     <?php
                                                     $imc = 0;
-                                                    if (!empty($guia['pacientePeso']) && !empty($guia['pacienteAltura'])) {
-                                                        $altura_m = $guia['pacienteAltura'] / 100; // Convertendo altura para metros
-                                                        if ($altura_m > 0) {
-                                                            $imc = $guia['pacientePeso'] / ($altura_m * $altura_m);
-                                                        }
-                                                    }
-                                                    echo number_format($imc, 2);
-                                                    ?>
+                                            if (!empty($guia['pacientePeso']) && !empty($guia['pacienteAltura'])) {
+                                                $altura_m = $guia['pacienteAltura'] / 100; // Convertendo altura para metros
+                                                if ($altura_m > 0) {
+                                                    $imc = $guia['pacientePeso'] / ($altura_m * $altura_m);
+                                                }
+                                            }
+                                            echo number_format($imc, 2);
+                                            ?>
                                                 </td>
                                                 <td><?= esc($guia['guiaReferenciaStatus']) ?></td>
                                             </tr>

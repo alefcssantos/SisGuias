@@ -6,23 +6,20 @@ use App\Models\OrderTicketModel;
 use CodeIgniter\Database\Migration;
 use App\Models\ProductOrderModel;
 
-
-class ProductOrder extends Migration
-{
-    public function up()
-    {
+class ProductOrder extends Migration {
+    public function up() {
         $this->forge->addField([
             ProductOrderModel::ID => [
                 'type'           => 'INT',
                 'constraint'     => 11,
-                'usigned'        => TRUE,
-                'auto_increment' => TRUE             
+                'usigned'        => true,
+                'auto_increment' => true
             ],
 
             ProductOrderModel::ORDER_TICKET_ID => [
                 'type'       => 'INT',
                 'constraint' => 11,
-                'usigned' => TRUE
+                'usigned' => true
             ],
 
             ProductOrderModel::NAME => [
@@ -57,13 +54,12 @@ class ProductOrder extends Migration
 
         ]);
 
-        $this->forge->addKey(ProductOrderModel::ID, TRUE);
+        $this->forge->addKey(ProductOrderModel::ID, true);
         $this->forge->addForeignKey(ProductOrderModel::ORDER_TICKET_ID, 'ordertickets', OrderTicketModel::ID, 'CASCADE', 'CASCADE');
         $this->forge->createTable('productorders');
     }
 
-    public function down()
-    {
+    public function down() {
         $this->forge->dropTable('productorders');
     }
 }

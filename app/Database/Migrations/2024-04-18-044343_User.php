@@ -5,10 +5,8 @@ namespace App\Database\Migrations;
 use App\Models\UserModel;
 use CodeIgniter\Database\Migration;
 
-class User extends Migration
-{
-    public function up()
-    {
+class User extends Migration {
+    public function up() {
         $this->forge->addField([
             UserModel::ID => [
                 'type' => 'INT',
@@ -23,7 +21,7 @@ class User extends Migration
             UserModel::EMAIL => [
                 'type' => 'VARCHAR',
                 'constraint' => 255
-            ],           
+            ],
             UserModel::JOB => [
                 'type'=> 'vARCHAR',
                 'constraint'=> 255
@@ -50,8 +48,7 @@ class User extends Migration
         $this->forge->createTable('user');
     }
 
-    public function down()
-    {
+    public function down() {
         $this->forge->dropTable('user');
     }
 }

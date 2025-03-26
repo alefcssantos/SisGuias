@@ -4,16 +4,14 @@ namespace App\Database\Migrations;
 
 use CodeIgniter\Database\Migration;
 
-class Login extends Migration
-{
-    public function up()
-    {
+class Login extends Migration {
+    public function up() {
         $this->forge->addField([
             'LoginId' => [
                 'type'           => 'INT',
                 'constraint'     => 11,
-                'usigned'        => TRUE,
-                'auto_increment' => TRUE
+                'usigned'        => true,
+                'auto_increment' => true
             ],
         
             'Usuario' => [
@@ -27,12 +25,11 @@ class Login extends Migration
             ],
         ]);
         
-        $this->forge->addKey('LoginId', TRUE);
+        $this->forge->addKey('LoginId', true);
         $this->forge->createTable('login');
     }
 
-    public function down()
-    {
+    public function down() {
         $this->forge->dropTable('login');
     }
 }

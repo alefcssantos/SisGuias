@@ -5,10 +5,8 @@ namespace App\Database\Migrations;
 use App\Models\Scrum\TaskModel as Model;
 use CodeIgniter\Database\Migration;
 
-class Calendary extends Migration
-{
-    public function up()
-    {
+class Calendary extends Migration {
+    public function up() {
         $this->forge->addField([
             Model::ID => [
                 'type' => 'INT',
@@ -23,7 +21,7 @@ class Calendary extends Migration
             Model::TITLE => [
                 'type' => 'VARCHAR',
                 'constraint' => 255
-            ],           
+            ],
             Model::COLOR => [
                 'type'=> 'vARCHAR',
                 'constraint'=> 255
@@ -55,8 +53,7 @@ class Calendary extends Migration
         $this->forge->createTable('tasks');
     }
 
-    public function down()
-    {
+    public function down() {
         $this->forge->dropTable('tasks');
     }
 }

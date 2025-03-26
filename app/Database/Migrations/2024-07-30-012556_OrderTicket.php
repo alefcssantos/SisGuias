@@ -5,16 +5,14 @@ namespace App\Database\Migrations;
 use App\Models\OrderTicketModel;
 use CodeIgniter\Database\Migration;
 
-class OrderTicket extends Migration
-{
-    public function up()
-    {
+class OrderTicket extends Migration {
+    public function up() {
         $this->forge->addField([
             OrderTicketModel::ID => [
                 'type'           => 'INT',
                 'constraint'     => 11,
-                'usigned'        => TRUE,
-                'auto_increment' => TRUE
+                'usigned'        => true,
+                'auto_increment' => true
             ],
             OrderTicketModel::DATE => [
                 'type' => 'date'
@@ -35,12 +33,11 @@ class OrderTicket extends Migration
 
         ]);
 
-        $this->forge->addKey(OrderTicketModel::ID, TRUE);
+        $this->forge->addKey(OrderTicketModel::ID, true);
         $this->forge->createTable('ordertickets');
     }
 
-    public function down()
-    {
+    public function down() {
         $this->forge->dropTable('ordertickets');
     }
 }

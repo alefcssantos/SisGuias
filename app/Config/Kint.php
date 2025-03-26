@@ -17,8 +17,7 @@ use Kint\Renderer\Rich\ValuePluginInterface;
  *
  * @see https://kint-php.github.io/kint/ for details on these settings.
  */
-class Kint
-{
+class Kint {
     /*
     |--------------------------------------------------------------------------
     | Global Settings

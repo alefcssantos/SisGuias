@@ -5,16 +5,14 @@ namespace App\Database\Migrations;
 use App\Models\CompanyModel;
 use CodeIgniter\Database\Migration;
 
-class Company extends Migration
-{
-    public function up()
-    {
+class Company extends Migration {
+    public function up() {
         $this->forge->addField([
             CompanyModel::ID => [
                 'type' => 'INT',
                 'constraint' => 11,
                 'usigned' => true,
-                'auto_increment' => true                
+                'auto_increment' => true
             ],
             CompanyModel::LOGO => [
                 'type'=> 'VARCHAR',
@@ -55,13 +53,12 @@ class Company extends Migration
             CompanyModel::STATUS => [
                 'type'=> 'VARCHAR',
                 'constraint' => 255
-            ],                          
+            ],
 
         ]);
     }
 
-    public function down()
-    {
+    public function down() {
         $this->forge->dropTable('company');
     }
 }

@@ -1,0 +1,13 @@
+{
+  "recommendations": [
+    "bmewburn.vscode-intelephense-client",  // Autocompletar e linting para PHP
+    "xdebug.php-debug",                    // Debug para PHP
+    "DEVSENSE.phptools-vscode",            // Ferramentas avançadas para PHP
+    "ryannaddy.laravel-artisan",           // Comandos Artisan (útil para Laravel, mas pode ajudar em CI4)
+    "onecentlin.laravel-blade",            // Suporte para sintaxe Blade (caso use em CodeIgniter)
+    "neilbrayfield.php-docblocker",        // Geração automática de DocBlocks para PHP
+    "esbenp.prettier-vscode",              // Formatação de código
+    "dbaeumer.vscode-eslint",              // Suporte a ESLint (se usar JS no projeto)
+    "MehediDracula.php-namespace-resolver" // Resolver namespaces automaticamente
+  ]
+}
