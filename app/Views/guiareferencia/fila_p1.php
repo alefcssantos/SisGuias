@@ -27,17 +27,8 @@
                 <div class="col-12">
                     <div class="card">
                         <div class="card-body">
+                            <?= view('templates/especialidades') ?>
                             <div class="row">
-                                <div class="form-group col-2">
-                                    <!-- <label>Especialidade</label> -->
-                                    <select id="guiaReferenciaEspecialidade" class="form-control select2" style="width: 100%;">
-                                        <option value="Ortopedia">Ortopedia</option>
-                                        <option value="Cardiologia">Endocrinologia</option>
-                                        <option value="Endocrinologia">Psicologia</option>
-                                        <option value="Neurologia">Neurologia</option>
-                                        <option value="Psquiatria">To sem ideia</option>
-                                    </select>
-                                </div>
                                 <div class="col-10">
                                     <div class="input-group input-group-lg">
                                         <input id="search" type="search" class="form-control form-control-lg"
@@ -70,13 +61,13 @@
                                         echo "<tr><td colspan='6' class='text-center'>Nenhuma guia para triagem =)</td></tr>";
                                     } else {
                                         foreach ($guias as $guia): ?>
-                                            <tr>
-                                                <td style="display:none;"><?= esc($guia['guiaReferenciaId']) ?></td>
-                                                <td><?= esc($guia['pacienteCdr']) ?></td>
-                                                <td><?= esc($guia['pacienteNome']) ?></td>
-                                                <td><?= esc($guia['guiaReferenciaEspecialidade']) ?></td>
-                                                <td>
-                                                    <?php
+                                    <tr>
+                                        <td style="display:none;"><?= esc($guia['guiaReferenciaId']) ?></td>
+                                        <td><?= esc($guia['pacienteCdr']) ?></td>
+                                        <td><?= esc($guia['pacienteNome']) ?></td>
+                                        <td><?= esc($guia['guiaReferenciaEspecialidade']) ?></td>
+                                        <td>
+                                            <?php
                                                     $imc = 0;
                                             if (!empty($guia['pacientePeso']) && !empty($guia['pacienteAltura'])) {
                                                 $altura_m = $guia['pacienteAltura'] / 100; // Convertendo altura para metros
@@ -86,9 +77,9 @@
                                             }
                                             echo number_format($imc, 2);
                                             ?>
-                                                </td>
-                                                <td><?= esc($guia['guiaReferenciaStatus']) ?></td>
-                                            </tr>
+                                        </td>
+                                        <td><?= esc($guia['guiaReferenciaStatus']) ?></td>
+                                    </tr>
                                     <?php endforeach;
                                     } ?>
                                 </tbody>
@@ -106,86 +97,93 @@
 
 <?php echo View('templates/footer'); ?>
 
-
 <script>
-    let searchTimeout; // Para evitar muitas requisições ao mesmo tempo
+let searchTimeout; // Para evitar muitas requisições ao mesmo tempo
 
-    document.getElementById('search').addEventListener('input', function() {
-        clearTimeout(searchTimeout); // Limpa o timeout anterior
+function pesquisar() {
+    clearTimeout(searchTimeout); // Limpa o timeout anterior
 
-        searchTimeout = setTimeout(() => {
-            const searchTerm = this.value.trim();
+    searchTimeout = setTimeout(() => {
+        const searchTerm = document.getElementById('search').value;
+        const guiaReferenciaEspecialidade = document.getElementById('guiaReferenciaEspecialidade').value;
 
-            fetch("/filap1/pesquisar", {
-                    method: "POST",
-                    headers: {
-                        "Content-Type": "application/json",
-                    },
-                    body: JSON.stringify({
-                        search: searchTerm
-                    }),
-                })
-                .then(response => response.json())
-                .then(data => {
-                    const tableBody = document.getElementById('triagemTable');
-                    tableBody.innerHTML = ""; // Limpa a tabela
+        fetch("/filap1/pesquisar", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify({
+                    search: searchTerm,
+                    guiaReferenciaEspecialidade: guiaReferenciaEspecialidade
+                }),
+            })
+            .then(response => response.json())
+            .then(data => {
+                const tableBody = document.getElementById('triagemTable');
+                tableBody.innerHTML = ""; // Limpa a tabela
 
-                    if (data.length === 0) {
-                        tableBody.innerHTML = "<tr><td colspan='6' class='text-center'>Nenhuma guia encontrada =(</td></tr>";
-                        return;
+                if (data.length === 0) {
+                    tableBody.innerHTML =
+                        "<tr><td colspan='6' class='text-center'>Nenhuma guia encontrada =(</td></tr>";
+                    return;
+                }
+
+                data.forEach(guia => {
+                    // Calculando o IMC
+                    let imc = 0;
+                    if (guia.pacientePeso && guia.pacienteAltura) {
+                        const alturaM = guia.pacienteAltura /
+                            100; // Convertendo altura para metros
+                        imc = guia.pacientePeso / (alturaM * alturaM);
                     }
 
-                    data.forEach(guia => {
-                        // Calculando o IMC
-                        let imc = 0;
-                        if (guia.pacientePeso && guia.pacienteAltura) {
-                            const alturaM = guia.pacienteAltura / 100; // Convertendo altura para metros
-                            imc = guia.pacientePeso / (alturaM * alturaM);
-                        }
-
-                        // Criando a linha da tabela
-                        const row = `
+                    // Criando a linha da tabela
+                    const row = `
                                         <tr>
                                             <td style="display:none;">${guia.guiaReferenciaId}</td>
                                             <td>${guia.pacienteCdr}</td>
                                             <td>${guia.pacienteNome}</td>
-                                            <td>${guia.guiaReferenciaEspecialidade || '-'}</td>
+                                            <td>${guia.guiaReferenciaEspecialidade}</td>
                                             <td>${imc ? imc.toFixed(2) : '-'}</td> <!-- IMC calculado -->
                                             <td>${guia.guiaReferenciaStatus}</td>
                                         </tr>
                                     `;
 
-                        // Adicionando a linha ao corpo da tabela
-                        tableBody.innerHTML += row;
-                    });
-                })
-                .catch(error => console.error("Erro ao buscar guias:", error));
-        }, 500); // Aguarda 500ms antes de buscar (evita requisições excessivas)
+                    // Adicionando a linha ao corpo da tabela
+                    tableBody.innerHTML += row;
+                });
+            })
+            .catch(error => console.error("Erro ao buscar guias:", error));
+    }, 500); // Aguarda 500ms antes de buscar (evita requisições excessivas)    
+}
+
+document.getElementById('search').addEventListener('input', pesquisar);
+
+document.getElementById('guiaReferenciaEspecialidade').addEventListener('change', pesquisar);
+
+document.querySelectorAll('#triagemTable tr').forEach(row => {
+    row.addEventListener('click', function() {
+        // Obter o guiaReferenciaId da primeira célula
+        const guiaReferenciaId = this.cells[0].textContent.trim(); // Obtém o texto da primeira célula
+        console.log(guiaReferenciaId);
+
+        // Cria um formulário dinâmico
+        const form = document.createElement('form');
+        form.method = 'POST';
+        form.action = '/triagem/guia'; // URL para onde o formulário será enviado
+
+        // Cria um campo hidden para enviar o guiaReferenciaId
+        const input = document.createElement('input');
+        input.type = 'hidden';
+        input.name = 'guiaReferenciaId';
+        input.value = guiaReferenciaId;
+
+        // Adiciona o campo hidden ao formulário
+        form.appendChild(input);
+
+        // Adiciona o formulário ao body e envia
+        document.body.appendChild(form);
+        form.submit(); // Envia o formulário
     });
-
-    document.querySelectorAll('#triagemTable tr').forEach(row => {
-        row.addEventListener('click', function() {
-            // Obter o guiaReferenciaId da primeira célula
-            const guiaReferenciaId = this.cells[0].textContent.trim(); // Obtém o texto da primeira célula
-            console.log(guiaReferenciaId);
-
-            // Cria um formulário dinâmico
-            const form = document.createElement('form');
-            form.method = 'POST';
-            form.action = '/triagem/guia'; // URL para onde o formulário será enviado
-
-            // Cria um campo hidden para enviar o guiaReferenciaId
-            const input = document.createElement('input');
-            input.type = 'hidden';
-            input.name = 'guiaReferenciaId';
-            input.value = guiaReferenciaId;
-
-            // Adiciona o campo hidden ao formulário
-            form.appendChild(input);
-
-            // Adiciona o formulário ao body e envia
-            document.body.appendChild(form);
-            form.submit(); // Envia o formulário
-        });
-    });
+});
 </script>

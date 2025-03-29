@@ -27,17 +27,10 @@
                 <div class="col-12">
                     <div class="card">
                         <div class="card-body">
+                            <?= view('templates/especialidades') ?>
                             <div class="input-group input-group-lg">
                                 <input id="search" type="search" class="form-control form-control-lg"
                                     placeholder="Digite o nome do paciente para pesquisar">
-                                <div class="input-group-append">
-                                    <button class="btn btn-lg btn-default" onclick="searching()">
-                                        <i class="fa fa-search"></i>
-                                    </button>
-                                    <button type="button" class="btn btn-info" onclick="dataPrepare()">
-                                        <i class="fas fa-plus-circle"></i>
-                                    </button>
-                                </div>
                             </div>
                         </div>
                     </div>
@@ -82,7 +75,7 @@
                                                 </td>
                                                 <td><?= esc($guia['guiaReferenciaStatus']) ?></td>
                                             </tr>
-                                        <?php endforeach;
+                                    <?php endforeach;
                                     } ?>
                                 </tbody>
                             </table>
@@ -103,19 +96,21 @@
 <script>
     let searchTimeout; // Para evitar muitas requisições ao mesmo tempo
 
-    document.getElementById('search').addEventListener('input', function () {
+    document.getElementById('search').addEventListener('input', function() {
         clearTimeout(searchTimeout); // Limpa o timeout anterior
 
         searchTimeout = setTimeout(() => {
             const searchTerm = this.value.trim();
 
             fetch("/filap3/pesquisar", {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json",
-                },
-                body: JSON.stringify({ search: searchTerm }),
-            })
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json",
+                    },
+                    body: JSON.stringify({
+                        search: searchTerm
+                    }),
+                })
                 .then(response => response.json())
                 .then(data => {
                     const tableBody = document.getElementById('triagemTable');
@@ -155,7 +150,7 @@
     });
 
     document.querySelectorAll('#triagemTable tr').forEach(row => {
-        row.addEventListener('click', function () {
+        row.addEventListener('click', function() {
             // Obter o guiaReferenciaId da primeira célula
             const guiaReferenciaId = this.cells[0].textContent.trim(); // Obtém o texto da primeira célula
             console.log(guiaReferenciaId);
@@ -179,9 +174,4 @@
             form.submit(); // Envia o formulário
         });
     });
-
-
-
-
-
 </script>

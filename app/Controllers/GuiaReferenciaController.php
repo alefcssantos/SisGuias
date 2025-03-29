@@ -4,7 +4,6 @@ namespace App\Controllers;
 
 use App\Controllers\BaseController;
 use App\Models\GuiaReferenciaModel;
-use CodeIgniter\HTTP\ResponseInterface;
 use App\Models\PacienteModel;
 
 class GuiaReferenciaController extends BaseController {
@@ -16,16 +15,17 @@ class GuiaReferenciaController extends BaseController {
         return view('guiareferencia/cadastro');
     }
 
-    public function triagemPaciente() {
-        return view('guiareferencia/triagem/paciente');
-    }
-
     public function filas() {
         return view('guiareferencia/filas');
     }
 
     public function minhasguias() {
         return view('guiareferencia/guias');
+    }
+
+    public function triagemContagem() {
+        $model = new GuiaReferenciaModel();
+        return $model->where('guiaReferenciaStatus', 'triagem')->countAllResults();
     }
 
     public function triagemLista() {
@@ -83,16 +83,18 @@ class GuiaReferenciaController extends BaseController {
         }
 
         $search = $dados['search'];  // Valor de pesquisa
+        $especialidade = $dados['guiaReferenciaEspecialidade'];
 
         $model = new GuiaReferenciaModel();
 
         // Realiza o inner join e a pesquisa
         $result = $model->select('pacientes.*, guiareferencias.*')
-            ->join('pacientes', 'pacientes.pacienteId = guiareferencias.guiaReferenciaPacienteId')
-            ->like('pacientes.pacienteNome', $search) // O `like()` já adiciona os '%' automaticamente
-            ->where('guiareferencias.guiaReferenciaStatus', 'fila')
-            ->where('guiareferencias.guiaReferenciaPrioridade', '1') // Aqui estava o erro, use `where()`
-            ->findAll();
+        ->join('pacientes', 'pacientes.pacienteId = guiareferencias.guiaReferenciaPacienteId')
+        ->where('guiareferencias.guiaReferenciaStatus', 'fila')
+        ->where('guiareferencias.guiaReferenciaPrioridade', '1')
+        ->where('guiareferencias.guiaReferenciaEspecialidade', $especialidade)
+        ->like('pacientes.pacienteNome', $search) // O `like()` já adiciona os '%' automaticamente
+        ->findAll();
 
         // Retorna os dados encontrados no formato JSON
         return $this->response->setJSON($result);
@@ -119,15 +121,17 @@ class GuiaReferenciaController extends BaseController {
         }
 
         $search = $dados['search'];  // Valor de pesquisa
+        $especialidade = $dados['guiaReferenciaEspecialidade'];
 
         $model = new GuiaReferenciaModel();
 
         // Realiza o inner join e a pesquisa
         $result = $model->select('pacientes.*, guiareferencias.*')
             ->join('pacientes', 'pacientes.pacienteId = guiareferencias.guiaReferenciaPacienteId')
-            ->like('pacientes.pacienteNome', $search) // O `like()` já adiciona os '%' automaticamente
             ->where('guiareferencias.guiaReferenciaStatus', 'fila')
             ->where('guiareferencias.guiaReferenciaPrioridade', '2') // Aqui estava o erro, use `where()`
+            ->where('guiareferencias.guiaReferenciaEspecialidade', $especialidade)
+            ->like('pacientes.pacienteNome', $search) // O `like()` já adiciona os '%' automaticamente
             ->findAll();
 
         // Retorna os dados encontrados no formato JSON
@@ -155,15 +159,17 @@ class GuiaReferenciaController extends BaseController {
         }
 
         $search = $dados['search'];  // Valor de pesquisa
+        $especialidade = $dados['guiaReferenciaEspecialidade'];
 
         $model = new GuiaReferenciaModel();
 
         // Realiza o inner join e a pesquisa
         $result = $model->select('pacientes.*, guiareferencias.*')
             ->join('pacientes', 'pacientes.pacienteId = guiareferencias.guiaReferenciaPacienteId')
-            ->like('pacientes.pacienteNome', $search) // O `like()` já adiciona os '%' automaticamente
             ->where('guiareferencias.guiaReferenciaStatus', 'fila')
             ->where('guiareferencias.guiaReferenciaPrioridade', '3') // Aqui estava o erro, use `where()`
+            ->where('guiareferencias.guiaReferenciaEspecialidade', $especialidade)
+            ->like('pacientes.pacienteNome', $search) // O `like()` já adiciona os '%' automaticamente
             ->findAll();
 
         // Retorna os dados encontrados no formato JSON
@@ -392,10 +398,5 @@ class GuiaReferenciaController extends BaseController {
                 'message' => 'Erro ao atualizar guia.'
             ]);
         }
-    }
-
-    public function teste() {
-        //Apenas um teste para ver se ele vai funcionar direito desta vez
-        return true;
     }
 }

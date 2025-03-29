@@ -20,6 +20,9 @@ use Psr\Log\LoggerInterface;
  * For security be sure to declare any new methods as protected or private.
  */
 abstract class BaseController extends Controller {
+    // Variáveis globais podem ser definidas aqui
+    public $triagemCount = 0; // A variável global que irá armazenar o resultado
+    
     /**
      * Instance of the main Request object.
      *
@@ -52,5 +55,18 @@ abstract class BaseController extends Controller {
         // Preload any models, libraries, etc, here.
 
         // E.g.: $this->session = \Config\Services::session();
+
+        $this->loadGlobalData();
+    }
+
+    // Método para carregar dados globais
+    private function loadGlobalData() {
+        // Instancia o modelo GuiaReferenciaModel
+        $model = new \App\Models\GuiaReferenciaModel();
+       
+        // Obtém a contagem de triagens
+        $triagemCount = $model->where('guiaReferenciaStatus', 'triagem')->countAllResults();
+        // Definir a variável global usando a session (como exemplo)
+        session()->set('triagemCount', $triagemCount);
     }
 }

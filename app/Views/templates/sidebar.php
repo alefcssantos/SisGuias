@@ -42,7 +42,7 @@
                 <li class="nav-item">
                     <a href="/triagem/lista" class="nav-link">
                         <!-- <i class="nav-icon fas fa-table"></i> -->
-                        <p>Triagem de Guias<span class="badge badge-info right">10</span>
+                        <p>Triagem de Guias<span class="badge badge-info right"><?= session('triagemCount') ?></span>
                         </p>
                     </a>
                 </li>
