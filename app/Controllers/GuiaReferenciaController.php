@@ -15,17 +15,8 @@ class GuiaReferenciaController extends BaseController {
         return view('guiareferencia/cadastro');
     }
 
-    public function filas() {
-        return view('guiareferencia/filas');
-    }
-
     public function minhasguias() {
         return view('guiareferencia/guias');
-    }
-
-    public function triagemContagem() {
-        $model = new GuiaReferenciaModel();
-        return $model->where('guiaReferenciaStatus', 'triagem')->countAllResults();
     }
 
     public function triagemLista() {
@@ -55,6 +46,7 @@ class GuiaReferenciaController extends BaseController {
             ->join('pacientes', 'pacientes.pacienteId = guiareferencias.guiaReferenciaPacienteId')
             ->like('pacientes.pacienteNome', '%' . $search . '%')
             ->where('guiareferencias.guiaReferenciaStatus', 'triagem')
+            ->orderBy('guiareferencias.guiaReferenciaData', 'ASC') // Organiza pela data (do mais antigo para o mais novo)
             ->findAll();
 
         // Retorna os dados encontrados no formato JSON
@@ -70,6 +62,7 @@ class GuiaReferenciaController extends BaseController {
             ->join('pacientes', 'pacientes.pacienteId = guiareferencias.guiaReferenciaPacienteId')
             ->where('guiareferencias.guiaReferenciaPrioridade', '1')
             ->where('guiareferencias.guiaReferenciaStatus', 'fila')
+            ->orderBy('guiareferencias.guiaReferenciaData', 'ASC') // Organiza pela data (do mais antigo para o mais novo)
             ->findAll();
         return view('guiareferencia/fila_p1', ['guias' => $guias]);
     }
@@ -94,6 +87,7 @@ class GuiaReferenciaController extends BaseController {
         ->where('guiareferencias.guiaReferenciaPrioridade', '1')
         ->where('guiareferencias.guiaReferenciaEspecialidade', $especialidade)
         ->like('pacientes.pacienteNome', $search) // O `like()` já adiciona os '%' automaticamente
+        ->orderBy('guiareferencias.guiaReferenciaData', 'ASC') // Organiza pela data (do mais antigo para o mais novo)
         ->findAll();
 
         // Retorna os dados encontrados no formato JSON
@@ -108,6 +102,7 @@ class GuiaReferenciaController extends BaseController {
             ->join('pacientes', 'pacientes.pacienteId = guiareferencias.guiaReferenciaPacienteId')
             ->where('guiareferencias.guiaReferenciaPrioridade', '2')
             ->where('guiareferencias.guiaReferenciaStatus', 'fila')
+            ->orderBy('guiareferencias.guiaReferenciaData', 'ASC') // Organiza pela data (do mais antigo para o mais novo)
             ->findAll();
         return view('guiareferencia/fila_p2', ['guias' => $guias]);
     }
@@ -132,6 +127,7 @@ class GuiaReferenciaController extends BaseController {
             ->where('guiareferencias.guiaReferenciaPrioridade', '2') // Aqui estava o erro, use `where()`
             ->where('guiareferencias.guiaReferenciaEspecialidade', $especialidade)
             ->like('pacientes.pacienteNome', $search) // O `like()` já adiciona os '%' automaticamente
+            ->orderBy('guiareferencias.guiaReferenciaData', 'ASC') // Organiza pela data (do mais antigo para o mais novo)
             ->findAll();
 
         // Retorna os dados encontrados no formato JSON
@@ -146,6 +142,7 @@ class GuiaReferenciaController extends BaseController {
             ->join('pacientes', 'pacientes.pacienteId = guiareferencias.guiaReferenciaPacienteId')
             ->where('guiareferencias.guiaReferenciaPrioridade', '3')
             ->where('guiareferencias.guiaReferenciaStatus', 'fila')
+            ->orderBy('guiareferencias.guiaReferenciaData', 'ASC') // Organiza pela data (do mais antigo para o mais novo)
             ->findAll();
         return view('guiareferencia/fila_p3', ['guias' => $guias]);
     }
@@ -170,6 +167,7 @@ class GuiaReferenciaController extends BaseController {
             ->where('guiareferencias.guiaReferenciaPrioridade', '3') // Aqui estava o erro, use `where()`
             ->where('guiareferencias.guiaReferenciaEspecialidade', $especialidade)
             ->like('pacientes.pacienteNome', $search) // O `like()` já adiciona os '%' automaticamente
+            ->orderBy('guiareferencias.guiaReferenciaData', 'ASC') // Organiza pela data (do mais antigo para o mais novo)
             ->findAll();
 
         // Retorna os dados encontrados no formato JSON
