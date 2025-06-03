@@ -47,3 +47,7 @@ $routes->post('/filap3/pesquisar', 'GuiaReferenciaController::buscarFilaP3');
 $routes->post('/paciente/salvar', 'GuiaReferenciaController::salvarPaciente');
 $routes->post('/paciente/carregar', 'GuiaReferenciaController::carregarPacienteCDR');
 $routes->post('/guia/salvar', 'GuiaReferenciaController::salvarGuia');
+
+// Movimentacao de Guias
+$routes->post('/guias/agendar', 'GuiaRefernciaController::agendarGuia');
+$routes->post('/guias/cancelar', 'GuiaReferenciaController::cancelarGuia');

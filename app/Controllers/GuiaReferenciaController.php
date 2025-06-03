@@ -373,6 +373,56 @@ class GuiaReferenciaController extends BaseController {
         }
     }
 
+    public function agendarGuia() {
+        $dados = $this->request->getPost(); // Captura os dados do formulário
+        log_message('debug', 'Dados recebidos: ' . print_r($dados, true));
+
+        if (empty($dados)) {
+            return $this->response->setJSON([
+                'success' => false,
+                'message' => 'Não há dados para inserir.'
+            ]);
+        }
+
+        // Instancia o Model
+        $guia_model = new GuiaReferenciaModel();
+
+        // Atualiza os dados no banco de dados
+        if ($guia_model->update($dados['guiaReferenciaId'], $dados)) {
+            return redirect()->to('/triagem/lista'); // Redireciona para a lista
+        } else {
+            return $this->response->setJSON([
+                'success' => false,
+                'message' => 'Erro ao atualizar guia.'
+            ]);
+        }
+    }
+
+    public function cancelarGuia() {
+        $dados = $this->request->getPost(); // Captura os dados do formulário
+        log_message('debug', 'Dados recebidos: ' . print_r($dados, true));
+
+        if (empty($dados)) {
+            return $this->response->setJSON([
+                'success' => false,
+                'message' => 'Não há dados para inserir.'
+            ]);
+        }
+
+        // Instancia o Model
+        $guia_model = new GuiaReferenciaModel();
+
+        // Atualiza os dados no banco de dados
+        if ($guia_model->update($dados['guiaReferenciaId'], $dados)) {
+            return redirect()->to('/triagem/lista'); // Redireciona para a lista
+        } else {
+            return $this->response->setJSON([
+                'success' => false,
+                'message' => 'Erro ao atualizar guia.'
+            ]);
+        }
+    }
+
     public function adicionarFila() {
         $dados = $this->request->getPost(); // Captura os dados do formulário
         log_message('debug', 'Dados recebidos: ' . print_r($dados, true));
