@@ -52,7 +52,7 @@
                                         <th class="w-25">Paciente</th>
                                         <th class="w-25">Especialidade</th>
                                         <th style="width: 5%;">IMC</th>
-                                        <th style="width: 5%;">Status</th>
+                                        <th style="width: 5%;">Agendar</th>
                                     </tr>
                                 </thead>
 
@@ -78,7 +78,12 @@
                                             echo number_format($imc, 2);
                                             ?>
                                         </td>
-                                        <td><?= esc($guia['guiaReferenciaStatus']) ?></td>
+                                        <td><?= esc($guia['guiaReferenciaStatus']) ?>
+                                        <button class="btn btn-primary btn-sm ml-2" onclick="agendar(<?= esc($guia['guiaReferenciaId']) ?>)">
+        <i class="fas fa-calendar-check"></i> Agendar
+    </button>
+                                    
+                                    </td>
                                     </tr>
                                     <?php endforeach;
                                     } ?>
@@ -99,6 +104,10 @@
 
 <script>
 let searchTimeout; // Para evitar muitas requisições ao mesmo tempo
+
+function agendar(id) {
+    
+}
 
 function pesquisar() {
     clearTimeout(searchTimeout); // Limpa o timeout anterior
