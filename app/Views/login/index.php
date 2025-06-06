@@ -7,7 +7,8 @@
     <title>AlefDev</title>
 
     <!-- Google Font: Source Sans Pro -->
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
+    <link rel="stylesheet"
+        href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
     <!-- Font Awesome -->
     <link rel="stylesheet" href="<?= base_url('theme/plugins/fontawesome-free/css/all.min.css') ?>">
     <!-- icheck bootstrap -->
@@ -21,13 +22,13 @@
         <!-- /.login-logo -->
         <div class="card card-outline card-primary">
             <div class="card-header text-center">
-                <a href="https://www.mairinque.sp.gov.br/" class="h1"><b>Prefeitura Municipal de Mairinque</b></a>
+                <a href="https://www.mairinque.sp.gov.br/" class="h1"><b>Sis Guias</b></a>
             </div>
             <div class="card-body">
                 <?php if (isset($_GET['alert'])) : ?>
-                    <p class="login-box-msg">Acesso Negado! Informe os dados corretamente.</p>
+                <p class="login-box-msg">Acesso Negado! Informe os dados corretamente.</p>
                 <?php else : ?>
-                    <p class="login-box-msg">Acesse sua conta para continuar</p>
+                <p class="login-box-msg">Acesse sua conta para continuar</p>
                 <?php endif; ?>
 
                 <form action="/login/autenticar" method="post">
