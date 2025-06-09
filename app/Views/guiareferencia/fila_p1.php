@@ -1,5 +1,36 @@
 <?= view('templates/header'); ?>
 
+<!-- -------------- MODAL AGENDAR GUIA -------------- -->
+<div class="modal fade" id="modal-agendar" tabindex="-1" role="dialog" aria-labelledby="modalAgendarLabel" aria-hidden="true">
+    <div class="modal-dialog modal-md" role="document">
+        <div class="modal-content">
+            <form id="form-agendar">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="modalAgendarLabel">Agendar Guia</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Fechar">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+
+                <div class="modal-body">
+                    <input type="hidden" id="guiaReferenciaId" name="guiaReferenciaId">
+
+                    <div class="form-group">
+                        <label for="data_agendamento">Data de Agendamento</label>
+                        <input type="date" class="form-control" id="data_agendamento" name="data_agendamento" required>
+                    </div>
+                </div>
+
+                <div class="modal-footer justify-content-between">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+                    <button type="submit" class="btn btn-primary">Agendar</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<!-- -------------- END MODAL -------------- -->
+
 <!-- Content Wrapper. Contains page content -->
 <div class="content-wrapper">
     <!-- Content Header (Page header) -->
@@ -105,10 +136,6 @@
 <script>
 let searchTimeout; // Para evitar muitas requisições ao mesmo tempo
 
-function agendar(id) {
-    
-}
-
 function pesquisar() {
     clearTimeout(searchTimeout); // Limpa o timeout anterior
 
@@ -195,4 +222,44 @@ document.querySelectorAll('#triagemTable tr').forEach(row => {
         form.submit(); // Envia o formulário
     });
 });
+
+function modalAgendar($id) {
+    documet.getElementById('')
+        $('#modal-agendar').modal('show');
+    }
+
+    document.getElementById('form-agendar').addEventListener('submit', function (e) {
+    e.preventDefault(); // Evita o submit tradicional
+
+    const guiaReferenciaId = document.getElementById('guiaReferenciaId').value;
+    const dataAgendamento = document.getElementById('data_agendamento').value;
+
+    fetch('/guias/agendar', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            'X-Requested-With': 'XMLHttpRequest' // para identificar como AJAX, se necessário
+        },
+        body: JSON.stringify({
+            guiaReferenciaId: guiaReferenciaId,
+            data_agendamento: dataAgendamento
+        })
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.success) {
+            alert('Guia agendada com sucesso!');
+            $('#modal-agendar').modal('hide');
+            // Recarrega a página ou atualiza a tabela
+            location.reload();
+        } else {
+            alert(data.message || 'Erro ao agendar.');
+        }
+    })
+    .catch(error => {
+        console.error('Erro na requisição:', error);
+        alert('Erro inesperado.');
+    });
+});
+
 </script>

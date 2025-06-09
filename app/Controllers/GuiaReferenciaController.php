@@ -374,29 +374,47 @@ class GuiaReferenciaController extends BaseController {
     }
 
     public function agendarGuia() {
-        $dados = $this->request->getPost(); // Captura os dados do formulário
-        log_message('debug', 'Dados recebidos: ' . print_r($dados, true));
+    $dados = $this->request->getPost(); // Captura os dados do formulário
+    log_message('debug', 'Dados recebidos: ' . print_r($dados, true));
 
-        if (empty($dados)) {
-            return $this->response->setJSON([
-                'success' => false,
-                'message' => 'Não há dados para inserir.'
-            ]);
-        }
-
-        // Instancia o Model
-        $guia_model = new GuiaReferenciaModel();
-
-        // Atualiza os dados no banco de dados
-        if ($guia_model->update($dados['guiaReferenciaId'], $dados)) {
-            return redirect()->to('/triagem/lista'); // Redireciona para a lista
-        } else {
-            return $this->response->setJSON([
-                'success' => false,
-                'message' => 'Erro ao atualizar guia.'
-            ]);
-        }
+    // Valida se os dados obrigatórios foram recebidos
+    if (empty($dados['guiaReferenciaId']) || empty($dados['data_agendamento'])) {
+        return $this->response->setJSON([
+            'success' => false,
+            'message' => 'ID da guia e data de agendamento são obrigatórios.'
+        ]);
     }
+
+    $guiaId = (int) $dados['guiaReferenciaId'];
+    $dataAgendamento = $dados['data_agendamento'];
+
+    // Valida a data (simples, mas você pode personalizar)
+    if (!strtotime($dataAgendamento)) {
+        return $this->response->setJSON([
+            'success' => false,
+            'message' => 'Formato de data inválido.'
+        ]);
+    }
+
+    // Instancia o model
+    $guia_model = new GuiaReferenciaModel();
+
+    // Monta os dados para atualizar apenas o campo necessário
+    $dadosAtualizar = [
+        'data_agendamento' => $dataAgendamento
+    ];
+
+    // Atualiza o registro
+    if ($guia_model->update($guiaId, $dadosAtualizar)) {
+        return redirect()->to('/triagem/lista'); // Redireciona após sucesso
+    } else {
+        return $this->response->setJSON([
+            'success' => false,
+            'message' => 'Erro ao atualizar a data de agendamento da guia.'
+        ]);
+    }
+}
+
 
     public function cancelarGuia() {
         $dados = $this->request->getPost(); // Captura os dados do formulário
