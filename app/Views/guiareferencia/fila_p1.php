@@ -1,7 +1,8 @@
 <?= view('templates/header'); ?>
 
 <!-- -------------- MODAL AGENDAR GUIA -------------- -->
-<div class="modal fade" id="modal-agendar" tabindex="-1" role="dialog" aria-labelledby="modalAgendarLabel" aria-hidden="true">
+<div class="modal fade" id="modal-agendar" tabindex="-1" role="dialog" aria-labelledby="modalAgendarLabel"
+    aria-hidden="true">
     <div class="modal-dialog modal-md" role="document">
         <div class="modal-content">
             <form id="form-agendar">
@@ -109,12 +110,13 @@
                                             echo number_format($imc, 2);
                                             ?>
                                         </td>
-                                        <td><?= esc($guia['guiaReferenciaStatus']) ?>
-                                        <button class="btn btn-primary btn-sm ml-2" onclick="agendar(<?= esc($guia['guiaReferenciaId']) ?>)">
-        <i class="fas fa-calendar-check"></i> Agendar
-    </button>
-                                    
-                                    </td>
+                                        <td>
+                                            <button class="btn btn-primary btn-sm ml-2"
+                                                onclick="modalAgendar(<?= esc($guia['guiaReferenciaId']) ?>)">
+                                                <i class="fas fa-calendar-check"></i>Agendar
+                                            </button>
+
+                                        </td>
                                     </tr>
                                     <?php endforeach;
                                     } ?>
@@ -141,7 +143,7 @@ function pesquisar() {
 
     searchTimeout = setTimeout(() => {
         const searchTerm = document.getElementById('search').value;
-        const guiaReferenciaEspecialidade = document.getElementById('guiaReferenciaEspecialidade').value;
+        const guiaReferenciaEspecialidade = document.getElementById('especialidade').value;
 
         fetch("/filap1/pesquisar", {
                 method: "POST",
@@ -195,71 +197,80 @@ function pesquisar() {
 
 document.getElementById('search').addEventListener('input', pesquisar);
 
-document.getElementById('guiaReferenciaEspecialidade').addEventListener('change', pesquisar);
+document.getElementById('especialidade').addEventListener('change', pesquisar);
 
-document.querySelectorAll('#triagemTable tr').forEach(row => {
-    row.addEventListener('click', function() {
-        // Obter o guiaReferenciaId da primeira célula
-        const guiaReferenciaId = this.cells[0].textContent.trim(); // Obtém o texto da primeira célula
-        console.log(guiaReferenciaId);
 
-        // Cria um formulário dinâmico
-        const form = document.createElement('form');
-        form.method = 'POST';
-        form.action = '/triagem/guia'; // URL para onde o formulário será enviado
+// Envia a guia seleciona para visualizar a guia, e tbm pode ser editada
+// document.querySelectorAll('#triagemTable tr').forEach(row => {
+//     row.addEventListener('click', function() {
+//         // Obter o guiaReferenciaId da primeira célula
+//         const guiaReferenciaId = this.cells[0].textContent.trim(); // Obtém o texto da primeira célula
+//         console.log(guiaReferenciaId);
 
-        // Cria um campo hidden para enviar o guiaReferenciaId
-        const input = document.createElement('input');
-        input.type = 'hidden';
-        input.name = 'guiaReferenciaId';
-        input.value = guiaReferenciaId;
+//         // Cria um formulário dinâmico
+//         const form = document.createElement('form');
+//         form.method = 'POST';
+//         form.action = '/triagem/guia'; // URL para onde o formulário será enviado
 
-        // Adiciona o campo hidden ao formulário
-        form.appendChild(input);
+//         // Cria um campo hidden para enviar o guiaReferenciaId
+//         const input = document.createElement('input');
+//         input.type = 'hidden';
+//         input.name = 'guiaReferenciaId';
+//         input.value = guiaReferenciaId;
 
-        // Adiciona o formulário ao body e envia
-        document.body.appendChild(form);
-        form.submit(); // Envia o formulário
-    });
-});
+//         // Adiciona o campo hidden ao formulário
+//         form.appendChild(input);
 
-function modalAgendar($id) {
-    documet.getElementById('')
-        $('#modal-agendar').modal('show');
-    }
+//         // Adiciona o formulário ao body e envia
+//         document.body.appendChild(form);
+//         form.submit(); // Envia o formulário
+//     });
+// });
 
-    document.getElementById('form-agendar').addEventListener('submit', function (e) {
-    e.preventDefault(); // Evita o submit tradicional
+function modalAgendar(id) {
+    document.getElementById('guiaReferenciaId').value = id;
+    $('#modal-agendar').modal('show');
+}
+
+document.getElementById('form-agendar').addEventListener('submit', function(e) {
+    e.preventDefault();
 
     const guiaReferenciaId = document.getElementById('guiaReferenciaId').value;
     const dataAgendamento = document.getElementById('data_agendamento').value;
 
-    fetch('/guias/agendar', {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json',
-            'X-Requested-With': 'XMLHttpRequest' // para identificar como AJAX, se necessário
-        },
-        body: JSON.stringify({
-            guiaReferenciaId: guiaReferenciaId,
-            data_agendamento: dataAgendamento
-        })
-    })
-    .then(response => response.json())
-    .then(data => {
-        if (data.success) {
-            alert('Guia agendada com sucesso!');
-            $('#modal-agendar').modal('hide');
-            // Recarrega a página ou atualiza a tabela
-            location.reload();
-        } else {
-            alert(data.message || 'Erro ao agendar.');
-        }
-    })
-    .catch(error => {
-        console.error('Erro na requisição:', error);
-        alert('Erro inesperado.');
-    });
-});
+    // Captura o CSRF do <meta>
+    const csrfName = document.querySelector('meta[name="csrf-token-name"]').getAttribute('content');
+    const csrfValue = document.querySelector('meta[name="csrf-token-value"]').getAttribute('content');
 
+    const payload = {
+        guiaReferenciaId: guiaReferenciaId,
+        data_agendamento: dataAgendamento
+    };
+
+    // Adiciona o token CSRF ao payload
+    payload[csrfName] = csrfValue;
+
+    fetch('/guias/agendar', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'X-Requested-With': 'XMLHttpRequest'
+            },
+            body: JSON.stringify(payload)
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                alert('Guia agendada com sucesso!');
+                $('#modal-agendar').modal('hide');
+                location.reload();
+            } else {
+                alert(data.message || 'Erro ao agendar.');
+            }
+        })
+        .catch(error => {
+            console.error('Erro na requisição:', error);
+            alert('Erro inesperado.');
+        });
+});
 </script>

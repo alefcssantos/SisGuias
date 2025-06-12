@@ -49,5 +49,5 @@ $routes->post('/paciente/carregar', 'GuiaReferenciaController::carregarPacienteC
 $routes->post('/guia/salvar', 'GuiaReferenciaController::salvarGuia');
 
 // Movimentacao de Guias
-$routes->post('/guias/agendar', 'GuiaRefernciaController::agendarGuia');
+$routes->post('/guias/agendar', 'GuiaReferenciaController::agendarGuia');
 $routes->post('/guias/cancelar', 'GuiaReferenciaController::cancelarGuia');
