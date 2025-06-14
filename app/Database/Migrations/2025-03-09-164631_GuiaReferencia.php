@@ -62,6 +62,9 @@ class CreateGuiaReferenciaTable extends Migration {
             GuiaReferenciaModel::DATA => [
                 'type'           => 'DATETIME',
             ],
+            GuiaReferenciaModel::DATAAGENDAMENTO => [
+                'type'           => 'DATETIME',
+            ],
             GuiaReferenciaModel::STATUS => [
                 'type'           => 'VARCHAR',
                 'constraint'     => 50,

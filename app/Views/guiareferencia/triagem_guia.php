@@ -126,15 +126,23 @@
                                         <select id="guiaReferenciaEspecialidade" class="form-control select2"
                                             style="width: 100%;" disabled>
                                             <option value="Ortopedia"
-                                                <?= ($guia->guiaReferenciaEspecialidade == 'Ortopedia') ? 'selected' : ''; ?>>Ortopedia</option>
+                                                <?= ($guia->guiaReferenciaEspecialidade == 'Ortopedia') ? 'selected' : ''; ?>>
+                                                Ortopedia</option>
                                             <option value="California"
-                                                <?= ($guia->guiaReferenciaEspecialidade == 'California') ? 'selected' : ''; ?>>California</option>
-                                            <option value="Delaware" <?= ($guia->guiaReferenciaEspecialidade == 'Delaware') ? 'selected' : ''; ?>>Delaware</option>
+                                                <?= ($guia->guiaReferenciaEspecialidade == 'California') ? 'selected' : ''; ?>>
+                                                California</option>
+                                            <option value="Delaware"
+                                                <?= ($guia->guiaReferenciaEspecialidade == 'Delaware') ? 'selected' : ''; ?>>
+                                                Delaware</option>
                                             <option value="Tennessee"
-                                                <?= ($guia->guiaReferenciaEspecialidade == 'Tennessee') ? 'selected' : ''; ?>>Tennessee</option>
-                                            <option value="Texas" <?= ($guia->guiaReferenciaEspecialidade == 'Texas') ? 'selected' : ''; ?>>Texas</option>
+                                                <?= ($guia->guiaReferenciaEspecialidade == 'Tennessee') ? 'selected' : ''; ?>>
+                                                Tennessee</option>
+                                            <option value="Texas"
+                                                <?= ($guia->guiaReferenciaEspecialidade == 'Texas') ? 'selected' : ''; ?>>
+                                                Texas</option>
                                             <option value="Washington"
-                                                <?= ($guia->guiaReferenciaEspecialidade == 'Washington') ? 'selected' : ''; ?>>Washington</option>
+                                                <?= ($guia->guiaReferenciaEspecialidade == 'Washington') ? 'selected' : ''; ?>>
+                                                Washington</option>
                                         </select>
                                     </div>
                                 </div>
@@ -167,9 +175,15 @@
                                         <div class="form-group">
                                             <label>Nível de Prioridade</label>
                                             <select class="custom-select" id="guiaReferenciaPrioridade" disabled>
-                                                <option value="1" <?= ($guia->guiaReferenciaPrioridade == '1') ? 'selected' : ''; ?>>Prioridade 1</option>
-                                                <option value="2" <?= ($guia->guiaReferenciaPrioridade == '2') ? 'selected' : ''; ?>>Prioridade 2</option>
-                                                <option value="3" <?= ($guia->guiaReferenciaPrioridade == '3') ? 'selected' : ''; ?>>Prioridade 3</option>
+                                                <option value="1"
+                                                    <?= ($guia->guiaReferenciaPrioridade == '1') ? 'selected' : ''; ?>>
+                                                    Prioridade 1</option>
+                                                <option value="2"
+                                                    <?= ($guia->guiaReferenciaPrioridade == '2') ? 'selected' : ''; ?>>
+                                                    Prioridade 2</option>
+                                                <option value="3"
+                                                    <?= ($guia->guiaReferenciaPrioridade == '3') ? 'selected' : ''; ?>>
+                                                    Prioridade 3</option>
                                             </select>
                                         </div>
                                     </div>
@@ -207,103 +221,117 @@
 <?= view('templates/footer'); ?>
 
 <script>
-    document.addEventListener('DOMContentLoaded', function () {
-        document.querySelectorAll('input').forEach(input => {
-            input.addEventListener('input', function () {
-                this.value = this.value.toUpperCase();
-            });
+document.addEventListener('DOMContentLoaded', function() {
+    document.querySelectorAll('input').forEach(input => {
+        input.addEventListener('input', function() {
+            this.value = this.value.toUpperCase();
         });
     });
+});
 
-    function confirmar() {
-        try {
-            // Criar um formulário dinamicamente
-            const form = document.createElement("form");
-            form.method = "POST";
-            form.action = "<?= base_url('/triagem/readequar') ?>";
+function confirmar() {
+    try {
+        // Criar um formulário dinamicamente
+        const form = document.createElement("form");
+        form.method = "POST";
+        form.action = "<?= base_url('/triagem/readequar') ?>";
 
-            // Recupera o token CSRF
-            const csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
+        // Captura o CSRF do <meta>
+        const csrfName = document.querySelector('meta[name="csrf-token-name"]').getAttribute('content');
+        const csrfValue = document.querySelector('meta[name="csrf-token-value"]').getAttribute('content');
 
-            // Adiciona o token CSRF ao formulário
-            const csrfInput = document.createElement("input");
-            csrfInput.type = "hidden";
-            csrfInput.name = "csrf_token";
-            csrfInput.value = csrfToken;
-            form.appendChild(csrfInput);
+        // Adiciona o token CSRF ao formulário
+        const csrfInput = document.createElement("input");
+        csrfInput.type = "hidden";
+        csrfInput.name = csrfName;
+        csrfInput.value = csrfValue;
+        form.appendChild(csrfInput);
 
-            // Coleta os valores dos inputs e adiciona ao formulário
-            const fields = [
-                { name: "guiaReferenciaId", value: document.getElementById("guiaReferenciaId").value },
-                { name: "guiaReferenciaMotivoReadequar", value: document.getElementById("guiaReferenciaMotivoReadequar").value },
-                { name: "guiaReferenciaStatus", value: "readequar" }
-            ];
+        // Coleta os valores dos inputs e adiciona ao formulário
+        const fields = [{
+                name: "guiaReferenciaId",
+                value: document.getElementById("guiaReferenciaId").value
+            },
+            {
+                name: "guiaReferenciaMotivoReadequar",
+                value: document.getElementById("guiaReferenciaMotivoReadequar").value
+            },
+            {
+                name: "guiaReferenciaStatus",
+                value: "readequar"
+            }
+        ];
 
-            fields.forEach(field => {
-                const input = document.createElement("input");
-                input.type = "hidden";
-                input.name = field.name;
-                input.value = field.value;
-                form.appendChild(input);
-            });
+        fields.forEach(field => {
+            const input = document.createElement("input");
+            input.type = "hidden";
+            input.name = field.name;
+            input.value = field.value;
+            form.appendChild(input);
+        });
 
-            // Adiciona o formulário ao corpo e o submete
-            document.body.appendChild(form);
-            form.submit();
+        // Adiciona o formulário ao corpo e o submete
+        document.body.appendChild(form);
+        form.submit();
 
-        } catch (error) {
-            console.error("Erro na requisição:", error);
-            alert("Erro ao conectar ao servidor.");
-        }
+    } catch (error) {
+        console.error("Erro na requisição:", error);
+        alert("Erro ao conectar ao servidor.");
     }
+}
 
-    function adicionar() {
-        try {
-            // Criar um formulário dinamicamente
-            const form = document.createElement("form");
-            form.method = "POST";
-            form.action = "<?= base_url('/triagem/readequar') ?>";
+function adicionar() {
+    try {
+        // Cria um formulário dinamicamente
+        const form = document.createElement("form");
+        form.method = "POST";
+        form.action = "<?= base_url('/triagem/readequar') ?>";
 
-            // Recupera o token CSRF
-            const csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
+        // Captura o CSRF do <meta>
+        const csrfName = document.querySelector('meta[name="csrf-token-name"]').getAttribute('content');
+        const csrfValue = document.querySelector('meta[name="csrf-token-value"]').getAttribute('content');
 
-            // Adiciona o token CSRF ao formulário
-            const csrfInput = document.createElement("input");
-            csrfInput.type = "hidden";
-            csrfInput.name = "csrf_token";
-            csrfInput.value = csrfToken;
-            form.appendChild(csrfInput);
+        // Adiciona o token CSRF ao formulário
+        const csrfInput = document.createElement("input");
+        csrfInput.type = "hidden";
+        csrfInput.name = csrfName;
+        csrfInput.value = csrfValue;
+        form.appendChild(csrfInput);
 
-            // Coleta os valores dos inputs e adiciona ao formulário
-            const fields = [
-                { name: "guiaReferenciaId", value: document.getElementById("guiaReferenciaId").value },
-                { name: "guiaReferenciaStatus", value: "fila" }
-            ];
+        // Coleta os valores dos inputs e adiciona ao formulário
+        const fields = [{
+                name: "guiaReferenciaId",
+                value: document.getElementById("guiaReferenciaId").value
+            },
+            {
+                name: "guiaReferenciaStatus",
+                value: "fila"
+            }
+        ];
 
-            fields.forEach(field => {
-                const input = document.createElement("input");
-                input.type = "hidden";
-                input.name = field.name;
-                input.value = field.value;
-                form.appendChild(input);
-            });
+        fields.forEach(field => {
+            const input = document.createElement("input");
+            input.type = "hidden";
+            input.name = field.name;
+            input.value = field.value;
+            form.appendChild(input);
+        });
 
-            // Adiciona o formulário ao corpo e o submete
-            document.body.appendChild(form);
-            form.submit();
+        // Adiciona o formulário ao corpo e submete
+        document.body.appendChild(form);
+        form.submit();
 
-        } catch (error) {
-            console.error("Erro na requisição:", error);
-            alert("Erro ao conectar ao servidor.");
-        }
+    } catch (error) {
+        console.error("Erro na requisição:", error);
+        alert("Erro ao conectar ao servidor.");
     }
+}
 
+function cancelar() {
+    $('#modal-create').modal('hidden');
+}
 
-    function cancelar() {
-        $('#modal-create').modal('hidden');
-    }
-
-    function readequar() {
-        $('#modal-create').modal('show');
-    }
+function readequar() {
+    $('#modal-create').modal('show');
+}
 </script>

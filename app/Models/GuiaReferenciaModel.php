@@ -27,6 +27,7 @@ class GuiaReferenciaModel extends Model {
         GuiaReferenciaModel::MOTIVODEVOLUCAO,
         GuiaReferenciaModel::MOTIVOREADEQUAR,
         GuiaReferenciaModel::DATA,
+        GuiaReferenciaModel::DATAAGENDAMENTO,
         GuiaReferenciaModel::STATUS
     ];
 
@@ -76,5 +77,6 @@ class GuiaReferenciaModel extends Model {
     const MOTIVODEVOLUCAO = 'guiaReferenciaMotivoDevolucao';
     const MOTIVOREADEQUAR = 'guiaReferenciaMotivoReadequar';
     const DATA = 'guiaReferenciaData';
+    const DATAAGENDAMENTO = 'guiaReferenciaDataAgendamento';
     const STATUS = 'guiaReferenciaStatus';
 }

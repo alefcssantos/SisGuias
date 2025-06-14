@@ -4,13 +4,17 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="csrf-token" content="<?= csrf_hash() ?>">
+
+    <meta name="csrf-token-name" content="<?= csrf_token() ?>">
+    <meta name="csrf-token-value" content="<?= csrf_hash() ?>">
+
     <title>AlefDev Dash</title>
 
     <!-- jQuery -->
     <script src="<?= base_url('theme') ?>/plugins/jquery/jquery.min.js"></script>
     <!-- Google Font: Source Sans Pro -->
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
+    <link rel="stylesheet"
+        href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
     <!-- Font Awesome Icons -->
     <link rel="stylesheet" href="<?= base_url('theme') ?>/plugins/fontawesome-free/css/all.min.css">
     <!-- fullCalendar -->

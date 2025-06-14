@@ -113,7 +113,7 @@
                                         <td>
                                             <button class="btn btn-primary btn-sm ml-2"
                                                 onclick="modalAgendar(<?= esc($guia['guiaReferenciaId']) ?>)">
-                                                <i class="fas fa-calendar-check"></i>Agendar
+                                                <i class="fas fa-calendar-check"></i>
                                             </button>
 
                                         </td>
@@ -242,35 +242,47 @@ document.getElementById('form-agendar').addEventListener('submit', function(e) {
     const csrfName = document.querySelector('meta[name="csrf-token-name"]').getAttribute('content');
     const csrfValue = document.querySelector('meta[name="csrf-token-value"]').getAttribute('content');
 
-    const payload = {
-        guiaReferenciaId: guiaReferenciaId,
-        data_agendamento: dataAgendamento
-    };
-
-    // Adiciona o token CSRF ao payload
-    payload[csrfName] = csrfValue;
+    const formData = new FormData();
+    formData.append('guiaReferenciaId', guiaReferenciaId);
+    formData.append('data_agendamento', dataAgendamento);
+    formData.append(csrfName, csrfValue);
 
     fetch('/guias/agendar', {
             method: 'POST',
             headers: {
-                'Content-Type': 'application/json',
                 'X-Requested-With': 'XMLHttpRequest'
             },
-            body: JSON.stringify(payload)
+            body: formData
         })
-        .then(response => response.json())
+        .then(async response => {
+            const contentType = response.headers.get("content-type");
+
+            if (!response.ok) {
+                const errorText = await response.text();
+                console.error('Erro na resposta:', errorText);
+                throw new Error('Erro na requisição: ' + response.status);
+            }
+
+            if (contentType && contentType.includes("application/json")) {
+                return response.json();
+            } else {
+                const text = await response.text();
+                console.error('Resposta não é JSON:', text);
+                throw new Error('Resposta não é JSON');
+            }
+        })
         .then(data => {
             if (data.success) {
                 alert('Guia agendada com sucesso!');
                 $('#modal-agendar').modal('hide');
-                location.reload();
+                location.reload(); // Apenas atualiza a página
             } else {
                 alert(data.message || 'Erro ao agendar.');
             }
         })
         .catch(error => {
             console.error('Erro na requisição:', error);
-            alert('Erro inesperado.');
+            alert('Erro inesperado. Verifique o console.');
         });
 });
 </script>

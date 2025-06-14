@@ -401,12 +401,15 @@ class GuiaReferenciaController extends BaseController {
 
         // Monta os dados para atualizar apenas o campo necessário
         $dadosAtualizar = [
-            'data_agendamento' => $dataAgendamento
+            'guiaReferenciaDataAgendamento' => $dataAgendamento,
+            'guiaReferenciaStatus' => 'agendado'
         ];
 
-        // Atualiza o registro
         if ($guia_model->update($guiaId, $dadosAtualizar)) {
-            return redirect()->to('/triagem/lista'); // Redireciona após sucesso
+            return $this->response->setJSON([
+                'success' => true,
+                'message' => 'Guia agendada com sucesso.'
+            ]);
         } else {
             return $this->response->setJSON([
                 'success' => false,
