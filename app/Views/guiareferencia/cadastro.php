@@ -168,16 +168,6 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 });
 
-const csrfMetaTag = document.querySelector('meta[name="csrf-token"]');
-if (csrfMetaTag) {
-    const csrfToken = csrfMetaTag.getAttribute('content');
-    console.log(csrfToken); // Verifique o token
-} else {
-    console.error("Token CSRF não encontrado!");
-    alert("Erro: Token CSRF não encontrado!");
-}
-
-
 const input = document.getElementById('pacienteCdr');
 const limiteCaracteres = 4; // Defina o limite de caracteres desejado
 
@@ -201,7 +191,7 @@ function limparGuia() {
     document.getElementById("pacienteCdr").value = "";
     document.getElementById("guiaReferenciaEstabelecimentoOrigem").value = "";
     document.getElementById("guiaReferenciaProntuarioOrigem").value = "";
-    document.getElementById("guiaReferenciaEspecialidade").value = "";
+    //document.getElementById("guiaReferenciaEspecialidade").value = "";
     document.getElementById("guiaReferenciaQuadroClinico").value = "";
     document.getElementById("guiaReferenciaExamesRealizados").value = "";
     document.getElementById("guiaReferenciaDiagnostico").value = "";
@@ -225,8 +215,9 @@ async function salvarPaciente() {
         // Verifica os dados que estão sendo enviados
         console.log(pacienteData);
 
-        // Recupera o token CSRF do HTML
-        const csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
+        // Captura o CSRF do <meta>
+        const csrfName = document.querySelector('meta[name="csrf-token-name"]').getAttribute('content');
+        const csrfValue = document.querySelector('meta[name="csrf-token-value"]').getAttribute('content');
 
         // Envia a requisição POST para o controller CodeIgniter
         const response = await fetch("<?= base_url('/paciente/salvar') ?>", {
@@ -234,7 +225,7 @@ async function salvarPaciente() {
             headers: {
                 'Content-Type': 'application/json',
                 'X-Requested-With': 'XMLHttpRequest', // Define que a requisição é AJAX
-                'X-CSRF-TOKEN': csrfToken // Envia o token CSRF
+                'X-CSRF-TOKEN': csrfValue // Envia o token CSRF
             },
             body: JSON.stringify(pacienteData)
         });
@@ -264,8 +255,9 @@ async function carregarPaciente() {
         // Verifica os dados que estão sendo enviados
         console.log(pacienteData);
 
-        // Recupera o token CSRF do HTML
-        const csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
+        // Captura o CSRF do <meta>
+        const csrfName = document.querySelector('meta[name="csrf-token-name"]').getAttribute('content');
+        const csrfValue = document.querySelector('meta[name="csrf-token-value"]').getAttribute('content');
 
         // Envia a requisição POST para o controller CodeIgniter
         const response = await fetch("<?= base_url('/paciente/carregar') ?>", {
@@ -273,7 +265,7 @@ async function carregarPaciente() {
             headers: {
                 'Content-Type': 'application/json',
                 'X-Requested-With': 'XMLHttpRequest', // Define que a requisição é AJAX
-                'X-CSRF-TOKEN': csrfToken // Envia o token CSRF
+                'X-CSRF-TOKEN': csrfValue // Envia o token CSRF
             },
             body: JSON.stringify(pacienteData)
         });
@@ -316,7 +308,7 @@ async function salvarGuia() {
             guiaReferenciaEstabelecimentoOrigem: document.getElementById("guiaReferenciaEstabelecimentoOrigem")
                 .value,
             guiaReferenciaProntuarioOrigem: document.getElementById("guiaReferenciaProntuarioOrigem").value,
-            guiaReferenciaEspecialidade: document.getElementById("guiaReferenciaEspecialidade").value,
+            //guiaReferenciaEspecialidade: document.getElementById("especialidade").value,
             guiaReferenciaQuadroClinico: document.getElementById("guiaReferenciaQuadroClinico").value,
             guiaReferenciaExamesRealizados: document.getElementById("guiaReferenciaExamesRealizados").value,
             guiaReferenciaDiagnostico: document.getElementById("guiaReferenciaDiagnostico").value,
@@ -329,12 +321,17 @@ async function salvarGuia() {
         // Verifica os dados que estão sendo enviados
         console.log("Enviando dados:", guiaData);
 
+        const csrfName = document.querySelector('meta[name="csrf-token-name"]').getAttribute('content');
+        const csrfValue = document.querySelector('meta[name="csrf-token-value"]').getAttribute('content');
+
+
         // Envia a requisição POST para o controller CodeIgniter
         const response = await fetch("<?= base_url('/guia/salvar') ?>", {
             method: "POST",
             headers: {
                 'Content-Type': 'application/json',
-                'X-Requested-With': 'XMLHttpRequest'
+                'X-Requested-With': 'XMLHttpRequest',
+                [csrfName]: csrfValue
             },
             body: JSON.stringify(guiaData)
         });
